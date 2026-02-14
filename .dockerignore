@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build output
+.next
+out
+dist
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Env (переменные передаются через compose)
+.env
+.env.*
+
+# Misc
+*.md
+.DS_Store
+coverage
+.nyc_output
+*.log
