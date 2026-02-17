@@ -1,5 +1,5 @@
 const config = {
-  '*.{ts,tsx}': ['eslint --fix', 'prettier --write'],
+  '*.{ts,tsx}': ['eslint --fix', 'prettier --write', 'tsc-files --noEmit'],
 
   '*': 'prettier --write --ignore-unknown',
 };
