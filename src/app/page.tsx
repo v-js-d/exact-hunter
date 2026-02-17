@@ -1,20 +1,11 @@
-import { Button } from '@/shared/ui/button';
-import { Input } from '@/shared/ui/input';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <div className='flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black'>
       <main className='flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black'>
-        <div className='flex gap-x-2'>
-          <Input
-            placeholder='Test placeholder'
-            className={`${true && 'border-red-400 text-red-600'}`}
-          />
-          <Button size={'default'} variant={'secondary'} type='submit'>
-            Aplly
-          </Button>
-        </div>
+        <Link href='/test'>Test Page</Link>
         <Image
           className='dark:invert'
           src='/next.svg'
