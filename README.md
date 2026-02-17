@@ -26,16 +26,16 @@
 
 ## Стек
 
-| Категория | Технологии |
-|-----------|------------|
-| Framework | Next.js, TypeScript |
-| State | TanStack Query, Zustand |
-| UI | shadcn/ui, Tailwind CSS |
-| Формы | React Hook Form, Zod |
-| Realtime | Socket.io |
-| Тесты | Vitest, React Testing Library |
-| UI-документация | Storybook |
-| Мониторинг | Glitchtip (Sentry-совместимый API) |
+| Категория       | Технологии                         |
+| --------------- | ---------------------------------- |
+| Framework       | Next.js, TypeScript                |
+| State           | TanStack Query, Zustand            |
+| UI              | shadcn/ui, Tailwind CSS            |
+| Формы           | React Hook Form, Zod               |
+| Realtime        | Socket.io                          |
+| Тесты           | Vitest, React Testing Library      |
+| UI-документация | Storybook                          |
+| Мониторинг      | Glitchtip (Sentry-совместимый API) |
 
 **Архитектура:** Feature Sliced Design
 
@@ -106,42 +106,42 @@ docker compose down
 
 ### Общие
 
-| Переменная | Описание |
-|------------|----------|
+| Переменная | Описание                                |
+| ---------- | --------------------------------------- |
 | `NODE_ENV` | Окружение: `development` / `production` |
-| `PORT` | Порт приложения (по умолчанию `3000`) |
+| `PORT`     | Порт приложения (по умолчанию `3000`)   |
 
 ### API
 
-| Переменная | Описание |
-|------------|----------|
+| Переменная            | Описание                                        |
+| --------------------- | ----------------------------------------------- |
 | `NEXT_PUBLIC_API_URL` | URL бэкенда (например, `http://localhost:3001`) |
-| `NEXT_PUBLIC_WS_URL` | URL WebSocket для уведомлений |
+| `NEXT_PUBLIC_WS_URL`  | URL WebSocket для уведомлений                   |
 
 ### Docker
 
-| Переменная | Описание |
-|------------|----------|
+| Переменная      | Описание                 |
+| --------------- | ------------------------ |
 | `DOCKER_TARGET` | Target для сборки: `dev` |
-| `DOCKER_IMAGE` | Имя образа |
+| `DOCKER_IMAGE`  | Имя образа               |
 
 ### Docker dev (hot-reload)
 
-| Переменная | Описание |
-|------------|----------|
+| Переменная            | Описание                            |
+| --------------------- | ----------------------------------- |
 | `CHOKIDAR_USEPOLLING` | Polling для hot-reload в контейнере |
-| `WATCHPACK_POLLING` | Polling для webpack в контейнере |
+| `WATCHPACK_POLLING`   | Polling для webpack в контейнере    |
 
 ---
 
 ## Скрипты
 
-| Команда | Описание |
-|---------|----------|
-| `pnpm dev` | Режим разработки |
-| `pnpm build` | Сборка для продакшена |
+| Команда      | Описание                |
+| ------------ | ----------------------- |
+| `pnpm dev`   | Режим разработки        |
+| `pnpm build` | Сборка для продакшена   |
 | `pnpm start` | Запуск продакшен-сборки |
-| `pnpm lint` | Проверка линтером |
+| `pnpm lint`  | Проверка линтером       |
 
 ---
 
@@ -158,14 +158,7 @@ docker compose down
 
 ## Структура проекта
 
-```
-src/
-├── app/          # Next.js App Router
-├── entities/     # Бизнес-сущности (FSD)
-├── features/     # Фичи
-├── shared/       # Общие компоненты, UI kit
-└── widgets/      # Композитные блоки
-```
+Проект построен на **Feature-Sliced Design**. Подробное описание архитектуры, правил импортов и размещения кода — в [docs/architecture.md](docs/architecture.md).
 
 ---
 
