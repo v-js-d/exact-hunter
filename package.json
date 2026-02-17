@@ -9,7 +9,7 @@
     "lint": "eslint . && stylelint \"src/**/*.css\"",
     "lint:fix": "eslint . --fix && stylelint \"src/**/*.css\" --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\"",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --incremental false --pretty",
     "prepare": "husky"
   },
   "dependencies": {
