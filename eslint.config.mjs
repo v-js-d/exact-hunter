@@ -89,7 +89,6 @@ const eslintConfig = defineConfig([
 
       'prettier/prettier': 'error',
 
-      indent: ['error', 2],
       semi: 'off',
       'arrow-body-style': ['error', 'as-needed'],
       'react/self-closing-comp': 'error',
