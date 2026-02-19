@@ -104,14 +104,18 @@ const eslintConfig = defineConfig([
         { argsIgnorePattern: '^_' },
       ],
     },
-  }, // Исключения для Next.js App Router
+  },
+
+  // Исключения для Next.js App Router
   {
     files: ['src/app/**/*.{ts,tsx}'],
     rules: {
       'import/no-default-export': 'off',
       'import/prefer-default-export': 'error',
     },
-  }, // Исключения для конфигов в корне (next.config.ts, eslint.config.mjs и т.д.)
+  },
+
+  // Исключения для конфигов в корне (next.config.ts, eslint.config.mjs и т.д.)
   {
     files: ['*.{js,mjs,ts}'],
     rules: {
