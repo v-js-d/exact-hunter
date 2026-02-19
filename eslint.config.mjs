@@ -1,3 +1,4 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
@@ -6,6 +7,7 @@ import fsdPlugin from 'eslint-plugin-fsd-lint';
 import importPlugin from 'eslint-plugin-import';
 import prettierPlugin from 'eslint-plugin-prettier';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import storybook from 'eslint-plugin-storybook';
 
 const eslintConfig = defineConfig([
   // Базовые конфиги Next.js
@@ -13,7 +15,6 @@ const eslintConfig = defineConfig([
   ...nextTs,
   prettierConfig,
   fsdPlugin.configs.recommended,
-
   globalIgnores([
     '.next/**',
     'out/**',
@@ -22,7 +23,6 @@ const eslintConfig = defineConfig([
     'node_modules/**',
     '.history/**',
   ]),
-
   {
     plugins: {
       fsd: fsdPlugin,
@@ -51,7 +51,6 @@ const eslintConfig = defineConfig([
       'fsd/ordered-imports': 'warn',
     },
   },
-
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -96,7 +95,6 @@ const eslintConfig = defineConfig([
       'no-empty': 'error',
     },
   },
-
   {
     files: ['src/**/*.{ts,tsx}'],
     rules: {
@@ -124,6 +122,22 @@ const eslintConfig = defineConfig([
       'import/no-default-export': 'off',
     },
   },
+  {
+    files: ['.storybook/**/*.ts', '.storybook/**/*.tsx'],
+    rules: {
+      'fsd/no-relative-imports': 'off',
+      'import/no-default-export': 'off',
+    },
+  },
+  {
+    // файлы story
+    files: ['**/*.stories.@(ts|tsx)'],
+    rules: {
+      // отключаем правило про default export (meta Storybook)
+      'import/no-default-export': 'off',
+    },
+  },
+  ...storybook.configs['flat/recommended'],
 ]);
 
 export default eslintConfig;
