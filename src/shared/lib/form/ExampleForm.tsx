@@ -2,14 +2,14 @@
 
 import { useForm } from 'react-hook-form';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { Button } from '../../ui/button';
 import { Input } from '../../ui/input';
 import { Label } from '../../ui/label';
 import { getFieldError } from '../helpers/getFieldError';
 
 import { type ExampleFormTypes, exampleSchema } from './ExampleForm.shema';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export function ExampleForm() {
   const {
