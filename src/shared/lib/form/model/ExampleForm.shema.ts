@@ -1,10 +1,7 @@
-import { z } from 'zod';
+import z from 'zod';
 
 export const exampleSchema = z.object({
-  useremail: z
-    .string()
-    .nonempty('Поле обязательно')
-    .email('Введите корректный email'),
+  useremail: z.email(),
   password: z
     .string()
     .nonempty('Поле обязательно')

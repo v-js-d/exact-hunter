@@ -2,14 +2,18 @@
 
 import { useForm } from 'react-hook-form';
 
-import { Button } from '../../ui/button';
-import { Input } from '../../ui/input';
-import { Label } from '../../ui/label';
-import { getFieldError } from '../helpers/getFieldError';
-
-import { type ExampleFormTypes, exampleSchema } from './ExampleForm.shema';
+import { Button } from '../../../ui/button';
+import { Input } from '../../../ui/input';
+import { Label } from '../../../ui/label';
+import { getFieldError } from '../../helpers/getFieldError';
+import {
+  type ExampleFormTypes,
+  exampleSchema,
+} from '../model/ExampleForm.shema';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+
+const resetForm = { password: '', useremail: '' };
 
 export function ExampleForm() {
   const {
@@ -20,13 +24,14 @@ export function ExampleForm() {
   } = useForm<ExampleFormTypes>({
     resolver: zodResolver(exampleSchema),
     mode: 'onBlur',
+    defaultValues: resetForm,
   });
 
   const onSubmit = (data: ExampleFormTypes) => {
     console.log(
       `user data: email - ${data.useremail}, password -  ${data.password}`,
     );
-    reset({ password: '', useremail: '' });
+    reset(resetForm);
   };
 
   return (

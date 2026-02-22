@@ -2,18 +2,11 @@
 
 # ❗ Обязательные правила
 
-## 1️. Использовать только Zod v3
-
-Причина:
-
-- `zod/v4` несовместима с `@hookform/resolvers`
-- Использование v4 приводит к некорректной работе `zodResolver`
-
-**Валидация строго через Zod**
+## 1️. Валидация через Zod
 
 Вся логика валидации должна находиться исключительно в Zod-схеме.
 
-`import { z } from "zod/v3"`
+`import { z } from "zod"`
 
 ---
 
@@ -33,7 +26,7 @@
 
 ```ts
 const schema = z.object({
-  email: z.string().min(1, 'Email обязателен').email('Некорректный email'),
+  email: z.email('Некорректный email'),
   password: z.string().min(6, 'Минимум 6 символов'),
 });
 ```
@@ -85,8 +78,18 @@ console.log(data)
 
 ---
 
-## пизация только через z.infer
+## Типизация только через z.infer
 
 Типы формы должны выводиться из схемы.
 
 `type FormValues = z.infer<typeof schema>`
+
+## Структура slice
+
+```ts
+slice/
+├── model/
+│   └── ExampleForm.schema.ts
+└── ui/
+    └── ExampleForm.tsx
+```
