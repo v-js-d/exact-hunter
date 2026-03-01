@@ -7,18 +7,16 @@ import {
   selectIsAuthenticated,
   selectStatus,
   useAuthStore,
+  useLoginMutation,
+  useLogoutMutation,
+  useRefetchSession,
+  useRegisterMutation,
 } from '@/features/auth';
 
 import { selectUser, useUserStore } from '@/entities/user';
 
-import { $api } from '@/shared/api/api';
 import { ApiError } from '@/shared/api/api-error';
-import type {
-  AuthErrorResponse,
-  LoginResponse,
-  MeResponse,
-  RegisterResponse,
-} from '@/shared/api/contracts/auth';
+import type { AuthErrorResponse } from '@/shared/api/contracts/auth';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -40,7 +38,11 @@ export default function AuthTestPage() {
   const isAuthenticated = useAuthStore(selectIsAuthenticated);
   const user = useUserStore(selectUser);
   const authActions = useAuthStore((s) => s.actions);
-  const userActions = useUserStore((s) => s.actions);
+
+  const loginMutation = useLoginMutation();
+  const registerMutation = useRegisterMutation();
+  const logoutMutation = useLogoutMutation();
+  const { refetch: refetchMe, isPending: isRefetchingMe } = useRefetchSession();
 
   function log(message: string) {
     setLogs((prev) => [
@@ -57,78 +59,70 @@ export default function AuthTestPage() {
     return `${prefix}: ${String(err)}`;
   }
 
-  async function handleRegister() {
-    try {
-      log('POST /auth/register ...');
-      const { data } = await $api.post<RegisterResponse>('/auth/register', {
+  function handleRegister() {
+    log('POST /auth/register ...');
+    registerMutation.mutate(
+      {
         email,
         password,
-      });
-      authActions.setAccessToken(data.accessToken);
-      authActions.setStatus('authenticated');
-      userActions.setUser(data.user);
-
-      log(
-        `Register OK. User: ${data.user.email}, Token: ${data.accessToken.slice(0, 20)}...`,
-      );
-    } catch (err) {
-      log(formatApiError(err, 'Register FAILED'));
-    }
+      },
+      {
+        onSuccess: (data) => {
+          log(
+            `Register OK. User: ${data.user.email}, Token: ${data.accessToken.slice(0, 20)}...`,
+          );
+        },
+        onError: (err) => {
+          log(formatApiError(err, 'Register FAILED'));
+        },
+      },
+    );
   }
 
-  async function handleLogin() {
-    try {
-      log('POST /auth/login ...');
-      const { data } = await $api.post<LoginResponse>('/auth/login', {
+  function handleLogin() {
+    log('POST /auth/login ...');
+    loginMutation.mutate(
+      {
         email,
         password,
-      });
-
-      authActions.setAccessToken(data.accessToken);
-
-      authActions.setStatus('authenticated');
-
-      userActions.setUser(data.user);
-
-      log(
-        `Login OK. User: ${data.user.email}, Token: ${data.accessToken.slice(0, 20)}...`,
-      );
-    } catch (err) {
-      log(formatApiError(err, 'Login FAILED'));
-    }
+      },
+      {
+        onSuccess: (data) => {
+          log(
+            `Login OK. User: ${data.user.email}, Token: ${data.accessToken.slice(0, 20)}...`,
+          );
+        },
+        onError: (err) => {
+          log(formatApiError(err, 'Login FAILED'));
+        },
+      },
+    );
   }
 
   async function handleGetMe() {
+    log('GET /auth/me ...');
     try {
-      log('GET /auth/me ...');
-
-      const { data } = await $api.get<MeResponse>('/auth/me');
-
-      userActions.setUser(data.user);
-
+      const data = await refetchMe();
       log(`Me OK. User: ${data.user.email}, Role: ${data.user.role}`);
     } catch (err) {
-      log(`Me FAILED: ${err instanceof Error ? err.message : String(err)}`);
+      log(formatApiError(err, 'Me FAILED'));
     }
   }
 
-  async function handleLogout() {
-    try {
-      log('POST /auth/logout ...');
-
-      await $api.post('/auth/logout');
-
-      authActions.logout();
-
-      log('Logout OK');
-    } catch (err) {
-      log(formatApiError(err, 'Logout FAILED'));
-    }
+  function handleLogout() {
+    log('POST /auth/logout ...');
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        log('Logout OK');
+      },
+      onError: (err) => {
+        log(formatApiError(err, 'Logout FAILED'));
+      },
+    });
   }
 
   function handleClearToken() {
     authActions.setAccessToken(undefined);
-
     log(
       'Access token cleared from store (simulating page reload / token expiry)',
     );
@@ -166,9 +160,18 @@ export default function AuthTestPage() {
                   />
                 </div>
                 <div className='flex flex-col gap-2 pt-2'>
-                  <Button onClick={handleRegister}>Register</Button>
-                  <Button onClick={handleLogin} variant='secondary'>
-                    Login
+                  <Button
+                    onClick={handleRegister}
+                    disabled={registerMutation.isPending}
+                  >
+                    {registerMutation.isPending ? 'Registering...' : 'Register'}
+                  </Button>
+                  <Button
+                    onClick={handleLogin}
+                    variant='secondary'
+                    disabled={loginMutation.isPending}
+                  >
+                    {loginMutation.isPending ? 'Logging in...' : 'Login'}
                   </Button>
                 </div>
               </div>
@@ -181,14 +184,22 @@ export default function AuthTestPage() {
             </CardHeader>
             <CardContent>
               <div className='flex flex-col gap-2'>
-                <Button onClick={handleGetMe} variant='outline'>
-                  GET /auth/me
+                <Button
+                  onClick={handleGetMe}
+                  variant='outline'
+                  disabled={isRefetchingMe}
+                >
+                  {isRefetchingMe ? 'Loading...' : 'GET /auth/me'}
                 </Button>
                 <Button onClick={handleClearToken} variant='outline'>
                   Clear Access Token
                 </Button>
-                <Button onClick={handleLogout} variant='destructive'>
-                  Logout
+                <Button
+                  onClick={handleLogout}
+                  variant='destructive'
+                  disabled={logoutMutation.isPending}
+                >
+                  {logoutMutation.isPending ? 'Logging out...' : 'Logout'}
                 </Button>
               </div>
             </CardContent>

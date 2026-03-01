@@ -11,7 +11,7 @@ import {
   setOnTokenRefreshed,
 } from '@/shared/api/session';
 
-export const authStore = create<AuthStore>()(
+const authStore = create<AuthStore>()(
   immer((set) => ({
     accessToken: undefined,
     status: 'anonymous',
@@ -51,3 +51,5 @@ setOnTokenRefreshed((token) => {
   authStore.getState().actions.setAccessToken(token);
   authStore.getState().actions.setStatus('authenticated');
 });
+
+export { authStore as useAuthStore };

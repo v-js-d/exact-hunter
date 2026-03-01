@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
 import AuthProvider from './providers/AuthProvider';
+import AxiosInterceptorProvider from './providers/AxiosInterceptorProvider';
 import MswProvider from './providers/MswProvider';
 import QueryProvider from './providers/QueryProvider';
 
@@ -34,7 +35,9 @@ export default function RootLayout({
       >
         <MswProvider>
           <QueryProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <AxiosInterceptorProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </AxiosInterceptorProvider>
           </QueryProvider>
         </MswProvider>
       </body>
