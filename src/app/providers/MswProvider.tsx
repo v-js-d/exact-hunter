@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { initMocks } from '@/shared/api/mocks';
+const isDev = process.env.NODE_ENV !== 'production';
+const isMockMode = process.env.NEXT_PUBLIC_API_MODE === 'mock';
+const shouldMock = isDev && isMockMode;
 
 export default function MswProvider({
   children,
@@ -11,9 +13,21 @@ export default function MswProvider({
 }) {
   const [ready, setReady] = useState(false);
 
+  async function deferRender(): Promise<void> {
+    if (!shouldMock) return;
+
+    const { worker } = await import('@/shared/api/mocks/browser');
+
+    await worker.start({
+      onUnhandledRequest: 'bypass',
+    });
+  }
+
   useEffect(() => {
-    initMocks().then(() => setReady(true));
+    deferRender().then(() => setReady(true));
   }, []);
+
+  if (!shouldMock) return children;
 
   if (!ready) return null;
 
