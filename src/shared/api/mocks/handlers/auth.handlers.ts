@@ -18,6 +18,10 @@ function generateToken(prefix: string): string {
   return `${prefix}_${Date.now()}_${tokenCounter}`;
 }
 
+// HttpOnly в MSW технически невозможен MSW под капотом записывает Set-Cookie через document.cookie,
+// если указать HttpOnly - браузер отбросит куку
+// Упрощение для MSW: в проде refresh лежит в HttpOnly cookie (недоступен из JS).
+// В моке задаём cookie через document.cookie, чтобы симулировать выдачу refresh.
 function setRefreshCookie(token: string) {
   document.cookie = `refreshToken=${token}; path=/; SameSite=Lax; max-age=604800`;
 }
@@ -26,9 +30,8 @@ function clearRefreshCookie() {
   document.cookie = 'refreshToken=; path=/; SameSite=Lax; max-age=0';
 }
 
-function getRefreshTokenFromCookie(cookieHeader: string | null): string | null {
-  const source = cookieHeader || document.cookie;
-  const match = source.match(/refreshToken=([^;]+)/);
+function getRefreshTokenFromCookie(cookieHeader: string): string | null {
+  const match = cookieHeader.match(/refreshToken=([^;]+)/);
   return match?.[1] ?? null;
 }
 
@@ -140,8 +143,11 @@ export const authHandlers = [
     });
   }),
 
-  http.post(`${BASE}/refresh`, ({ request }) => {
-    const cookieHeader = request.headers.get('cookie');
+  http.post(`${BASE}/refresh`, () => {
+    // для моковых запросов cookie берем из document.cookie из-за технических ограничений MSW.
+    // В проде refresh лежит в HttpOnly cookie и не доступен для js.
+    // const cookieHeader = request.headers.get('cookie');
+    const cookieHeader = document.cookie;
     const refreshToken = getRefreshTokenFromCookie(cookieHeader);
 
     if (!refreshToken) {
@@ -168,7 +174,10 @@ export const authHandlers = [
   }),
 
   http.post(`${BASE}/logout`, ({ request }) => {
-    const cookieHeader = request.headers.get('cookie');
+    // для моковых запросов cookie берем из document.cookie из-за технических ограничений MSW.
+    // В проде refresh лежит в HttpOnly cookie и не доступен для js.
+    // const cookieHeader = request.headers.get('cookie');
+    const cookieHeader = document.cookie;
     const refreshToken = getRefreshTokenFromCookie(cookieHeader);
 
     if (refreshToken) {
