@@ -59,6 +59,9 @@ importers:
       '@dreamsicle.io/stylelint-config-tailwindcss':
         specifier: ^1.2.2
         version: 1.2.2(stylelint@17.3.0(typescript@5.9.3))
+      '@jonasgeiler/tsc-files':
+        specifier: ^2.3.1
+        version: 2.3.1
       '@storybook/addon-a11y':
         specifier: ^10.2.9
         version: 10.2.9(storybook@10.2.9(@testing-library/dom@10.4.1)(prettier@3.8.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
@@ -149,9 +152,6 @@ importers:
       tailwindcss:
         specifier: ^4
         version: 4.1.18
-      tsc-files:
-        specifier: ^1.1.4
-        version: 1.1.4(typescript@5.9.3)
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1191,6 +1191,14 @@ packages:
         integrity: sha512-AokJm4tuBHillT+FpMtxQ60n8ObyXBatq7jD2/JA9dxbDDokKQm8KMht5ibGzLVU9IJDIKK4TPKgMHEYMn3lMg==,
       }
     engines: { node: '>=18' }
+
+  '@jonasgeiler/tsc-files@2.3.1':
+    resolution:
+      {
+        integrity: sha512-uQL3XQIZ0ii0pc2wn1NcRWpXfSpkwYpgw11bNvx1qmHHIU2fGhm7ZJd28bLpJedbsACDx/VkgvwOdH2rPX+V7Q==,
+      }
+    engines: { node: '>=18' }
+    hasBin: true
 
   '@joshwooding/vite-plugin-react-docgen-typescript@0.6.4':
     resolution:
@@ -7799,15 +7807,6 @@ packages:
         integrity: sha512-ztMO++owQnz8c/gIENcM9XfCEzgoGphTv+nKpYNM1bgsdOVC/jRZuEBf6N+mLLDNg68Kl+GgUZfOySaRiG1/Ug==,
       }
 
-  tsc-files@1.1.4:
-    resolution:
-      {
-        integrity: sha512-RePsRsOLru3BPpnf237y1Xe1oCGta8rmSYzM76kYo5tLGsv5R2r3s64yapYorGTPuuLyfS9NVbh9ydzmvNie2w==,
-      }
-    hasBin: true
-    peerDependencies:
-      typescript: '>=3'
-
   tsconfck@3.1.6:
     resolution:
       {
@@ -8966,6 +8965,8 @@ snapshots:
       '@types/node': 20.19.33
 
   '@isaacs/cliui@9.0.0': {}
+
+  '@jonasgeiler/tsc-files@2.3.1': {}
 
   '@joshwooding/vite-plugin-react-docgen-typescript@0.6.4(typescript@5.9.3)(vite@7.3.1(@types/node@20.19.33)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))':
     dependencies:
@@ -13335,10 +13336,6 @@ snapshots:
     dependencies:
       '@ts-morph/common': 0.27.0
       code-block-writer: 13.0.3
-
-  tsc-files@1.1.4(typescript@5.9.3):
-    dependencies:
-      typescript: 5.9.3
 
   tsconfck@3.1.6(typescript@5.9.3):
     optionalDependencies:
