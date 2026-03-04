@@ -2,15 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { useAuthStore } from '@/features/auth';
+import { useAuthMeQuery, useAuthStore } from '@/features/auth';
 
 import { useUserStore } from '@/entities/user';
 
-import { $api } from '@/shared/api/api';
-import { ApiError } from '@/shared/api/api-error';
-import type { MeResponse } from '@/shared/api/contracts/auth';
-
-let restoreSessionDidRun = false;
+import { EG } from '@/shared/lib';
 
 export default function AuthProvider({
   children,
@@ -20,45 +16,30 @@ export default function AuthProvider({
   const { setStatus, logout } = useAuthStore((s) => s.actions);
   const { setUser } = useUserStore((s) => s.actions);
 
+  const { data, error, isSuccess, isError, isPending } = useAuthMeQuery({
+    enabled: true,
+  });
+
   useEffect(() => {
-    if (restoreSessionDidRun) {
-      return;
-    }
-    restoreSessionDidRun = true;
-
-    let cancelled = false;
-
-    async function restoreSession() {
+    if (isPending) {
       setStatus('loading');
 
-      try {
-        const { data } = await $api.get<MeResponse>('/auth/me');
-
-        if (cancelled) {
-          return;
-        }
-
-        setUser(data.user);
-        setStatus('authenticated');
-      } catch (err) {
-        if (cancelled) {
-          return;
-        }
-
-        const isSessionExpired = err instanceof ApiError && err.status === 401;
-
-        if (!isSessionExpired) {
-          logout();
-        }
-      }
+      return;
     }
 
-    void restoreSession();
+    if (isSuccess && data) {
+      setUser(data.user);
+      setStatus('authenticated');
 
-    return () => {
-      cancelled = true;
-    };
-  }, [logout, setStatus, setUser]);
+      return;
+    }
+
+    if (isError && error) {
+      if (!EG.isUnauthorized(error)) {
+        logout();
+      }
+    }
+  }, [data, error, isSuccess, isError, isPending, logout, setStatus, setUser]);
 
   return children;
 }

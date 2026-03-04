@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { loginFn } from '../../api';
 import { useAuthStore } from '../auth.store';
 
+import { loginFn } from '@/entities/session';
 import { useUserStore } from '@/entities/user';
 
 import type { LoginRequest, LoginResponse } from '@/shared/api/contracts/auth';

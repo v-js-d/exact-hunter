@@ -3,16 +3,26 @@
 import { useEffect } from 'react';
 import { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-import { $api } from '../api';
-import { ApiError } from '../api-error';
+import { $api } from '@/shared/api/api';
+import { ApiError } from '@/shared/api/api-error';
 import {
   getAccessToken,
   notifySessionExpired,
   notifyTokenRefreshed,
   setAccessToken,
-} from '../session';
+} from '@/shared/api/session';
 
-export function useInterceptor() {
+interface RetryableRequest extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
+
+function isRetryableRequest(
+  config: InternalAxiosRequestConfig | undefined,
+): config is RetryableRequest {
+  return config != null;
+}
+
+export default function useInterceptor() {
   useEffect(() => {
     const requestId = $api.interceptors.request.use((config) => {
       const token = getAccessToken();
@@ -31,15 +41,14 @@ export function useInterceptor() {
     const responseId = $api.interceptors.response.use(
       (response) => response,
       async (error: AxiosError) => {
-        const originalRequest = error.config as
-          | (InternalAxiosRequestConfig & { _retry?: boolean })
-          | undefined;
         const status = error.response?.status ?? 0;
         const data = error.response?.data;
 
-        if (!originalRequest || status !== 401) {
+        if (!isRetryableRequest(error.config) || status !== 401) {
           return Promise.reject(new ApiError(status, data));
         }
+
+        const originalRequest = error.config;
 
         if (originalRequest.url?.includes('/auth/refresh')) {
           notifySessionExpired();

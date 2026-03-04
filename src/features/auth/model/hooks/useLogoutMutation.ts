@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { logoutFn } from '../../api';
 import { useAuthStore } from '../auth.store';
+
+import { logoutFn } from '@/entities/session';
 
 export const useLogoutMutation = () => {
   const queryClient = useQueryClient();

@@ -6,10 +6,10 @@ import {
   selectAccessToken,
   selectIsAuthenticated,
   selectStatus,
+  useAuthMeQuery,
   useAuthStore,
   useLoginMutation,
   useLogoutMutation,
-  useRefetchSession,
   useRegisterMutation,
 } from '@/features/auth';
 
@@ -42,7 +42,7 @@ export default function AuthTestPage() {
   const loginMutation = useLoginMutation();
   const registerMutation = useRegisterMutation();
   const logoutMutation = useLogoutMutation();
-  const { refetch: refetchMe, isPending: isRefetchingMe } = useRefetchSession();
+  const { refetch: refetchMe, isFetching: isRefetchingMe } = useAuthMeQuery();
 
   function log(message: string) {
     setLogs((prev) => [
@@ -102,8 +102,12 @@ export default function AuthTestPage() {
   async function handleGetMe() {
     log('GET /auth/me ...');
     try {
-      const data = await refetchMe();
-      log(`Me OK. User: ${data.user.email}, Role: ${data.user.role}`);
+      const result = await refetchMe();
+      if (result.data) {
+        log(
+          `Me OK. User: ${result.data.user.email}, Role: ${result.data.user.role}`,
+        );
+      }
     } catch (err) {
       log(formatApiError(err, 'Me FAILED'));
     }
