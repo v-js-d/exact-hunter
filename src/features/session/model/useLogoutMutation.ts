@@ -15,7 +15,8 @@ export const useLogoutMutation = () => {
     onSuccess: () => {
       authActions.logout();
       userActions.clearUser();
-      void queryClient.invalidateQueries({ queryKey: ['auth', 'me'] });
+
+      queryClient.removeQueries({ queryKey: ['auth', 'me'] });
     },
   });
 };

@@ -2,7 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { useAuthMeQuery, useAuthStore } from '@/entities/session';
+import {
+  selectAccessToken,
+  useAuthMeQuery,
+  useAuthStore,
+} from '@/entities/session';
 import { useUserStore } from '@/entities/user';
 
 import { EG } from '@/shared/lib';
@@ -14,9 +18,10 @@ export default function AuthProvider({
 }) {
   const { setStatus, logout } = useAuthStore((s) => s.actions);
   const { setUser } = useUserStore((s) => s.actions);
+  const accessToken = useAuthStore(selectAccessToken);
 
   const { data, error, isSuccess, isError, isPending } = useAuthMeQuery({
-    enabled: true,
+    enabled: !!accessToken,
   });
 
   useEffect(() => {

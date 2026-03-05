@@ -22,7 +22,8 @@ export const useRegisterMutation = () => {
       authActions.setAccessToken(data.accessToken);
       authActions.setStatus('authenticated');
       userActions.setUser(data.user);
-      void queryClient.invalidateQueries({ queryKey: ['auth', 'me'] });
+
+      queryClient.invalidateQueries({ queryKey: ['auth', 'me'] });
     },
   });
 };

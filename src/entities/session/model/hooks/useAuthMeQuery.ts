@@ -13,4 +13,5 @@ export const useAuthMeQuery = (options?: { enabled?: boolean }) =>
       return response.data;
     },
     enabled: options?.enabled ?? false,
+    retry: 0,
   });
