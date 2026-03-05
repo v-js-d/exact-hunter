@@ -113,10 +113,11 @@ docker compose down
 
 ### API
 
-| Переменная            | Описание                                        |
-| --------------------- | ----------------------------------------------- |
-| `NEXT_PUBLIC_API_URL` | URL бэкенда (например, `http://localhost:3001`) |
-| `NEXT_PUBLIC_WS_URL`  | URL WebSocket для уведомлений                   |
+| Переменная             | Описание                                                                                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `NEXT_PUBLIC_API_URL`  | URL бэкенда (например, `http://localhost:3001`)                                                                                                                                                  |
+| `NEXT_PUBLIC_WS_URL`   | URL WebSocket для уведомлений                                                                                                                                                                    |
+| `NEXT_PUBLIC_API_MODE` | `mock` — MSW перехватывает запросы в development; `real` (или не указано) — запросы идут на `NEXT_PUBLIC_API_URL`. В `next dev` — NODE_ENV=development, в `next build`/`next start` — production |
 
 ### Docker
 
