@@ -1,23 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useAuthStore } from '../auth.store';
-
-import { registerFn } from '@/entities/session';
+import { loginFn, useAuthStore } from '@/entities/session';
 import { useUserStore } from '@/entities/user';
 
-import type {
-  RegisterRequest,
-  RegisterResponse,
-} from '@/shared/api/contracts/auth';
+import type { LoginRequest, LoginResponse } from '@/shared/api/contracts/auth';
 
-export const useRegisterMutation = () => {
+export const useLoginMutation = () => {
   const queryClient = useQueryClient();
   const authActions = useAuthStore((s) => s.actions);
   const userActions = useUserStore((s) => s.actions);
 
-  return useMutation<RegisterResponse, Error, RegisterRequest>({
+  return useMutation<LoginResponse, Error, LoginRequest>({
     mutationFn: async (payload) => {
-      const response = await registerFn('/auth/register', { arg: payload });
+      const response = await loginFn('/auth/login', { arg: payload });
       return response.data;
     },
     onSuccess: (data) => {

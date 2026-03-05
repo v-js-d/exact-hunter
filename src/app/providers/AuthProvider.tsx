@@ -2,8 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { useAuthMeQuery, useAuthStore } from '@/features/auth';
-
+import { useAuthMeQuery, useAuthStore } from '@/entities/session';
 import { useUserStore } from '@/entities/user';
 
 import { EG } from '@/shared/lib';

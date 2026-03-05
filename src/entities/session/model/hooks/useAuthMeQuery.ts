@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getMe } from '@/entities/session';
+import { getMe } from '../../api';
 
 import type { MeResponse } from '@/shared/api/contracts/auth';
 

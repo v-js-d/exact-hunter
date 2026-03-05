@@ -3,16 +3,18 @@
 import { useState } from 'react';
 
 import {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+} from '@/features/session';
+
+import {
   selectAccessToken,
   selectIsAuthenticated,
   selectStatus,
   useAuthMeQuery,
   useAuthStore,
-  useLoginMutation,
-  useLogoutMutation,
-  useRegisterMutation,
-} from '@/features/auth';
-
+} from '@/entities/session';
 import { selectUser, useUserStore } from '@/entities/user';
 
 import { ApiError } from '@/shared/api/api-error';

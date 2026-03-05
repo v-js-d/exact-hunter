@@ -3,15 +3,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { AuthState, AuthStore } from './auth.types';
 
-import { userStore } from '@/entities/user';
-
-import {
-  setAccessToken as setSessionToken,
-  setOnSessionExpired,
-  setOnTokenRefreshed,
-} from '@/shared/api/session';
-
-const authStore = create<AuthStore>()(
+export const useAuthStore = create<AuthStore>()(
   immer((set) => ({
     accessToken: undefined,
     status: 'anonymous',
@@ -22,17 +14,12 @@ const authStore = create<AuthStore>()(
           state.status = 'anonymous';
           state.accessToken = undefined;
         });
-
-        setSessionToken(undefined);
-        userStore.getState().actions.clearUser();
       },
 
       setAccessToken: (accessToken: AuthState['accessToken']) => {
         set((state) => {
           state.accessToken = accessToken;
         });
-
-        setSessionToken(accessToken);
       },
 
       setStatus: (status: AuthState['status']) =>
@@ -42,14 +29,3 @@ const authStore = create<AuthStore>()(
     },
   })),
 );
-
-setOnSessionExpired(() => {
-  authStore.getState().actions.logout();
-});
-
-setOnTokenRefreshed((token) => {
-  authStore.getState().actions.setAccessToken(token);
-  authStore.getState().actions.setStatus('authenticated');
-});
-
-export { authStore as useAuthStore };

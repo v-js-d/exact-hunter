@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useAuthStore } from '../auth.store';
-
-import { logoutFn } from '@/entities/session';
+import { logoutFn, useAuthStore } from '@/entities/session';
+import { useUserStore } from '@/entities/user';
 
 export const useLogoutMutation = () => {
   const queryClient = useQueryClient();
   const authActions = useAuthStore((s) => s.actions);
+  const userActions = useUserStore((s) => s.actions);
 
   return useMutation<void, Error, void>({
     mutationFn: async () => {
@@ -14,6 +14,7 @@ export const useLogoutMutation = () => {
     },
     onSuccess: () => {
       authActions.logout();
+      userActions.clearUser();
       void queryClient.invalidateQueries({ queryKey: ['auth', 'me'] });
     },
   });
