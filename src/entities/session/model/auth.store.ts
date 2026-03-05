@@ -3,7 +3,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { AuthState, AuthStore } from './auth.types';
 
-export const useAuthStore = create<AuthStore>()(
+export const authStore = create<AuthStore>()(
   immer((set) => ({
     accessToken: undefined,
     status: 'anonymous',

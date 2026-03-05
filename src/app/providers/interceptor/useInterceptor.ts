@@ -7,19 +7,19 @@ import { useAttachAuthToken, useRefreshToken } from '@/features/session';
 import { $api } from '@/shared/api/api';
 
 export default function useInterceptor() {
-  const { attachToken } = useAttachAuthToken();
-  const { refreshToken } = useRefreshToken();
+  const { attachAuthToken } = useAttachAuthToken();
+  const { refreshAuthToken } = useRefreshToken();
 
   useEffect(() => {
-    const requestId = $api.interceptors.request.use(attachToken);
+    const requestId = $api.interceptors.request.use(attachAuthToken);
     const responseId = $api.interceptors.response.use(
       (response) => response,
-      refreshToken,
+      refreshAuthToken,
     );
 
     return () => {
       $api.interceptors.request.eject(requestId);
       $api.interceptors.response.eject(responseId);
     };
-  }, [attachToken, refreshToken]);
+  }, [attachAuthToken, refreshAuthToken]);
 }

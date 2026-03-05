@@ -6,9 +6,9 @@ import type { InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/entities/session';
 
 export function useAttachAuthToken() {
-  const attachToken = useMemo(
+  const attachAuthToken = useMemo(
     () =>
-      function attachAuthToken(config: InternalAxiosRequestConfig) {
+      function handleAttachToken(config: InternalAxiosRequestConfig) {
         const token = useAuthStore.getState().accessToken;
 
         if (token && config.headers) {
@@ -20,5 +20,5 @@ export function useAttachAuthToken() {
     [],
   );
 
-  return { attachToken };
+  return { attachAuthToken };
 }

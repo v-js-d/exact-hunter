@@ -4,6 +4,6 @@ export {
   selectIsAuthenticated,
   selectStatus,
 } from './model/auth.selectors';
-export { useAuthStore } from './model/auth.store';
+export { authStore, authStore as useAuthStore } from './model/auth.store';
 export type { AuthState, AuthStatus } from './model/auth.types';
 export { useAuthMeQuery } from './model/hooks';

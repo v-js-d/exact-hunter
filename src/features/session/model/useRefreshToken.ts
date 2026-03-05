@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-import { useAuthStore } from '@/entities/session';
+import { authStore } from '@/entities/session';
 
 import { $api } from '@/shared/api/api';
 import { ApiError } from '@/shared/api/api-error';
@@ -21,7 +21,7 @@ function isRetryableRequest(
 const REFRESH_URL = '/auth/refresh';
 
 export function useRefreshToken() {
-  const refreshToken = useMemo(() => {
+  const refreshAuthToken = useMemo(() => {
     let isRefreshing = false;
     const refreshSubscribers: Array<{
       onSuccess: (token: string) => void;
@@ -39,7 +39,7 @@ export function useRefreshToken() {
       const originalRequest = error.config;
 
       if (originalRequest.url?.includes(REFRESH_URL)) {
-        useAuthStore.getState().actions.logout();
+        authStore.getState().actions.logout();
 
         return Promise.reject(new ApiError(status, data));
       }
@@ -70,7 +70,7 @@ export function useRefreshToken() {
           REFRESH_URL,
         );
         const newToken = refreshData.accessToken;
-        const { setAccessToken, setStatus } = useAuthStore.getState().actions;
+        const { setAccessToken, setStatus } = authStore.getState().actions;
 
         setAccessToken(newToken);
         setStatus('authenticated');
@@ -85,7 +85,7 @@ export function useRefreshToken() {
         refreshSubscribers.forEach((s) => s.onFailure(err));
         refreshSubscribers.length = 0;
 
-        useAuthStore.getState().actions.logout();
+        authStore.getState().actions.logout();
 
         return Promise.reject(err);
       } finally {
@@ -94,5 +94,5 @@ export function useRefreshToken() {
     };
   }, []);
 
-  return { refreshToken };
+  return { refreshAuthToken };
 }
