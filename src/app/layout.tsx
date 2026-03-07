@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import AuthProvider from './providers/AuthProvider';
+import InterceptorProvider from './providers/interceptor/InterceptorProvider';
+import MswProvider from './providers/MswProvider';
 import QueryProvider from './providers/QueryProvider';
 
 import './globals.css';
@@ -30,7 +33,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <MswProvider>
+          <QueryProvider>
+            <InterceptorProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </InterceptorProvider>
+          </QueryProvider>
+        </MswProvider>
       </body>
     </html>
   );

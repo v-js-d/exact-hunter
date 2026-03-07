@@ -3,8 +3,6 @@ import { immer } from 'zustand/middleware/immer';
 
 import { AuthState, AuthStore } from './auth.types';
 
-import { userStore } from '@/entities/user';
-
 export const authStore = create<AuthStore>()(
   immer((set) => ({
     accessToken: undefined,
@@ -16,14 +14,13 @@ export const authStore = create<AuthStore>()(
           state.status = 'anonymous';
           state.accessToken = undefined;
         });
-
-        userStore.getState().actions.clearUser();
       },
 
-      setAccessToken: (accessToken: AuthState['accessToken']) =>
+      setAccessToken: (accessToken: AuthState['accessToken']) => {
         set((state) => {
           state.accessToken = accessToken;
-        }),
+        });
+      },
 
       setStatus: (status: AuthState['status']) =>
         set((state) => {

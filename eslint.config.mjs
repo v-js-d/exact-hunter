@@ -63,15 +63,23 @@ const eslintConfig = defineConfig([
         'error',
         {
           groups: [
-            // 1. Библиотеки (react, next и т.д.)
-            ['^react', '^next', '^[a-z]'],
-            // 2. Родительские импорты (.., ../..)
+            // 1. Внешние библиотеки (самые важные первыми)
+            ['^react', '^next', '^@?\\w'], // react, next, zustand, lodash и любые другие пакеты
+
+            // 2. Относительные импорты (совпадает с fsd/ordered-imports: non-FSD перед слоями)
             ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
-            // 3. Локальные импорты (./)
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
-            // 4. Внутренние алиасы (@/) — после relative, совместимо с fsd/ordered-imports
-            ['^@'],
-            // 5. Стили
+
+            // 3. Слои FSD в правильном порядке (от верхних к нижним)
+            ['^@/app'],
+            ['^@/processes'],
+            ['^@/pages'],
+            ['^@/widgets'],
+            ['^@/features'],
+            ['^@/entities'],
+            ['^@/shared'],
+
+            // 4. Стили (scss, css и т.д.)
             ['^.+\\.s?css$'],
           ],
         },
@@ -80,7 +88,7 @@ const eslintConfig = defineConfig([
 
       // Правила импортов
       'import/first': 'error',
-      'import/newline-after-import': 'error',
+      'import/newline-after-import': ['error', { count: 1 }],
       'import/no-duplicates': 'error',
 
       // Запрет дефолтных экспортов (глобально)

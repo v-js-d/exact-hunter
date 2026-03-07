@@ -4,6 +4,7 @@ interface WindowEnvType {
   PORT: string;
 
   NEXT_PUBLIC_API_URL: string;
+  NEXT_PUBLIC_API_MODE: string;
   NEXT_PUBLIC_WS_URL: string;
 
   CHOKIDAR_USEPOLLING: string;
@@ -23,6 +24,7 @@ interface EnvType {
   PORT: string;
 
   NEXT_PUBLIC_API_URL: string;
+  NEXT_PUBLIC_API_MODE: string;
   NEXT_PUBLIC_WS_URL: string;
 
   CHOKIDAR_USEPOLLING: string;
