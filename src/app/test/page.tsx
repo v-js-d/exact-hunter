@@ -33,7 +33,7 @@ import { Label } from '@/shared/ui/label';
 export default function AuthTestPage() {
   const [email, setEmail] = useState('test@example.com');
   const [password, setPassword] = useState('password123');
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState<number[]>([]);
 
   const status = useAuthStore(selectStatus);
   const accessToken = useAuthStore(selectAccessToken);
