@@ -1,5 +1,6 @@
 export type {
   AuthErrorResponse,
+  AuthMode,
   AuthUser,
   LoginRequest,
   LoginResponse,
@@ -7,4 +8,5 @@ export type {
   RefreshResponse,
   RegisterRequest,
   RegisterResponse,
+  UserRole,
 } from './auth';

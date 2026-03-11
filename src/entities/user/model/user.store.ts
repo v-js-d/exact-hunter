@@ -12,7 +12,6 @@ export const userStore = create<UserStore>()(
         set((state) => {
           state.user = undefined;
         }),
-
       setUser: (user) =>
         set((state) => {
           state.user = user;

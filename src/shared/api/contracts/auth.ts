@@ -1,7 +1,10 @@
+export type UserRole = 'CANDIDATE' | 'RECRUITER';
+
+export type AuthMode = 'login' | 'register';
 export interface AuthUser {
   id: string;
   email: string;
-  role: string;
+  role: UserRole;
 }
 
 export interface LoginRequest {
