@@ -1,7 +1,6 @@
 'use client';
 
 import Image, { StaticImageData } from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 
 import { UserRole } from '@/shared/api/contracts';
@@ -14,22 +13,19 @@ interface Props {
   color?: 'blue' | 'orange';
   title: string;
   description: string;
+  selectedRole: UserRole;
 }
 
-const roleParam = 'role';
-
 export function SelectionRoleCard(props: Props) {
-  const { description, icon, role, title, color = 'blue' } = props;
+  const {
+    description,
+    icon,
+    role,
+    title,
+    color = 'blue',
+    selectedRole,
+  } = props;
   const formatRole = role.toLowerCase();
-  const searchParams = useSearchParams();
-  const selectedRole = searchParams.get(roleParam) ?? 'CANDIDATE';
-  const router = useRouter();
-
-  const handleChange = (value: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set(roleParam, value);
-    router.push(`?${params.toString()}`);
-  };
 
   return (
     <label
@@ -60,8 +56,7 @@ export function SelectionRoleCard(props: Props) {
         type='radio'
         id={`${formatRole}-card`}
         name='role'
-        checked={selectedRole === role}
-        onChange={(event) => handleChange(event.currentTarget.value)}
+        defaultChecked={selectedRole === role}
         className='visually-hidden'
         value={role}
       />

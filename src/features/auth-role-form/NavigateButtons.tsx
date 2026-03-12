@@ -1,20 +1,32 @@
 'use client';
 
+import { RefObject } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { AuthMode } from '@/shared/api/contracts';
 import { Button } from '@/shared/ui/button';
 
-const mode = 'mode';
+const MODE_PARAM = 'mode';
 
-export function NavigateButtons() {
+const ROLE_RAPAM = 'role';
+
+export function NavigateButtons({
+  selectRoleFormRef,
+}: {
+  selectRoleFormRef: RefObject<HTMLFormElement | null>;
+}) {
   const router = useRouter();
-
   const searchParams = useSearchParams();
 
   const handleClick = (modeValue: AuthMode) => {
     const params = new URLSearchParams(searchParams);
-    params.set(mode, modeValue);
+    if (selectRoleFormRef.current) {
+      const formData = new FormData(selectRoleFormRef.current);
+      const role = formData.get(ROLE_RAPAM);
+
+      if (role) params.set(ROLE_RAPAM, String(role));
+    }
+    params.set(MODE_PARAM, modeValue);
     router.push(`?${params.toString()}`);
   };
 
