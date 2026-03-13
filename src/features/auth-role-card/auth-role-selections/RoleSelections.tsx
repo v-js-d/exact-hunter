@@ -1,10 +1,9 @@
 import { RefObject } from 'react';
+import { BriefcaseBusiness, User } from 'lucide-react';
 
-import { SelectionRoleCard } from './SelectionRoleCard';
+import { SelectionRoleButton } from './SelectionRoleButton';
 
 import { UserRole } from '@/shared/api/contracts';
-import candidateIcon from '@/shared/assets/icons/candidate.svg';
-import recruiterIcon from '@/shared/assets/icons/recruiter.svg';
 
 export function RoleSelections({
   role,
@@ -15,18 +14,18 @@ export function RoleSelections({
 }) {
   return (
     <form ref={ref} className='space-y-5'>
-      <SelectionRoleCard
+      <SelectionRoleButton
         role='CANDIDATE'
         description='Ищу работу'
-        icon={candidateIcon}
+        Icon={User}
         title='Я соискатель'
         selectedRole={role}
         color='blue'
       />
-      <SelectionRoleCard
+      <SelectionRoleButton
         role='RECRUITER'
         description='Ищу сотрудников'
-        icon={recruiterIcon}
+        Icon={BriefcaseBusiness}
         title='Я работодатель'
         selectedRole={role}
         color='orange'

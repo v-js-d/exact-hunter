@@ -145,6 +145,12 @@ const eslintConfig = defineConfig([
       'import/no-default-export': 'off',
     },
   },
+  {
+    files: ['**/*.d.ts'],
+    rules: {
+      'import/no-default-export': 'off',
+    },
+  },
   ...storybook.configs['flat/recommended'],
 ]);
 

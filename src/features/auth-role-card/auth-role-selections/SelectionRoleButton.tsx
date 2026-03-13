@@ -1,25 +1,24 @@
 'use client';
 
-import Image, { StaticImageData } from 'next/image';
 import clsx from 'clsx';
+import { ChevronRight, LucideIcon } from 'lucide-react';
 
 import { UserRole } from '@/shared/api/contracts';
-import grayArrow from '@/shared/assets/icons/gray-arrow.svg';
 import { Input } from '@/shared/ui/input';
 
 interface Props {
   role: UserRole;
-  icon: StaticImageData;
+  Icon: LucideIcon;
   color?: 'blue' | 'orange';
   title: string;
   description: string;
   selectedRole: UserRole;
 }
 
-export function SelectionRoleCard(props: Props) {
+export function SelectionRoleButton(props: Props) {
   const {
     description,
-    icon,
+    Icon,
     role,
     title,
     color = 'blue',
@@ -39,19 +38,21 @@ export function SelectionRoleCard(props: Props) {
       <div
         className={clsx(
           'w-fit rounded-[0.625rem] p-1.25',
-          color === 'blue' && 'bg-blue-35',
-          color === 'orange' && 'border-orange-f5 border',
+          color === 'blue' && 'bg-blue-35 text-white',
+          color === 'orange' && 'border-orange-f5 text-orange-f5 border',
         )}
       >
-        <Image src={icon} alt={`${formatRole} icon`} width={36} height={36} />
+        <Icon size={36} />
       </div>
       <div className='space-y-0.75'>
         <h2 className='text-[1.125rem] font-medium'>{title}</h2>
         <p className='text-sm'>{description}</p>
       </div>
-      <div className='justify-self-end'>
-        <Image src={grayArrow} alt='arrow' width={36} height={36} />
-      </div>
+      <ChevronRight
+        className='text-gray-6b justify-self-end'
+        aria-hidden={true}
+        size={26}
+      />
       <Input
         type='radio'
         id={`${formatRole}-card`}
