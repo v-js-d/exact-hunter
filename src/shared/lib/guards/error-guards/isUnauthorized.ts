@@ -1,4 +1,4 @@
-import { ApiError } from '../../api/api-error';
+import { ApiError } from '../../../api/api-error';
 
 import { isApiError } from './isApiError';
 

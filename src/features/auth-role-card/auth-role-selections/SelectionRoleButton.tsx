@@ -30,7 +30,7 @@ export function SelectionRoleButton(props: Props) {
     <label
       htmlFor={`${formatRole}-card`}
       className={clsx(
-        'grid cursor-pointer grid-cols-[auto_auto_1fr] items-center gap-x-2.5 rounded-4xl border-[3px] border-transparent p-5 shadow-[4px_4px_7px_7px_rgba(0,0,0,0.1)] duration-200',
+        'relative grid cursor-pointer grid-cols-[auto_auto_1fr] items-center gap-x-2.5 rounded-4xl border-[3px] border-transparent p-5 shadow-[4px_4px_7px_7px_rgba(0,0,0,0.1)] duration-200',
         color === 'blue' && 'has-[input:checked]:border-blue-35',
         color === 'orange' && 'has-[input:checked]:border-orange-f5',
       )}
@@ -58,7 +58,7 @@ export function SelectionRoleButton(props: Props) {
         id={`${formatRole}-card`}
         name='role'
         defaultChecked={selectedRole === role}
-        className='visually-hidden'
+        className='sr-only'
         value={role}
       />
     </label>

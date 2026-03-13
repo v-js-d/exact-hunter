@@ -22,7 +22,7 @@ export function FormTel() {
 
   return (
     <>
-      <label htmlFor='register-select-code' className='visually-hidden'>
+      <label htmlFor='register-select-code' className='sr-only'>
         Код страны
       </label>
       <select
@@ -36,7 +36,7 @@ export function FormTel() {
           </option>
         ))}
       </select>
-      <label htmlFor='register-tel-input' className='visually-hidden'>
+      <label htmlFor='register-tel-input' className='sr-only'>
         Номер телефона
       </label>
       <Input

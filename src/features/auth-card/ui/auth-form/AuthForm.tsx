@@ -43,7 +43,7 @@ export function AuthForm({
         onSubmit={methods.handleSubmit(onSubmit)}
         className='col-span-2 grid items-center gap-6.25'
       >
-        <div className='grid grid-cols-[auto_1fr] gap-2.5'>
+        <div className='relative grid grid-cols-[auto_1fr] gap-2.5'>
           {method === 'phone' ? <FormTel /> : <FormEmail />}
         </div>
         <Button

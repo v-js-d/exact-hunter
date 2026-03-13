@@ -15,7 +15,7 @@ export function FormEmail() {
   } = useFormContext<TEmailShema>();
   return (
     <>
-      <label htmlFor='register-email-input' className='visually-hidden'>
+      <label htmlFor='register-email-input' className='sr-only'>
         Ваша почта
       </label>
       <Input
