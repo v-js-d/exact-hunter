@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { loginFn, useAuthStore } from '@/entities/session';
-import { useUserStore } from '@/entities/user';
+import { loginFn } from '../api/auth.service';
+import { LoginRequest, LoginResponse } from '../types/LoginDto';
 
-import type { LoginRequest, LoginResponse } from '@/shared/api/contracts/auth';
+import { useAuthStore } from '@/entities/session';
+import { useUserStore } from '@/entities/user';
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient();

@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { registerFn, useAuthStore } from '@/entities/session';
-import { useUserStore } from '@/entities/user';
+import { registerFn } from '../api/auth.service';
+import { RegisterRequest, RegisterResponse } from '../types/RegDto';
 
-import type {
-  RegisterRequest,
-  RegisterResponse,
-} from '@/shared/api/contracts/auth';
+import { useAuthStore } from '@/entities/session';
+import { useUserStore } from '@/entities/user';
 
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient();
