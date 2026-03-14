@@ -1,49 +1,79 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 import {
-  selectAccessToken,
   useAuthMeQuery,
   useAuthStore,
+  useSessionRefreshQuery,
 } from '@/entities/session';
 import { useUserStore } from '@/entities/user';
-
-import { EG } from '@/shared/lib';
 
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { setStatus, logout } = useAuthStore((s) => s.actions);
-  const { setUser } = useUserStore((s) => s.actions);
-  const accessToken = useAuthStore(selectAccessToken);
+  const router = useRouter();
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/auth';
 
-  const { data, error, isSuccess, isError, isPending } = useAuthMeQuery({
-    enabled: !!accessToken,
+  const { setStatus, logout } = useAuthStore((s) => s.actions);
+  const isAuth = useAuthStore((s) => s.status === 'authenticated');
+  const { setUser, clearUser } = useUserStore((s) => s.actions);
+
+  const { refreshToken } = useSessionRefreshQuery();
+  const [isRefreshDone, setIsRefreshDone] = useState(isLoginPage);
+  const isFirstMount = useRef(true);
+
+  const { data, isSuccess, isError, isPending } = useAuthMeQuery({
+    enabled: isRefreshDone && isAuth,
   });
 
+  // При загрузке делаем первый рефреш
   useEffect(() => {
-    if (isPending) {
-      setStatus('loading');
+    if (!isFirstMount.current) return;
+    isFirstMount.current = false;
 
+    // На странице логина мы не делаем рефреш
+    if (isLoginPage) {
       return;
     }
 
+    refreshToken()
+      .catch(() => {
+        clearUser();
+        setStatus('anonymous');
+      })
+      .finally(() => {
+        setIsRefreshDone(true);
+      });
+  }, [isLoginPage, refreshToken, clearUser, setStatus]);
+
+  useEffect(() => {
     if (isSuccess && data) {
       setUser(data.user);
       setStatus('authenticated');
-
-      return;
     }
 
-    if (isError && error) {
-      if (!EG.isUnauthorized(error)) {
-        logout();
-      }
+    if (isError) {
+      logout();
+      clearUser();
     }
-  }, [data, error, isSuccess, isError, isPending, logout, setStatus, setUser]);
+  }, [
+    isSuccess,
+    isError,
+    data,
+    setUser,
+    setStatus,
+    logout,
+    clearUser,
+    router,
+    isLoginPage,
+  ]);
 
-  return children;
+  if (!isRefreshDone || isPending) return null;
+
+  return <>{children}</>;
 }

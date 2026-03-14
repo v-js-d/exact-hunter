@@ -1,1 +1,0 @@
-export { useAuthMeQuery } from './useAuthMeQuery';

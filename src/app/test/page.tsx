@@ -6,7 +6,7 @@ import {
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
-} from '@/features/session';
+} from '@/features/auth';
 
 import {
   selectAccessToken,

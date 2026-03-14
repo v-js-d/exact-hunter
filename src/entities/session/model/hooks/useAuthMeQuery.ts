@@ -1,17 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getMe } from '../../api';
-
-import type { MeResponse } from '@/shared/api/contracts/auth';
+import { getMe } from '../api/session.service';
+import { MeResponse } from '../types/MeResp';
 
 export const useAuthMeQuery = (options?: { enabled?: boolean }) =>
   useQuery<MeResponse>({
     queryKey: ['auth', 'me'],
-    queryFn: async () => {
-      const response = await getMe('/auth/me');
-
-      return response.data;
-    },
-    enabled: options?.enabled ?? false,
+    queryFn: async () => getMe('/auth/me').then((resp) => resp.data),
+    enabled: !!options?.enabled,
     retry: 0,
   });
