@@ -45,7 +45,10 @@ const eslintConfig = defineConfig([
       'fsd/no-ui-in-business-logic': 'error',
 
       // Forbids direct import of the global store
-      'fsd/no-global-store-imports': 'error',
+      'fsd/no-global-store-imports': [
+        'error',
+        { allowedPaths: ['../store', './store'] },
+      ],
 
       // Enforces import order based on FSD layers
       'fsd/ordered-imports': 'warn',

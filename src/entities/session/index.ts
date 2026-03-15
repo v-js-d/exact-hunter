@@ -1,9 +1,11 @@
-export { getMe, loginFn, logoutFn, registerFn } from './api';
+export { useAuthMeQuery } from '../user/model/hooks/useAuthMeQuery';
+export { logoutFn } from './model/api/session.service';
+export { useLogoutMutation } from './model/hooks/useLogoutMutation';
+export { useSessionRefreshQuery } from './model/hooks/useSessionRefreshQuery';
 export {
   selectAccessToken,
   selectIsAuthenticated,
   selectStatus,
-} from './model/auth.selectors';
-export { authStore, authStore as useAuthStore } from './model/auth.store';
-export type { AuthState, AuthStatus } from './model/auth.types';
-export { useAuthMeQuery } from './model/hooks';
+} from './model/store/auth.selectors';
+export { useAuthStore } from './model/store/auth.store';
+export type { AuthState, AuthStatus } from './model/types/AuthStore';

@@ -1,8 +1,18 @@
 import { UserRole } from '@/shared/api/contracts';
 
 export interface User {
-  email: string;
   id: string;
+  email: string;
+  role: UserRole;
+}
+
+export interface MeResponse {
+  user: AuthUser;
+}
+
+export interface AuthUser {
+  id: string;
+  email: string;
   role: UserRole;
 }
 export interface UserState {
