@@ -4,6 +4,10 @@ on:
   push:
     branches: [trunk]
 
+concurrency:
+  group: frontend-dev-deploy
+  cancel-in-progress: true
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -26,10 +30,14 @@ jobs:
           target: prod
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.DOCKER_IMAGE }}:dev
+          tags: |
+            ${{ vars.DOCKER_IMAGE }}:dev
+            ${{ vars.DOCKER_IMAGE }}:dev-${{ github.sha }}
           build-args: |
             NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }}
             NEXT_PUBLIC_WS_URL=${{ vars.NEXT_PUBLIC_WS_URL }}
+          cache-from: type=gha,scope=frontend-dev
+          cache-to: type=gha,mode=max,scope=frontend-dev
 
       - name: Deploy to DEV VPS
         uses: appleboy/ssh-action@v1.2.0
@@ -42,3 +50,12 @@ jobs:
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f
+
+            for i in 1 2 3 4 5; do
+              if curl -f https://dev.exacthunter.ru; then
+                exit 0
+              fi
+              sleep 5
+            done
+
+            exit 1
