@@ -2,19 +2,13 @@ FROM node:20-alpine AS base
 WORKDIR /app
 RUN corepack enable
 
-# dependencies cache
-FROM base AS deps
-COPY package.json pnpm-lock.yaml ./
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
-    pnpm fetch --frozen-lockfile
-
 # development
 FROM base AS dev
 ENV NODE_ENV=development
 COPY package.json pnpm-lock.yaml ./
-COPY --from=deps /root/.local/share/pnpm/store /root/.local/share/pnpm/store
-RUN pnpm config set store-dir /root/.local/share/pnpm/store && \
-    pnpm install --frozen-lockfile --offline
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+    pnpm config set store-dir /root/.local/share/pnpm/store && \
+    pnpm install --frozen-lockfile
 COPY . .
 EXPOSE 3000
 CMD ["pnpm", "dev"]
@@ -31,9 +25,9 @@ ENV NEXT_PUBLIC_WS_URL=$NEXT_PUBLIC_WS_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY package.json pnpm-lock.yaml ./
-COPY --from=deps /root/.local/share/pnpm/store /root/.local/share/pnpm/store
-RUN pnpm config set store-dir /root/.local/share/pnpm/store && \
-    pnpm install --frozen-lockfile --offline
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store \
+    pnpm config set store-dir /root/.local/share/pnpm/store && \
+    pnpm install --frozen-lockfile
 
 COPY . .
 RUN pnpm build
