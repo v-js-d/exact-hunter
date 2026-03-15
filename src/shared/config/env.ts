@@ -31,7 +31,14 @@ interface EnvType {
   WATCHPACK_POLLING: string;
 }
 
-export const env: EnvType = {
-  ...process.env,
-  ...window.env,
-};
+// Собираем env без доступа к window на этапе оценки модуля (SSR/build).
+// window.env используется только в браузере (runtime, например Docker).
+function buildEnv(): EnvType {
+  const base = { ...process.env } as unknown as EnvType;
+  if (typeof window !== 'undefined' && window.env) {
+    return { ...base, ...window.env };
+  }
+  return base;
+}
+
+export const env: EnvType = buildEnv();
