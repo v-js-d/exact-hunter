@@ -2,11 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { AuthCard } from '@/features/auth-card';
-import { AuthRoleCard } from '@/features/auth-role-card';
+import { AuthCard } from '@/widgets/auth-card';
+import { AuthRoleCard } from '@/widgets/auth-role-card';
 
-import { UserRole } from '@/shared/api/contracts';
-import { isAuthMode, isUserRole } from '@/shared/lib/guards/auth-guards';
+import { isAuthMode, isUserRole } from '@/features/auth';
+
+import { UserRole } from '@/entities/user';
 
 const ROLE_PARAM = 'role';
 const MODE_PARAM = 'mode';

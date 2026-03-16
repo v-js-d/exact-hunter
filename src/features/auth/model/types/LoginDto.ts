@@ -1,4 +1,4 @@
-import { AuthUser } from '@/entities/user';
+import { User } from '@/entities/user';
 
 export interface LoginRequest {
   email: string;
@@ -7,5 +7,5 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   accessToken: string;
-  user: AuthUser;
+  user: User;
 }

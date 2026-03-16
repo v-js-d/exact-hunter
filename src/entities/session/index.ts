@@ -1,4 +1,3 @@
-export { useAuthMeQuery } from '../user/model/hooks/useAuthMeQuery';
 export { logoutFn } from './model/api/session.service';
 export { useLogoutMutation } from './model/hooks/useLogoutMutation';
 export { useSessionRefreshQuery } from './model/hooks/useSessionRefreshQuery';

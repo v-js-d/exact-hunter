@@ -1,4 +1,9 @@
-import { UserRole } from '@/shared/api/contracts';
+export const UserRole = {
+  CANDIDATE: 'CANDIDATE',
+  RECRUITER: 'RECRUITER',
+} as const;
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole];
 
 export interface User {
   id: string;
@@ -7,13 +12,7 @@ export interface User {
 }
 
 export interface MeResponse {
-  user: AuthUser;
-}
-
-export interface AuthUser {
-  id: string;
-  email: string;
-  role: UserRole;
+  user: User;
 }
 export interface UserState {
   user: User | undefined;
