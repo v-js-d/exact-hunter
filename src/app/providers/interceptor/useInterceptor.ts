@@ -27,8 +27,9 @@ export default function useInterceptor() {
       async (error) => {
         const status = error.response?.status ?? 0;
         const data = error.response?.data;
+        const originalUrl = error.config?.url ?? '';
 
-        if (status !== 401) {
+        if (status !== 401 || originalUrl.includes('/auth/refresh')) {
           return Promise.reject(new ApiError(status, data));
         }
 
