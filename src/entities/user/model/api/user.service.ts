@@ -1,4 +1,4 @@
-import { MeResponse } from '../user.types';
+import { MeResponse } from '../types/user.types';
 
 import { query } from '@/shared/api/api';
 

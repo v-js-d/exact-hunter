@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { UserStore } from './user.types';
+import { UserStore } from './types/user.types';
 
 export const userStore = create<UserStore>()(
   immer((set) => ({

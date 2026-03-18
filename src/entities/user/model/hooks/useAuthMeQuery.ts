@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getMe } from '../api/user.service';
-import { MeResponse } from '../user.types';
+import { MeResponse } from '../types/user.types';
 
 export const useAuthMeQuery = (options?: { enabled?: boolean }) =>
   useQuery<MeResponse>({

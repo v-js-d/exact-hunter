@@ -1,7 +1,7 @@
 import { RefObject } from 'react';
 import { BriefcaseBusiness, User } from 'lucide-react';
 
-import { SelectionRoleButton } from './selection-button';
+import { SelectionRoleButton } from './components/selection-button';
 
 import { UserRole } from '@/entities/user';
 

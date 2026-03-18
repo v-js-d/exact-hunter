@@ -3,10 +3,11 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { AuthMethod, authSchema, type AuthShema } from '../../model';
+import { authSchema, type AuthShema } from '../../model/schema/AuthForm.shema';
+import { AuthMethod } from '../../model/types/auth.types';
 
-import { FormEmail } from './form-email';
-import { FormTel } from './form-tel';
+import { FormEmail } from './components/form-email';
+import { FormTel } from './components/form-tel';
 
 import { UserRole } from '@/entities/user';
 

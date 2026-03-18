@@ -1,9 +1,4 @@
-export const UserRole = {
-  CANDIDATE: 'CANDIDATE',
-  RECRUITER: 'RECRUITER',
-} as const;
-
-export type UserRole = (typeof UserRole)[keyof typeof UserRole];
+import { UserRole } from './user-role.types';
 
 export interface User {
   id: string;

@@ -1,1 +1,1 @@
-export { AuthRoleCard } from './AuthRoleCard';
+export { AuthRoleCard } from './ui/AuthRoleCard';

@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { EmailShema } from '../../../model';
+import { EmailShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib/helpers/getFieldError';
 import { ErrorField } from '@/shared/ui/error-field';

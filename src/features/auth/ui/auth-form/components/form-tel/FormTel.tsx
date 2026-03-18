@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { PhoneShema } from '../../../model';
+import { PhoneShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib/helpers/getFieldError';
 import { ErrorField } from '@/shared/ui/error-field';
