@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { EmailShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib/helpers/getFieldError';
-import { ErrorField } from '@/shared/ui/error-field';
+import { FormField } from '@/shared/ui/form-field';
 import { Input } from '@/shared/ui/input';
 
 export function FormEmail() {
@@ -14,10 +14,12 @@ export function FormEmail() {
     formState: { errors },
   } = useFormContext<EmailShema>();
   return (
-    <>
-      <label htmlFor='register-email-input' className='sr-only'>
-        Ваша почта
-      </label>
+    <FormField
+      htmlFor='register-email-input'
+      label='Ваша почта'
+      error={getFieldError(errors, 'email')}
+      labelHidden
+    >
       <Input
         type='email'
         id='register-email-input'
@@ -25,7 +27,6 @@ export function FormEmail() {
         className='border-gray-6b col-span-2 rounded-4xl px-5 py-2.5'
         {...register('email')}
       />
-      <ErrorField>{getFieldError(errors, 'email')}</ErrorField>
-    </>
+    </FormField>
   );
 }

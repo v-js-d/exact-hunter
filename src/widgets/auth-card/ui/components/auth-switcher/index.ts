@@ -1,1 +1,0 @@
-export { AuthSwitcher } from './AuthSwitcher';

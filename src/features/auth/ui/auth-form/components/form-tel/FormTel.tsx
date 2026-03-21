@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { PhoneShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib/helpers/getFieldError';
-import { ErrorField } from '@/shared/ui/error-field';
+import { FormField } from '@/shared/ui/form-field';
 import { Input } from '@/shared/ui/input';
 import { Select } from '@/shared/ui/select';
 
@@ -22,20 +22,19 @@ export function FormTel() {
   } = useFormContext<PhoneShema>();
 
   return (
-    <>
-      <label htmlFor='register-select-code' className='sr-only'>
-        Код страны
-      </label>
-      <Select id='register-select-code'>
+    <FormField
+      label='Номер телефона'
+      htmlFor='register-tel-input'
+      error={getFieldError(errors, 'phone')}
+      labelHidden
+    >
+      <Select id='register-select-code' className='w-fit'>
         {countryNumbers.map(({ code }) => (
           <option key={code} value={code}>
             {code}
           </option>
         ))}
       </Select>
-      <label htmlFor='register-tel-input' className='sr-only'>
-        Номер телефона
-      </label>
       <Input
         type='tel'
         id='register-tel-input'
@@ -45,9 +44,6 @@ export function FormTel() {
         className='border-gray-6b rounded-4xl px-5 py-2.5'
         {...register('phone')}
       />
-      <ErrorField className='col-span-2'>
-        {getFieldError(errors, 'phone')}
-      </ErrorField>
-    </>
+    </FormField>
   );
 }

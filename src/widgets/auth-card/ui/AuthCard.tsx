@@ -1,6 +1,6 @@
-import { AuthPolicy } from './components/auth-policy';
-import { AuthSwitcher } from './components/auth-switcher';
-import { ButtonBack } from './components/button-back';
+import { AuthPolicy } from './components/AuthPolicy';
+import { AuthSwitcher } from './components/AuthSwitcher';
+import { ButtonBack } from './components/ButtonBack';
 
 import { AuthMode } from '@/features/auth';
 
@@ -24,11 +24,7 @@ export function AuthCard({ role, mode }: { role: UserRole; mode: AuthMode }) {
         </span>
       </div>
       <h1 className='text-center text-2xl font-semibold'>
-        {mode === 'register'
-          ? role === 'CANDIDATE'
-            ? titles.register.CANDIDATE
-            : titles.register.RECRUITER
-          : titles.login}
+        {mode === 'register' ? titles.register[role] : titles.login}
       </h1>
       <AuthSwitcher role={role} />
       <AuthPolicy />
