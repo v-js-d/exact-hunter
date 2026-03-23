@@ -22,11 +22,9 @@ export default function AuthPage() {
   const role = isUserRole(roleParam) ? roleParam : DEFAULT_ROLE;
   const mode = isAuthMode(modeParam) ? modeParam : null;
 
-  const content = mode ? (
+  return mode ? (
     <AuthCard role={role} mode={mode} />
   ) : (
     <AuthRoleCard role={role} />
   );
-
-  return content;
 }

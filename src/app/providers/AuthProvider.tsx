@@ -23,7 +23,7 @@ export default function AuthProvider({
   const [isRefreshDone, setIsRefreshDone] = useState(isLoginPage);
   const isFirstMount = useRef(true);
 
-  const { data, isSuccess, isError, isPending } = useAuthMeQuery({
+  const { data, isSuccess, isError, isLoading } = useAuthMeQuery({
     enabled: isRefreshDone && isAuth,
   });
 
@@ -69,7 +69,7 @@ export default function AuthProvider({
     isLoginPage,
   ]);
 
-  if (!isRefreshDone || isPending) return null;
+  if (!isRefreshDone || isLoading) return null;
 
   return <>{children}</>;
 }
