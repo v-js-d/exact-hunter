@@ -13,8 +13,8 @@ export function AuthRoleCard({ role }: { role: UserRole }) {
 
   return (
     <div className='mx-auto grid w-full max-w-125 gap-y-6.25 px-5 sm:px-0'>
-      <div className='space-y-2.5'>
-        <div className='bg-blue-35 w-fit justify-self-center rounded-[1.875rem] p-3.5'>
+      <div className='flex flex-col items-center justify-center space-y-2.5'>
+        <div className='bg-blue-35 w-fit rounded-[1.875rem] p-3.5'>
           <ChartSpline aria-label='Logo icon' color='white' size={72} />
         </div>
         <h1 className='text-center text-3xl font-bold'>ExactHunter</h1>
