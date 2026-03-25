@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import {
+  AuthErrorResponse,
   useLoginMutation,
   useLogoutMutation,
   useRegisterMutation,
@@ -12,13 +13,11 @@ import {
   selectAccessToken,
   selectIsAuthenticated,
   selectStatus,
-  useAuthMeQuery,
   useAuthStore,
 } from '@/entities/session';
-import { selectUser, useUserStore } from '@/entities/user';
+import { selectUser, useAuthMeQuery, useUserStore } from '@/entities/user';
 
 import { ApiError } from '@/shared/api/api-error';
-import type { AuthErrorResponse } from '@/shared/api/contracts/auth';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -26,7 +25,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/card/card';
+} from '@/shared/ui/card/ui/card';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
 

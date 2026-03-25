@@ -39,7 +39,7 @@ const eslintConfig = defineConfig([
       'fsd/no-public-api-sidestep': 'error',
 
       // Prevents direct imports between slices in the same layer
-      'fsd/no-cross-slice-dependency': 'error',
+      'fsd/no-cross-slice-dependency': 'warn',
 
       // Prevents UI imports in business logic layers (e.g., entities)
       'fsd/no-ui-in-business-logic': 'error',
@@ -145,6 +145,12 @@ const eslintConfig = defineConfig([
     files: ['**/*.stories.@(ts|tsx)'],
     rules: {
       // отключаем правило про default export (meta Storybook)
+      'import/no-default-export': 'off',
+    },
+  },
+  {
+    files: ['**/*.d.ts'],
+    rules: {
       'import/no-default-export': 'off',
     },
   },

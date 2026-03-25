@@ -1,4 +1,4 @@
-import { AuthUser } from '@/entities/session';
+import { User } from '@/entities/user';
 
 export interface RegisterRequest {
   email: string;
@@ -7,5 +7,5 @@ export interface RegisterRequest {
 
 export interface RegisterResponse {
   accessToken: string;
-  user: AuthUser;
+  user: User;
 }

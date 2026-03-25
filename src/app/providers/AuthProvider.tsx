@@ -3,12 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import {
-  useAuthMeQuery,
-  useAuthStore,
-  useSessionRefreshQuery,
-} from '@/entities/session';
-import { useUserStore } from '@/entities/user';
+import { useAuthStore, useSessionRefreshQuery } from '@/entities/session';
+import { useAuthMeQuery, useUserStore } from '@/entities/user';
 
 export default function AuthProvider({
   children,

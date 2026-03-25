@@ -1,0 +1,1 @@
+export { FormTel } from './FormTel';

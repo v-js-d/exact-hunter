@@ -6,7 +6,7 @@ import InterceptorProvider from './providers/interceptor/InterceptorProvider';
 import MswProvider from './providers/MswProvider';
 import QueryProvider from './providers/QueryProvider';
 
-import './globals.css';
+import './styles/globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
