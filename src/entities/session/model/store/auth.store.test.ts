@@ -1,0 +1,37 @@
+import { beforeEach, describe, expect, it } from 'vitest';
+
+import { useAuthStore } from './auth.store';
+
+describe('useAuthStore', () => {
+  beforeEach(() => {
+    useAuthStore.setState({
+      accessToken: undefined,
+      status: 'anonymous',
+    });
+  });
+
+  it('sets access token and status', () => {
+    const { setAccessToken, setStatus } = useAuthStore.getState().actions;
+    const state = useAuthStore.getState();
+
+    setAccessToken('token-123');
+    setStatus('authenticated');
+
+    expect(state.accessToken).toBe('token-123');
+    expect(state.status).toBe('authenticated');
+  });
+
+  it('resets state on logout', () => {
+    const { setAccessToken, setStatus, logout } =
+      useAuthStore.getState().actions;
+    const state = useAuthStore.getState();
+
+    setAccessToken('token-123');
+    setStatus('authenticated');
+
+    logout();
+
+    expect(state.accessToken).toBeUndefined();
+    expect(state.status).toBe('anonymous');
+  });
+});
