@@ -1,5 +1,5 @@
-export { BackButton } from './back-button/BackButton';
-export { Button, buttonVariants } from './button/Button';
+export { BackButton } from './back-button';
+export { Button, buttonVariants } from './button';
 export {
   Card,
   CardAction,
@@ -8,13 +8,13 @@ export {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './card/Card';
-export { Container } from './container/Container';
-export { ErrorField } from './error-field/ErrorField';
-export { FormField } from './form-field/FormField';
-export { Input } from './input/Input';
-export { Label } from './label/Label';
-export { Select } from './select/Select';
-export { Separator } from './separator/Separator';
-export { Skeleton } from './skeleton/Skeleton';
-export { Textarea } from './text-area/Textarea';
+} from './card';
+export { Container } from './container';
+export { ErrorField } from './error-field';
+export { FormField } from './form-field';
+export { Input } from './input';
+export { Label } from './label';
+export { Select } from './select';
+export { Separator } from './separator';
+export { Skeleton } from './skeleton';
+export { Textarea } from './text-area';

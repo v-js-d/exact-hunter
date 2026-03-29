@@ -6,11 +6,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 const isMockMode = process.env.NEXT_PUBLIC_API_MODE === 'mock';
 const shouldMock = isDev && isMockMode;
 
-export default function MswProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const MswProvider = ({ children }: { children: React.ReactNode }) => {
   const [ready, setReady] = useState(false);
 
   async function deferRender(): Promise<void> {
@@ -32,4 +28,6 @@ export default function MswProvider({
   if (!ready) return null;
 
   return children;
-}
+};
+
+export default MswProvider;

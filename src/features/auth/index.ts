@@ -9,4 +9,4 @@ export type {
   AuthMode,
 } from './model/types/auth.types';
 export { AuthForm } from './ui/auth-form';
-export { RoleForm } from './ui/auth-role-form';
+export { RoleForm } from './ui/auth-role-form/RoleForm';

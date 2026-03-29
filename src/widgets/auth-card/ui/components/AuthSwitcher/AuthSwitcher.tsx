@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 
-import { AuthForm, AuthMethod } from '@/features/auth';
+import { AuthSwitcherProps } from './AuthSwitcher.types';
 
-import { UserRole } from '@/entities/user';
+import { AuthForm, AuthMethod } from '@/features/auth';
 
 import { Button } from '@/shared/ui';
 
-export function AuthSwitcher({ role }: { role: UserRole }) {
+export const AuthSwitcher = ({ role }: AuthSwitcherProps) => {
   const [authMethod, setAuthMethod] = useState<AuthMethod>('phone');
 
   const activeMethod = (method: AuthMethod) =>
@@ -37,4 +37,4 @@ export function AuthSwitcher({ role }: { role: UserRole }) {
       <AuthForm key={authMethod} role={role} method={authMethod} />
     </div>
   );
-}
+};

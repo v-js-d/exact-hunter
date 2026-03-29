@@ -9,15 +9,18 @@ import { isAuthMode, isUserRole } from '@/features/auth';
 
 import { UserRole } from '@/entities/user';
 
-const ROLE_PARAM = 'role';
-const MODE_PARAM = 'mode';
+const PARAMS = {
+  ROLE: 'role',
+  MODE: 'mode',
+};
+
 const DEFAULT_ROLE: UserRole = 'CANDIDATE';
 
-export default function AuthPage() {
+const AuthPage = () => {
   const searchParams = useSearchParams();
 
-  const roleParam = searchParams.get(ROLE_PARAM);
-  const modeParam = searchParams.get(MODE_PARAM);
+  const roleParam = searchParams.get(PARAMS.ROLE);
+  const modeParam = searchParams.get(PARAMS.MODE);
 
   const role = isUserRole(roleParam) ? roleParam : DEFAULT_ROLE;
   const mode = isAuthMode(modeParam) ? modeParam : null;
@@ -27,4 +30,6 @@ export default function AuthPage() {
   ) : (
     <AuthRoleCard role={role} />
   );
-}
+};
+
+export default AuthPage;

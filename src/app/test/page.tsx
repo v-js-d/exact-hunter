@@ -29,7 +29,7 @@ import {
   Label,
 } from '@/shared/ui';
 
-export default function AuthTestPage() {
+const AuthTestPage = () => {
   const [email, setEmail] = useState('test@example.com');
   const [password, setPassword] = useState('password123');
   const [logs, setLogs] = useState<string[]>([]);
@@ -273,4 +273,6 @@ export default function AuthTestPage() {
       </div>
     </div>
   );
-}
+};
+
+export default AuthTestPage;

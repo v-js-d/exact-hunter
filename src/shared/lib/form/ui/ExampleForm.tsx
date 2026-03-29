@@ -3,9 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { Button } from '../../../ui/button';
-import { Input } from '../../../ui/input';
-import { Label } from '../../../ui/label';
+import { Button, Input, Label } from '../../../ui';
 import { getFieldError } from '../../helpers/getFieldError';
 import {
   type ExampleFormTypes,
@@ -14,7 +12,7 @@ import {
 
 const resetForm = { password: '', useremail: '' };
 
-export function ExampleForm() {
+export const ExampleForm = () => {
   const {
     register,
     handleSubmit,
@@ -65,4 +63,4 @@ export function ExampleForm() {
       </Button>
     </form>
   );
-}
+};

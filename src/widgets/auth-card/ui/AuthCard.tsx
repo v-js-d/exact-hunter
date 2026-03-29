@@ -1,8 +1,7 @@
 import { useRouter } from 'next/navigation';
 
-import { AuthPolicy } from './components/AuthPolicy';
-import { AuthSwitcher } from './components/AuthSwitcher';
 import type { AuthCardProps } from './AuthCard.types';
+import { AuthPolicy, AuthSwitcher } from './components';
 
 import { AuthMode } from '@/features/auth';
 

@@ -29,13 +29,13 @@ const emailDefaultvalues: EmailShema = {
   role: 'CANDIDATE',
 };
 
-export function AuthForm({
+export const AuthForm = ({
   method,
   role,
 }: {
   method: AuthMethod;
   role: UserRole;
-}) {
+}) => {
   const methods = useForm<AuthShema>({
     resolver: zodResolver(authSchema),
     defaultValues: method === 'phone' ? phoneDeafultValues : emailDefaultvalues,
@@ -69,4 +69,4 @@ export function AuthForm({
       </form>
     </FormProvider>
   );
-}
+};

@@ -1,32 +1,37 @@
 'use client';
 
-import { RefObject } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+
+import { NavigateButtonsProps } from './NavigateButtons.types';
 
 import { AuthMode } from '@/features/auth';
 
 import { Button } from '@/shared/ui';
 
-const MODE_PARAM = 'mode';
-const ROLE_RAPAM = 'role';
+const PARAMS = {
+  MODE: 'mode',
+  ROLE: 'role',
+};
 
-export function NavigateButtons({
+export const NavigateButtons = ({
   selectRoleFormRef,
-}: {
-  selectRoleFormRef: RefObject<HTMLFormElement | null>;
-}) {
+}: NavigateButtonsProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleClick = (modeValue: AuthMode) => {
     const params = new URLSearchParams(searchParams);
+
     if (selectRoleFormRef.current) {
       const formData = new FormData(selectRoleFormRef.current);
-      const role = formData.get(ROLE_RAPAM);
+      const role = formData.get(PARAMS.ROLE);
 
-      if (role) params.set(ROLE_RAPAM, String(role));
+      if (role) {
+        params.set(PARAMS.ROLE, String(role));
+      }
     }
-    params.set(MODE_PARAM, modeValue);
+
+    params.set(PARAMS.MODE, modeValue);
     router.push(`?${params.toString()}`);
   };
 
@@ -49,4 +54,4 @@ export function NavigateButtons({
       </Button>
     </div>
   );
-}
+};
