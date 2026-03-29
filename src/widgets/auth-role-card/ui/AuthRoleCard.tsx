@@ -1,14 +1,14 @@
 'use client';
+
 import { useRef } from 'react';
 import { ChartSpline } from 'lucide-react';
 
 import { NavigateButtons } from './components/NavigateButtons';
+import { AuthRoleCardProps } from './AuthRoleCard.types';
 
 import { RoleForm } from '@/features/auth';
 
-import { UserRole } from '@/entities/user';
-
-export function AuthRoleCard({ role }: { role: UserRole }) {
+export const AuthRoleCard = ({ role }: AuthRoleCardProps) => {
   const selectRoleFormRef = useRef<HTMLFormElement | null>(null);
 
   return (
@@ -23,4 +23,4 @@ export function AuthRoleCard({ role }: { role: UserRole }) {
       <NavigateButtons selectRoleFormRef={selectRoleFormRef} />
     </div>
   );
-}
+};

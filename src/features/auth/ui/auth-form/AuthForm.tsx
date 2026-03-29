@@ -16,7 +16,7 @@ import { FormTel } from './components/form-tel';
 
 import { UserRole } from '@/entities/user';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui';
 
 const phoneDeafultValues: PhoneShema = {
   countryCode: '+7',

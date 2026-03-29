@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 // Вынес в отдельный компонент что бы не ререндерилься
 
+// democracy
+
 export function AuthPolicy() {
   return (
     <p className='*:[a]:text-blue-35 text-center text-sm'>

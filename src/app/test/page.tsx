@@ -18,16 +18,16 @@ import {
 import { selectUser, useAuthMeQuery, useUserStore } from '@/entities/user';
 
 import { ApiError } from '@/shared/api/api-error';
-import { Button } from '@/shared/ui/button';
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/card/ui/card';
-import { Input } from '@/shared/ui/input';
-import { Label } from '@/shared/ui/label';
+  Input,
+  Label,
+} from '@/shared/ui';
 
 export default function AuthTestPage() {
   const [email, setEmail] = useState('test@example.com');
@@ -161,7 +161,9 @@ export default function AuthTestPage() {
                     id='password'
                     type='password'
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setPassword(e.target.value)
+                    }
                   />
                 </div>
                 <div className='flex flex-col gap-2 pt-2'>

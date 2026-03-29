@@ -6,7 +6,7 @@ import { AuthForm, AuthMethod } from '@/features/auth';
 
 import { UserRole } from '@/entities/user';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui';
 
 export function AuthSwitcher({ role }: { role: UserRole }) {
   const [authMethod, setAuthMethod] = useState<AuthMethod>('phone');

@@ -5,7 +5,7 @@ import { ChevronRight, LucideIcon } from 'lucide-react';
 
 import { UserRole } from '@/entities/user';
 
-import { Input } from '@/shared/ui/input';
+import { Input } from '@/shared/ui';
 
 interface Props {
   role: UserRole;

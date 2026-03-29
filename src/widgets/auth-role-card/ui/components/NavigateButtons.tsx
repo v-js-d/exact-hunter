@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 import { AuthMode } from '@/features/auth';
 
-import { Button } from '@/shared/ui/button';
+import { Button } from '@/shared/ui';
 
 const MODE_PARAM = 'mode';
 const ROLE_RAPAM = 'role';
