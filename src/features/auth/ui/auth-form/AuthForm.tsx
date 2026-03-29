@@ -9,36 +9,33 @@ import {
   EmailShema,
   PhoneShema,
 } from '../../model/schema/AuthForm.shema';
-import { AuthMethod } from '../../model/types/auth.types';
 
-import { FormEmail } from './components/form-email';
-import { FormTel } from './components/form-tel';
-
-import { UserRole } from '@/entities/user';
+import { AuthFormProps } from './AuthForm.types';
+import { FormEmail, FormTel } from './components';
 
 import { Button } from '@/shared/ui';
 
-const phoneDeafultValues: PhoneShema = {
+const phoneDefaultValues: PhoneShema = {
   countryCode: '+7',
   phone: '',
   role: 'CANDIDATE',
 };
 
-const emailDefaultvalues: EmailShema = {
+const emailDefaultValues: EmailShema = {
   email: '',
   role: 'CANDIDATE',
 };
 
-export const AuthForm = ({
-  method,
-  role,
-}: {
-  method: AuthMethod;
-  role: UserRole;
-}) => {
+const AUTH_METHOD = {
+  PHONE: 'phone',
+  EMAIL: 'email',
+};
+
+export const AuthForm = ({ method, role }: AuthFormProps) => {
   const methods = useForm<AuthShema>({
     resolver: zodResolver(authSchema),
-    defaultValues: method === 'phone' ? phoneDeafultValues : emailDefaultvalues,
+    defaultValues:
+      method === AUTH_METHOD.PHONE ? phoneDefaultValues : emailDefaultValues,
   });
 
   const onSubmit: SubmitHandler<AuthShema> = (data) => {
@@ -58,7 +55,7 @@ export const AuthForm = ({
         onSubmit={methods.handleSubmit(onSubmit)}
         className='col-span-2 grid items-center gap-6.25'
       >
-        {method === 'phone' ? <FormTel /> : <FormEmail />}
+        {method === AUTH_METHOD.PHONE ? <FormTel /> : <FormEmail />}
         <Button
           type='submit'
           className='text-2xl font-semibold'

@@ -1,10 +1,10 @@
 'use client';
 
+import clsx from 'clsx';
 import { ChevronRight } from 'lucide-react';
 
 import { SelectionRoleButtonProps } from './SelectionRoleButton.types';
 
-import { cn } from '@/shared/lib/utils/cn';
 import { Input } from '@/shared/ui';
 
 export const SelectionRoleButton = ({
@@ -20,14 +20,14 @@ export const SelectionRoleButton = ({
   return (
     <label
       htmlFor={`${formatRole}-card`}
-      className={cn(
+      className={clsx(
         'relative grid cursor-pointer grid-cols-[auto_auto_1fr] items-center gap-x-2.5 rounded-4xl border-[3px] border-transparent p-5 shadow-[4px_4px_7px_7px_rgba(0,0,0,0.1)] duration-200',
         color === 'blue' && 'has-[input:checked]:border-blue-35',
         color === 'orange' && 'has-[input:checked]:border-orange-f5',
       )}
     >
       <div
-        className={cn(
+        className={clsx(
           'w-fit rounded-[0.625rem] p-1.25',
           color === 'blue' && 'bg-blue-35 text-white',
           color === 'orange' && 'border-orange-f5 text-orange-f5 border',
