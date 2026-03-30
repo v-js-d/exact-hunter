@@ -12,7 +12,7 @@ import { UserRole } from '@/entities/user';
 const PARAMS = {
   ROLE: 'role',
   MODE: 'mode',
-};
+} as const;
 
 const DEFAULT_ROLE: UserRole = 'CANDIDATE';
 
