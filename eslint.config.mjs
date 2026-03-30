@@ -33,7 +33,7 @@ const eslintConfig = defineConfig([
         'error',
         {
           // Импорт публичного @/shared/lib изнутри слоя shared (иначе только relative)
-          ignoreImportPatterns: ['^@/shared/lib$'],
+          ignoreImportPatterns: ['^@/shared/lib$', '^@/shared/ui$'],
         },
       ],
 
