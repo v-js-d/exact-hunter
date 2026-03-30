@@ -1,4 +1,4 @@
-import { AuthMethod } from '../../model/types/auth.types';
+import type { AuthMethod } from '@auth/model';
 
 import { UserRole } from '@/entities/user';
 

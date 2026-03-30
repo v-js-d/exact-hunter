@@ -1,7 +1,7 @@
+import { AuthState, AuthStore } from '@session/model/types/AuthStore';
+
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-
-import { AuthState, AuthStore } from '../types/AuthStore';
 
 export const useAuthStore = create<AuthStore>()(
   immer((set) => ({

@@ -10,7 +10,7 @@ const meta: Meta<typeof BackButton> = {
     docs: {
       description: {
         component: `
-**Что это.** Кнопка "назад" на базе \`Button\`: иконка-шеврон, всегда \`variant="ghost"\`, по умолчанию \`size="icon-sm"\`. Для \`size\` доступны только иконочные варианты: \`icon\`, \`icon-xs\`, \`icon-sm\`, \`icon-lg\`.
+**Что это.** Кнопка "назад" на базе \`Button\`: иконка-шеврон, всегда \`variant="ghost"\`, по умолчанию \`size="icon-xs"\`. Для \`size\` доступны только иконочные варианты: \`icon\`, \`icon-xs\`, \`icon-sm\`, \`icon-lg\`.
 
 **Пропсы.** Наследует пропсы \`Button\`, кроме \`onClick\`, \`children\`, \`asChild\`, \`variant\` и текстовых размеров кнопки. Вместо \`onClick\` передаётся \`onBack\`. Иконка внутри фиксирована.
 

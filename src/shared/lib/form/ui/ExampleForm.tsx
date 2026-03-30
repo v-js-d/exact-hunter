@@ -1,14 +1,16 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button, Input, Label } from '../../../ui';
-import { getFieldError } from '../../helpers/getFieldError';
 import {
   type ExampleFormTypes,
   exampleSchema,
 } from '../model/ExampleForm.shema';
+
+import { getFieldError } from '@/shared/lib';
 
 const resetForm = { password: '', useremail: '' };
 

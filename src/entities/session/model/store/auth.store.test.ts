@@ -12,11 +12,11 @@ describe('useAuthStore', () => {
 
   it('sets access token and status', () => {
     const { setAccessToken, setStatus } = useAuthStore.getState().actions;
-    const state = useAuthStore.getState();
 
     setAccessToken('token-123');
     setStatus('authenticated');
 
+    const state = useAuthStore.getState();
     expect(state.accessToken).toBe('token-123');
     expect(state.status).toBe('authenticated');
   });
@@ -24,13 +24,13 @@ describe('useAuthStore', () => {
   it('resets state on logout', () => {
     const { setAccessToken, setStatus, logout } =
       useAuthStore.getState().actions;
-    const state = useAuthStore.getState();
 
     setAccessToken('token-123');
     setStatus('authenticated');
 
     logout();
 
+    const state = useAuthStore.getState();
     expect(state.accessToken).toBeUndefined();
     expect(state.status).toBe('anonymous');
   });

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { Input } from '../input/Input';
+import { Input } from '../input';
 
 import { FormField } from './FormField';
 

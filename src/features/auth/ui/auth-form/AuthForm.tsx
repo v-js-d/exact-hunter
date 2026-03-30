@@ -1,14 +1,15 @@
 'use client';
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   authSchema,
   type AuthShema,
   EmailShema,
   PhoneShema,
-} from '../../model/schema/AuthForm.shema';
+} from '@auth/model';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { AuthFormProps } from './AuthForm.types';
 import { FormEmail, FormTel } from './components';

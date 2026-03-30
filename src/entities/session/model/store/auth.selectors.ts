@@ -1,4 +1,4 @@
-import { AuthState } from '../types/AuthStore';
+import { AuthState } from '@session/model/types/AuthStore';
 
 export const selectStatus = (state: AuthState): AuthState['status'] =>
   state.status;

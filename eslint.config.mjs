@@ -29,7 +29,13 @@ const eslintConfig = defineConfig([
     },
     rules: {
       // Enforces FSD layer import rules (e.g., features cannot import pages)
-      'fsd/forbidden-imports': 'error',
+      'fsd/forbidden-imports': [
+        'error',
+        {
+          // Импорт публичного @/shared/lib изнутри слоя shared (иначе только relative)
+          ignoreImportPatterns: ['^@/shared/lib$'],
+        },
+      ],
 
       // Disallows relative imports between slices/layers, use aliases (@)
       // Allows relative imports within the same slice by default (configurable)
@@ -39,7 +45,7 @@ const eslintConfig = defineConfig([
       'fsd/no-public-api-sidestep': 'error',
 
       // Prevents direct imports between slices in the same layer
-      'fsd/no-cross-slice-dependency': 'warn',
+      'fsd/no-cross-slice-dependency': 'error',
 
       // Prevents UI imports in business logic layers (e.g., entities)
       'fsd/no-ui-in-business-logic': 'error',
@@ -47,7 +53,10 @@ const eslintConfig = defineConfig([
       // Forbids direct import of the global store
       'fsd/no-global-store-imports': [
         'error',
-        { allowedPaths: ['../store', './store'] },
+        {
+          // Относительные пути + алиас @session (тот же store, что ../store)
+          allowedPaths: ['../store', './store', '@session/model/store'],
+        },
       ],
 
       // Enforces import order based on FSD layers
@@ -67,7 +76,11 @@ const eslintConfig = defineConfig([
         {
           groups: [
             // 1. Внешние библиотеки (самые важные первыми)
-            ['^react', '^next', '^@?\\w'], // react, next, zustand, lodash и любые другие пакеты
+            ['^react', '^next'],
+            // Внутренние алиасы слайсов (не @/features|entities/* — иначе fsd/forbidden-imports)
+            ['^@auth'],
+            ['^@session'],
+            ['^@?\\w'], // zustand, lodash и любые другие пакеты
 
             // 2. Относительные импорты (совпадает с fsd/ordered-imports: non-FSD перед слоями)
             ['^\\.\\.(?!/?$)', '^\\.\\./?$'],

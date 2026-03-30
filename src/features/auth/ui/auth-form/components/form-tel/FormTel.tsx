@@ -2,9 +2,9 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { PhoneShema } from '../../../../model/schema/AuthForm.shema';
+import { PhoneShema } from '@auth/model';
 
-import { getFieldError } from '@/shared/lib/helpers/getFieldError';
+import { getFieldError } from '@/shared/lib';
 import { FormField, Input, Select } from '@/shared/ui';
 
 const countryNumbers = [

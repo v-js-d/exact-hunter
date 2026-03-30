@@ -1,4 +1,4 @@
-import type { ButtonProps } from '../button/Button.types';
+import type { ButtonProps } from '../button';
 
 export type BackButtonSize = Extract<
   NonNullable<ButtonProps['size']>,

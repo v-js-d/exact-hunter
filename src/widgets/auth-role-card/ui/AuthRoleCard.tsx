@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+
 import { ChartSpline } from 'lucide-react';
 
 import { NavigateButtons } from './components/NavigateButtons';
