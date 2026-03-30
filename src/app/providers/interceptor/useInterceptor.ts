@@ -29,6 +29,7 @@ export default function useInterceptor() {
         const data = error.response?.data;
         const originalUrl = error.config?.url ?? '';
 
+        // если initial refresh возращает 401 выкидываем ошибку
         if (status !== 401 || originalUrl.includes('/auth/refresh')) {
           return Promise.reject(new ApiError(status, data));
         }

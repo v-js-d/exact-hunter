@@ -12,7 +12,10 @@ import {
 
 import { getFieldError } from '@/shared/lib';
 
-const resetForm = { password: '', useremail: '' };
+const resetForm = {
+  password: '',
+  userEmail: '',
+};
 
 export const ExampleForm = () => {
   const {
@@ -28,7 +31,7 @@ export const ExampleForm = () => {
 
   const onSubmit = (data: ExampleFormTypes) => {
     console.log(
-      `user data: email - ${data.useremail}, password -  ${data.password}`,
+      `user data: email - ${data.userEmail}, password -  ${data.password}`,
     );
     reset(resetForm);
   };
@@ -40,14 +43,14 @@ export const ExampleForm = () => {
     >
       <Label htmlFor='user-email'>Email:</Label>
       <Input
-        {...register('useremail', {
+        {...register('userEmail', {
           required: true,
         })}
         id='user-email'
         placeholder='Email...'
       />
-      {getFieldError(errors, 'useremail') && (
-        <span>{getFieldError(errors, 'useremail')}</span>
+      {getFieldError(errors, 'userEmail') && (
+        <span>{getFieldError(errors, 'userEmail')}</span>
       )}
       <Label htmlFor='user-password'>Password:</Label>
       <Input

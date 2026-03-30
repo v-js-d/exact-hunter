@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { BackButton } from './BackButton';
+import { BackButton } from '@/shared/ui';
 
 const meta: Meta<typeof BackButton> = {
   title: 'UI/BackButton',

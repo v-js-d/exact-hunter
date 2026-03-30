@@ -5,7 +5,7 @@ import { exampleSchema } from './ExampleForm.shema';
 describe('exampleSchema', () => {
   it('accepts valid form payload', () => {
     const result = exampleSchema.safeParse({
-      useremail: 'user@example.com',
+      userEmail: 'user@example.com',
       password: 'Strong1!',
     });
 
@@ -14,7 +14,7 @@ describe('exampleSchema', () => {
 
   it('rejects invalid form payload', () => {
     const result = exampleSchema.safeParse({
-      useremail: 'bad-email',
+      userEmail: 'bad-email',
       password: 'weak',
     });
 

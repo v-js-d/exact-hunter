@@ -1,7 +1,7 @@
 import z from 'zod';
 
 export const exampleSchema = z.object({
-  useremail: z.email(),
+  userEmail: z.email(),
   password: z
     .string()
     .nonempty('Поле обязательно')

@@ -10,7 +10,6 @@ const meta: Meta<typeof ExampleForm> = {
 export default meta;
 type Story = StoryObj<typeof ExampleForm>;
 
-// Story по умолчанию
 export const Default: Story = {};
 
 export const Prefilled: Story = {

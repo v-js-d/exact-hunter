@@ -11,7 +11,7 @@ import { Button } from '@/shared/ui';
 const PARAMS = {
   MODE: 'mode',
   ROLE: 'role',
-};
+} as const;
 
 export const NavigateButtons = ({
   selectRoleFormRef,

@@ -31,6 +31,7 @@ describe('useAuthStore', () => {
     logout();
 
     const state = useAuthStore.getState();
+
     expect(state.accessToken).toBeUndefined();
     expect(state.status).toBe('anonymous');
   });

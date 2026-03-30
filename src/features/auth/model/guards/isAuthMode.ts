@@ -1,4 +1,4 @@
-import type { AuthMode } from '../types/auth.types';
+import type { AuthMode } from '@auth/model';
 
 const AUTH_MODES = {
   login: true,
