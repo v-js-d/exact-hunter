@@ -8,8 +8,13 @@ import { AuthForm, AuthMethod } from '@/features/auth';
 
 import { Button } from '@/shared/ui';
 
+const AUTH_METHODS = {
+  PHONE: 'phone',
+  EMAIL: 'email',
+} as const;
+
 export const AuthSwitcher = ({ role }: AuthSwitcherProps) => {
-  const [authMethod, setAuthMethod] = useState<AuthMethod>('phone');
+  const [authMethod, setAuthMethod] = useState<AuthMethod>(AUTH_METHODS.PHONE);
 
   const activeMethod = (method: AuthMethod) =>
     authMethod === method ? 'default' : 'outline';
@@ -18,18 +23,18 @@ export const AuthSwitcher = ({ role }: AuthSwitcherProps) => {
     <div className='grid grid-cols-2 gap-2.5'>
       <Button
         size={'lg'}
-        variant={activeMethod('phone')}
-        onClick={() => setAuthMethod('phone')}
-        aria-pressed={authMethod === 'phone'}
+        variant={activeMethod(AUTH_METHODS.PHONE)}
+        onClick={() => setAuthMethod(AUTH_METHODS.PHONE)}
+        aria-pressed={authMethod === AUTH_METHODS.PHONE}
         className='text-lg font-medium'
       >
         Телефон
       </Button>
       <Button
         size={'lg'}
-        variant={activeMethod('email')}
-        onClick={() => setAuthMethod('email')}
-        aria-pressed={authMethod === 'email'}
+        variant={activeMethod(AUTH_METHODS.EMAIL)}
+        onClick={() => setAuthMethod(AUTH_METHODS.EMAIL)}
+        aria-pressed={authMethod === AUTH_METHODS.EMAIL}
         className='text-lg font-medium'
       >
         Почта

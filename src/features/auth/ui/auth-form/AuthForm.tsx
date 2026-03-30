@@ -26,16 +26,16 @@ const emailDefaultValues: EmailShema = {
   role: 'CANDIDATE',
 };
 
-const AUTH_METHOD = {
+const AUTH_METHODS = {
   PHONE: 'phone',
   EMAIL: 'email',
-};
+} as const;
 
 export const AuthForm = ({ method, role }: AuthFormProps) => {
   const methods = useForm<AuthShema>({
     resolver: zodResolver(authSchema),
     defaultValues:
-      method === AUTH_METHOD.PHONE ? phoneDefaultValues : emailDefaultValues,
+      method === AUTH_METHODS.PHONE ? phoneDefaultValues : emailDefaultValues,
   });
 
   const onSubmit: SubmitHandler<AuthShema> = (data) => {
@@ -55,7 +55,7 @@ export const AuthForm = ({ method, role }: AuthFormProps) => {
         onSubmit={methods.handleSubmit(onSubmit)}
         className='col-span-2 grid items-center gap-6.25'
       >
-        {method === AUTH_METHOD.PHONE ? <FormTel /> : <FormEmail />}
+        {method === AUTH_METHODS.PHONE ? <FormTel /> : <FormEmail />}
         <Button
           type='submit'
           className='text-2xl font-semibold'
