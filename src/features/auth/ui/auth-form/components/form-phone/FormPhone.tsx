@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { PhoneShema } from '@auth/model';
+import { PhoneShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib';
 import { FormField, Input, Select } from '@/shared/ui';
@@ -13,7 +13,7 @@ const countryNumbers = [
   { country: 'Узбекистан', code: '+998' },
 ];
 
-export const FormTel = () => {
+export const FormPhone = () => {
   const {
     register,
     formState: { errors },

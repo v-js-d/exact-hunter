@@ -1,11 +1,12 @@
 import { useRouter } from 'next/navigation';
 
-import type { AuthCardProps } from './AuthCard.types';
-import { AuthPolicy, AuthSwitcher } from './components';
+import { AuthPolicy } from './components/AuthPolicy/AuthPolicy';
+import { AuthSwitcher } from './components/AuthSwitcher/AuthSwitcher';
+import type { AuthCardProps } from './AuthCardProps';
 
 import { AuthMode } from '@/features/auth';
 
-import { UserRole } from '@/entities/user';
+import { type UserRole } from '@/entities/user';
 
 import { BackButton } from '@/shared/ui';
 

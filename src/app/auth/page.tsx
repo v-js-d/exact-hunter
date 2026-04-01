@@ -7,7 +7,7 @@ import { AuthRoleCard } from '@/widgets/auth-role-card';
 
 import { isAuthMode, isUserRole } from '@/features/auth';
 
-import { UserRole } from '@/entities/user';
+import { type UserRole } from '@/entities/user';
 
 const PARAMS = {
   ROLE: 'role',

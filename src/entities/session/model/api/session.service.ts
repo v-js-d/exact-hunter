@@ -1,4 +1,4 @@
-import { RefreshResponse } from '@session/model/types/RefreshResp';
+import { RefreshResponse } from '../types/RefreshResp';
 
 import { mutation } from '@/shared/api/api';
 

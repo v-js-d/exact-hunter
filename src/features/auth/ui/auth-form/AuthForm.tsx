@@ -1,18 +1,18 @@
 'use client';
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   authSchema,
-  type AuthShema,
+  AuthShema,
   EmailShema,
   PhoneShema,
-} from '@auth/model';
+} from '../../model/schema/AuthForm.shema';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-
+import { FormEmail } from './components/form-email/FormEmail';
+import { FormPhone } from './components/form-phone/FormPhone';
 import { AuthFormProps } from './AuthForm.types';
-import { FormEmail, FormTel } from './components';
 
 import { Button } from '@/shared/ui';
 
@@ -56,7 +56,7 @@ export const AuthForm = ({ method, role }: AuthFormProps) => {
         onSubmit={methods.handleSubmit(onSubmit)}
         className='col-span-2 grid items-center gap-6.25'
       >
-        {method === AUTH_METHODS.PHONE ? <FormTel /> : <FormEmail />}
+        {method === AUTH_METHODS.PHONE ? <FormPhone /> : <FormEmail />}
         <Button
           type='submit'
           className='text-2xl font-semibold'

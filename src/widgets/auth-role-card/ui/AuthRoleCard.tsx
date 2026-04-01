@@ -1,10 +1,9 @@
 'use client';
 
 import { useRef } from 'react';
-
 import { ChartSpline } from 'lucide-react';
 
-import { NavigateButtons } from './components/NavigateButtons';
+import { NavigateButtons } from './components/navigate-buttons/NavigateButtons';
 import { AuthRoleCardProps } from './AuthRoleCard.types';
 
 import { RoleForm } from '@/features/auth';
@@ -21,6 +20,7 @@ export const AuthRoleCard = ({ role }: AuthRoleCardProps) => {
         <h1 className='text-center text-3xl font-bold'>ExactHunter</h1>
       </div>
       <RoleForm role={role} ref={selectRoleFormRef} />
+
       <NavigateButtons selectRoleFormRef={selectRoleFormRef} />
     </div>
   );

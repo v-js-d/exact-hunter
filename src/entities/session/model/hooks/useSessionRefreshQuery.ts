@@ -1,9 +1,8 @@
 import { useCallback, useRef } from 'react';
-
-import { refreshAuthTokenFn } from '@session/model/api/session.service';
-import { useAuthStore } from '@session/model/store/auth.store';
-
 import { useMutation } from '@tanstack/react-query';
+
+import { refreshAuthTokenFn } from '../api/session.service';
+import { useAuthStore } from '../store/auth.store';
 
 const REFRESH_URL = '/auth/refresh';
 

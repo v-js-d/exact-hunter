@@ -45,7 +45,14 @@ const eslintConfig = defineConfig([
       'fsd/no-public-api-sidestep': 'error',
 
       // Prevents direct imports between slices in the same layer
-      'fsd/no-cross-slice-dependency': 'error',
+      // eslint-plugin-fsd-lint incorrectly treats deep same-slice relative imports
+      // like ../../../../model as cross-slice imports into a "model" slice.
+      'fsd/no-cross-slice-dependency': [
+        'error',
+        {
+          ignoreImportPatterns: ['^(\\.\\./)+(api|config|lib|model|ui)(/.*)?$'],
+        },
+      ],
 
       // Prevents UI imports in business logic layers (e.g., entities)
       'fsd/no-ui-in-business-logic': 'error',
@@ -76,11 +83,8 @@ const eslintConfig = defineConfig([
         {
           groups: [
             // 1. Внешние библиотеки (самые важные первыми)
-            ['^react', '^next'],
+            ['^react', '^next', '^@?\\w'], // zustand, lodash и любые другие пакеты
             // Внутренние алиасы слайсов (не @/features|entities/* — иначе fsd/forbidden-imports)
-            ['^@auth'],
-            ['^@session'],
-            ['^@?\\w'], // zustand, lodash и любые другие пакеты
 
             // 2. Относительные импорты (совпадает с fsd/ordered-imports: non-FSD перед слоями)
             ['^\\.\\.(?!/?$)', '^\\.\\./?$'],

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { AuthSwitcherProps } from './AuthSwitcher.types';
+import { AuthSwitcherProps } from './AuthSwitcherProps';
 
 import { AuthForm, AuthMethod } from '@/features/auth';
 
