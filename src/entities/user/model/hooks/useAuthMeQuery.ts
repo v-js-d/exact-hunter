@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-//FIXME: need to fix fsd/forbidden-imports entity from entity
 import { getMe } from '../api/user.service';
 import { MeResponse } from '../types/user.types';
 
