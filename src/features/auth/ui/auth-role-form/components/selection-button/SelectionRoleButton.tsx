@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 
 import { SelectionRoleButtonProps } from './SelectionRoleButton.types';
 
-import { Input } from '@/shared/ui';
+import { Input } from '@/shared/ui/input';
 
 export const SelectionRoleButton = ({
   description,

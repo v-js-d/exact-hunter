@@ -1,2 +1,2 @@
-export { BackButton } from './BackButton';
-export type { BackButtonProps } from './BackButton.types';
+export { BackButton } from './ui/BackButton';
+export type { BackButtonProps } from './ui/BackButton.types';

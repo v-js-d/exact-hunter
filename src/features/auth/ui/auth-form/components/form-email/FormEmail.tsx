@@ -5,7 +5,8 @@ import { useFormContext } from 'react-hook-form';
 import { EmailShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib';
-import { FormField, Input } from '@/shared/ui';
+import { FormField } from '@/shared/ui/form-field';
+import { Input } from '@/shared/ui/input';
 
 export const FormEmail = () => {
   const {

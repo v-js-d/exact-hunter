@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
 
-import { cn } from '../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn';
 
 import type { ButtonProps } from './Button.types';
 

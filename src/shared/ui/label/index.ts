@@ -1,2 +1,2 @@
-export { Label } from './Label';
-export type { LabelProps } from './Label.types';
+export { Label } from './ui/Label';
+export type { LabelProps } from './ui/Label.types';

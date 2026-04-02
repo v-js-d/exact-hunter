@@ -6,5 +6,5 @@ export {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './Card';
-export type { CardProps } from './Card.types';
+} from './ui/Card';
+export type { CardProps } from './ui/Card.types';

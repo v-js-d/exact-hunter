@@ -1,4 +1,4 @@
-import { cn } from '../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn';
 
 import type { SkeletonProps } from './Skeleton.types';
 

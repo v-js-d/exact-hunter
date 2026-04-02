@@ -14,7 +14,7 @@ import { FormEmail } from './components/form-email/FormEmail';
 import { FormPhone } from './components/form-phone/FormPhone';
 import { AuthFormProps } from './AuthForm.types';
 
-import { Button } from '@/shared/ui';
+import { Button } from '@/shared/ui/button';
 
 const phoneDefaultValues: PhoneShema = {
   countryCode: '+7',

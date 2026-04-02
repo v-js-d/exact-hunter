@@ -18,16 +18,16 @@ import {
 import { selectUser, useAuthMeQuery, useUserStore } from '@/entities/user';
 
 import { ApiError } from '@/shared/api/api-error';
+import { Button } from '@/shared/ui/button';
 import {
-  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Input,
-  Label,
-} from '@/shared/ui';
+} from '@/shared/ui/card';
+import { Input } from '@/shared/ui/input';
+import { Label } from '@/shared/ui/label';
 
 const AuthTestPage = () => {
   const [email, setEmail] = useState('test@example.com');

@@ -5,7 +5,9 @@ import { useFormContext } from 'react-hook-form';
 import { PhoneShema } from '../../../../model/schema/AuthForm.shema';
 
 import { getFieldError } from '@/shared/lib';
-import { FormField, Input, Select } from '@/shared/ui';
+import { FormField } from '@/shared/ui/form-field';
+import { Input } from '@/shared/ui/input';
+import { Select } from '@/shared/ui/select';
 
 const countryNumbers = [
   { country: 'Россия', code: '+7' },

@@ -8,7 +8,7 @@ import { AuthMode } from '@/features/auth';
 
 import { type UserRole } from '@/entities/user';
 
-import { BackButton } from '@/shared/ui';
+import { BackButton } from '@/shared/ui/back-button';
 
 const commonRecruiterTitle =
   'Здравствуйте, Кабан Кабаныч, нужны новые крестьяне?';

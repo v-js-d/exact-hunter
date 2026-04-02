@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn';
 
 import { ContainerProps } from './Container.types';
 

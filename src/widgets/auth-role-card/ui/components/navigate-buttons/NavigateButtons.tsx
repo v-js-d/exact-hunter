@@ -6,7 +6,7 @@ import { NavigateButtonsProps } from './NavigateButtons.types';
 
 import { AuthMode } from '@/features/auth';
 
-import { Button } from '@/shared/ui';
+import { Button } from '@/shared/ui/button';
 
 const PARAMS = {
   MODE: 'mode',

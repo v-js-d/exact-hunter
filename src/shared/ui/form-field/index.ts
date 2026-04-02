@@ -1,2 +1,2 @@
-export { FormField } from './FormField';
-export type { FormFieldProps } from './FormField.types';
+export { FormField } from './ui/FormField';
+export type { FormFieldProps } from './ui/FormField.types';

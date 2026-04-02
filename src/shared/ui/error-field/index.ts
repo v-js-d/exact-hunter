@@ -1,2 +1,2 @@
-export { ErrorField } from './ErrorField';
-export type { ErrorFieldProps } from './ErrorField.types';
+export { ErrorField } from './ui/ErrorField';
+export type { ErrorFieldProps } from './ui/ErrorField.types';

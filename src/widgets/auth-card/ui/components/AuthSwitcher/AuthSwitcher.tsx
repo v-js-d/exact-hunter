@@ -6,7 +6,7 @@ import { AuthSwitcherProps } from './AuthSwitcherProps';
 
 import { AuthForm, AuthMethod } from '@/features/auth';
 
-import { Button } from '@/shared/ui';
+import { Button } from '@/shared/ui/button';
 
 const AUTH_METHODS = {
   PHONE: 'phone',

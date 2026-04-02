@@ -2,9 +2,10 @@
 
 import clsx from 'clsx';
 
-import type { FormFieldProps } from './FormField.types';
+import { ErrorField } from '../../error-field';
+import { Label } from '../../label';
 
-import { ErrorField, Label } from '@/shared/ui';
+import type { FormFieldProps } from './FormField.types';
 
 export const FormField = ({
   label,
