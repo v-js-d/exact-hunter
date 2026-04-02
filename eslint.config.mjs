@@ -32,14 +32,12 @@ const eslintConfig = defineConfig([
       'fsd/forbidden-imports': [
         'error',
         {
-          // Импорт публичного @/shared/lib изнутри слоя shared (иначе только relative)
-          ignoreImportPatterns: ['^@/shared/lib$', '^@/shared/ui$'],
+          // Внутри слоя shared импорты - относительные; алиасы на @/shared не используются
         },
       ],
 
-      // Disallows relative imports between slices/layers, use aliases (@)
-      // Allows relative imports within the same slice by default (configurable)
-      'fsd/no-relative-imports': 'error',
+      // Внутри одного слоя - только относительные пути; алиас на тот же слой запрещён (no-restricted-imports по files)
+      'fsd/no-relative-imports': 'off',
 
       // Enforces importing only via public API (index files)
       'fsd/no-public-api-sidestep': 'error',
@@ -70,6 +68,77 @@ const eslintConfig = defineConfig([
       'fsd/ordered-imports': 'warn',
     },
   },
+
+  // Внутри слоя - без алиаса на этот же слой (только относительные пути)
+  {
+    files: ['src/features/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/features(/|$)',
+              message:
+                'Within the features layer use relative imports, not the @/features alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/entities/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/entities(/|$)',
+              message:
+                'Within the entities layer use relative imports, not the @/entities alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/widgets/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/widgets(/|$)',
+              message:
+                'Within the widgets layer use relative imports, not the @/widgets alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/shared/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/shared(/|$)',
+              message:
+                'Within the shared layer use relative imports, not the @/shared alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -140,6 +209,18 @@ const eslintConfig = defineConfig([
     rules: {
       'import/no-default-export': 'off',
       'import/prefer-default-export': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/app(/|$)',
+              message:
+                'Within the app layer use relative imports, not the @/app alias.',
+            },
+          ],
+        },
+      ],
     },
   },
 
@@ -153,7 +234,6 @@ const eslintConfig = defineConfig([
   {
     files: ['.storybook/**/*.ts', '.storybook/**/*.tsx'],
     rules: {
-      'fsd/no-relative-imports': 'off',
       'import/no-default-export': 'off',
     },
   },
