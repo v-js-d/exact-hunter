@@ -175,6 +175,9 @@ const eslintConfig = defineConfig([
       ],
       'simple-import-sort/exports': 'error',
 
+      // Требует LF (\n) вместо CRLF (\r\n) — стандарт для Unix/Git
+      'linebreak-style': ['error', 'unix'],
+
       // Правила импортов
       'import/first': 'error',
       'import/newline-after-import': ['error', { count: 1 }],
