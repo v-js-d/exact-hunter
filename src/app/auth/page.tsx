@@ -5,9 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import { AuthCard } from '@/widgets/auth-card';
 import { AuthRoleCard } from '@/widgets/auth-role-card';
 
-import { isAuthMode, isUserRole } from '@/features/auth';
+import { isAuthMode } from '@/features/auth';
 
-import { type UserRole } from '@/entities/user';
+import { isUserRole, type UserRole } from '@/entities/user';
 
 const PARAMS = {
   ROLE: 'role',

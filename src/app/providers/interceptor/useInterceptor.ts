@@ -2,9 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-import { useAttachAuthToken } from '@/features/auth';
-
-import { useSessionRefreshQuery } from '@/entities/session';
+import { useAttachAuthToken, useSessionRefreshQuery } from '@/features/auth';
 
 import { $api } from '@/shared/api/api';
 import { ApiError } from '@/shared/api/api-error';

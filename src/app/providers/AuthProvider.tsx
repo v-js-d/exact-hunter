@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { useAuthStore, useSessionRefreshQuery } from '@/entities/session';
+import { useSessionRefreshQuery } from '@/features/auth';
+
+import { useAuthStore } from '@/entities/session';
 import { useAuthMeQuery, useUserStore } from '@/entities/user';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {

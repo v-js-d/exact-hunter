@@ -1,6 +1,5 @@
-export { logoutFn } from './model/api/session.service';
+export { logoutFn, refreshAuthTokenFn } from './model/api/session.service';
 export { useLogoutMutation } from './model/hooks/useLogoutMutation';
-export { useSessionRefreshQuery } from './model/hooks/useSessionRefreshQuery';
 export {
   selectAccessToken,
   selectIsAuthenticated,
