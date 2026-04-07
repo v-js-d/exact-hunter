@@ -24,7 +24,13 @@
 # misc
 .DS_Store
 *.pem
-.idea
+# JetBrains: не коммитим локальный .idea целиком, только профиль инспекций
+# (отключено ES6PreferShortImport — совместимо с ESLint: relative внутри слоя)
+.idea/*
+!.idea/inspectionProfiles/
+!.idea/inspectionProfiles/Project_Default.xml
+!.idea/inspectionProfiles/profiles_settings.xml
+
 .vscode
 .history
 

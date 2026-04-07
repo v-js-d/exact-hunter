@@ -1,30 +1,20 @@
 'use client';
 
 import clsx from 'clsx';
-import { ChevronRight, LucideIcon } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
-import { UserRole } from '@/entities/user';
+import { SelectionRoleButtonProps } from './SelectionRoleButton.types';
 
 import { Input } from '@/shared/ui/input';
 
-interface Props {
-  role: UserRole;
-  Icon: LucideIcon;
-  color?: 'blue' | 'orange';
-  title: string;
-  description: string;
-  selectedRole: UserRole;
-}
-
-export function SelectionRoleButton(props: Props) {
-  const {
-    description,
-    Icon,
-    role,
-    title,
-    color = 'blue',
-    selectedRole,
-  } = props;
+export const SelectionRoleButton = ({
+  description,
+  Icon,
+  role,
+  title,
+  color = 'blue',
+  selectedRole,
+}: SelectionRoleButtonProps) => {
   const formatRole = role.toLowerCase();
 
   return (
@@ -64,4 +54,4 @@ export function SelectionRoleButton(props: Props) {
       />
     </label>
   );
-}
+};

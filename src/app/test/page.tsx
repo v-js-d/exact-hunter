@@ -25,11 +25,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/shared/ui/card/ui/card';
+} from '@/shared/ui/card';
 import { Input } from '@/shared/ui/input';
 import { Label } from '@/shared/ui/label';
 
-export default function AuthTestPage() {
+const AuthTestPage = () => {
   const [email, setEmail] = useState('test@example.com');
   const [password, setPassword] = useState('password123');
   const [logs, setLogs] = useState<string[]>([]);
@@ -161,7 +161,9 @@ export default function AuthTestPage() {
                     id='password'
                     type='password'
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setPassword(e.target.value)
+                    }
                   />
                 </div>
                 <div className='flex flex-col gap-2 pt-2'>
@@ -271,4 +273,6 @@ export default function AuthTestPage() {
       </div>
     </div>
   );
-}
+};
+
+export default AuthTestPage;

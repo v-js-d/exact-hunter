@@ -1,16 +1,16 @@
 import z from 'zod';
 
-import { userRoleEnum } from '@/entities/user';
+import { userRoles } from '@/entities/user';
 
 export const emailSchema = z.object({
   email: z.email('Неверный email'),
-  role: userRoleEnum,
+  role: z.enum(userRoles),
 });
 
 export const phoneSchema = z.object({
   countryCode: z.string(),
   phone: z.string().regex(/^\d{6,14}$/, { message: 'Неверный номер телефона' }),
-  role: userRoleEnum,
+  role: z.enum(userRoles),
 });
 
 export const authSchema = z.union([phoneSchema, emailSchema]);

@@ -29,17 +29,28 @@ const eslintConfig = defineConfig([
     },
     rules: {
       // Enforces FSD layer import rules (e.g., features cannot import pages)
-      'fsd/forbidden-imports': 'error',
+      'fsd/forbidden-imports': [
+        'error',
+        {
+          // Внутри слоя shared импорты - относительные; алиасы на @/shared не используются
+        },
+      ],
 
-      // Disallows relative imports between slices/layers, use aliases (@)
-      // Allows relative imports within the same slice by default (configurable)
-      'fsd/no-relative-imports': 'error',
+      // Внутри одного слоя - только относительные пути; алиас на тот же слой запрещён (no-restricted-imports по files)
+      'fsd/no-relative-imports': 'off',
 
       // Enforces importing only via public API (index files)
       'fsd/no-public-api-sidestep': 'error',
 
       // Prevents direct imports between slices in the same layer
-      'fsd/no-cross-slice-dependency': 'warn',
+      // eslint-plugin-fsd-lint incorrectly treats deep same-slice relative imports
+      // like ../../../../model as cross-slice imports into a "model" slice.
+      'fsd/no-cross-slice-dependency': [
+        'error',
+        {
+          ignoreImportPatterns: ['^(\\.\\./)+(api|config|lib|model|ui)(/.*)?$'],
+        },
+      ],
 
       // Prevents UI imports in business logic layers (e.g., entities)
       'fsd/no-ui-in-business-logic': 'error',
@@ -47,13 +58,87 @@ const eslintConfig = defineConfig([
       // Forbids direct import of the global store
       'fsd/no-global-store-imports': [
         'error',
-        { allowedPaths: ['../store', './store'] },
+        {
+          // Относительные пути + алиас @session (тот же store, что ../store)
+          allowedPaths: ['../store', './store', '@session/model/store'],
+        },
       ],
 
       // Enforces import order based on FSD layers
       'fsd/ordered-imports': 'warn',
     },
   },
+
+  // Внутри слоя - без алиаса на этот же слой (только относительные пути)
+  {
+    files: ['src/features/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/features(/|$)',
+              message:
+                'Within the features layer use relative imports, not the @/features alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/entities/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/entities(/|$)',
+              message:
+                'Within the entities layer use relative imports, not the @/entities alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/widgets/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/widgets(/|$)',
+              message:
+                'Within the widgets layer use relative imports, not the @/widgets alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['src/shared/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/shared(/|$)',
+              message:
+                'Within the shared layer use relative imports, not the @/shared alias.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -67,7 +152,8 @@ const eslintConfig = defineConfig([
         {
           groups: [
             // 1. Внешние библиотеки (самые важные первыми)
-            ['^react', '^next', '^@?\\w'], // react, next, zustand, lodash и любые другие пакеты
+            ['^react', '^next', '^@?\\w'], // zustand, lodash и любые другие пакеты
+            // Внутренние алиасы слайсов (не @/features|entities/* — иначе fsd/forbidden-imports)
 
             // 2. Относительные импорты (совпадает с fsd/ordered-imports: non-FSD перед слоями)
             ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
@@ -88,6 +174,9 @@ const eslintConfig = defineConfig([
         },
       ],
       'simple-import-sort/exports': 'error',
+
+      // Требует LF (\n) вместо CRLF (\r\n) — стандарт для Unix/Git
+      'linebreak-style': ['error', 'unix'],
 
       // Правила импортов
       'import/first': 'error',
@@ -123,6 +212,18 @@ const eslintConfig = defineConfig([
     rules: {
       'import/no-default-export': 'off',
       'import/prefer-default-export': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/app(/|$)',
+              message:
+                'Within the app layer use relative imports, not the @/app alias.',
+            },
+          ],
+        },
+      ],
     },
   },
 
@@ -136,7 +237,6 @@ const eslintConfig = defineConfig([
   {
     files: ['.storybook/**/*.ts', '.storybook/**/*.tsx'],
     rules: {
-      'fsd/no-relative-imports': 'off',
       'import/no-default-export': 'off',
     },
   },

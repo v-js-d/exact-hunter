@@ -6,11 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuthStore, useSessionRefreshQuery } from '@/entities/session';
 import { useAuthMeQuery, useUserStore } from '@/entities/user';
 
-export default function AuthProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const isLoginPage = pathname === '/auth';
@@ -29,7 +25,9 @@ export default function AuthProvider({
 
   // При загрузке делаем первый рефреш
   useEffect(() => {
-    if (!isFirstMount.current) return;
+    if (!isFirstMount.current) {
+      return;
+    }
     isFirstMount.current = false;
 
     // На странице логина мы не делаем рефреш
@@ -69,7 +67,11 @@ export default function AuthProvider({
     isLoginPage,
   ]);
 
-  if (!isRefreshDone || isLoading) return null;
+  if (!isRefreshDone || isLoading) {
+    return null;
+  }
 
   return <>{children}</>;
-}
+};
+
+export default AuthProvider;

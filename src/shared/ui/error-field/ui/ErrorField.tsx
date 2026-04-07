@@ -1,11 +1,5 @@
-import { ReactNode } from 'react';
+import type { ErrorFieldProps } from './ErrorField.types';
 
-export function ErrorField({
-  children,
-  className = '',
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return <span className={`text-red-f2 text-sm ${className}`}>{children}</span>;
-}
+export const ErrorField = ({ children, className = '' }: ErrorFieldProps) => (
+  <span className={`text-red-f2 text-sm ${className}`}>{children}</span>
+);

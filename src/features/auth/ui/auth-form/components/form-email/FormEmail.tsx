@@ -4,15 +4,16 @@ import { useFormContext } from 'react-hook-form';
 
 import { EmailShema } from '../../../../model/schema/AuthForm.shema';
 
-import { getFieldError } from '@/shared/lib/helpers/getFieldError';
+import { getFieldError } from '@/shared/lib';
 import { FormField } from '@/shared/ui/form-field';
 import { Input } from '@/shared/ui/input';
 
-export function FormEmail() {
+export const FormEmail = () => {
   const {
     register,
     formState: { errors },
   } = useFormContext<EmailShema>();
+
   return (
     <FormField
       htmlFor='register-email-input'
@@ -29,4 +30,4 @@ export function FormEmail() {
       />
     </FormField>
   );
-}
+};

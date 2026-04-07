@@ -5,40 +5,38 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
   authSchema,
-  type AuthShema,
+  AuthShema,
   EmailShema,
   PhoneShema,
 } from '../../model/schema/AuthForm.shema';
-import { AuthMethod } from '../../model/types/auth.types';
 
-import { FormEmail } from './components/form-email';
-import { FormTel } from './components/form-tel';
-
-import { UserRole } from '@/entities/user';
+import { FormEmail } from './components/form-email/FormEmail';
+import { FormPhone } from './components/form-phone/FormPhone';
+import { AuthFormProps } from './AuthForm.types';
 
 import { Button } from '@/shared/ui/button';
 
-const phoneDeafultValues: PhoneShema = {
+const phoneDefaultValues: PhoneShema = {
   countryCode: '+7',
   phone: '',
   role: 'CANDIDATE',
 };
 
-const emailDefaultvalues: EmailShema = {
+const emailDefaultValues: EmailShema = {
   email: '',
   role: 'CANDIDATE',
 };
 
-export function AuthForm({
-  method,
-  role,
-}: {
-  method: AuthMethod;
-  role: UserRole;
-}) {
+const AUTH_METHODS = {
+  PHONE: 'phone',
+  EMAIL: 'email',
+} as const;
+
+export const AuthForm = ({ method, role }: AuthFormProps) => {
   const methods = useForm<AuthShema>({
     resolver: zodResolver(authSchema),
-    defaultValues: method === 'phone' ? phoneDeafultValues : emailDefaultvalues,
+    defaultValues:
+      method === AUTH_METHODS.PHONE ? phoneDefaultValues : emailDefaultValues,
   });
 
   const onSubmit: SubmitHandler<AuthShema> = (data) => {
@@ -58,7 +56,7 @@ export function AuthForm({
         onSubmit={methods.handleSubmit(onSubmit)}
         className='col-span-2 grid items-center gap-6.25'
       >
-        {method === 'phone' ? <FormTel /> : <FormEmail />}
+        {method === AUTH_METHODS.PHONE ? <FormPhone /> : <FormEmail />}
         <Button
           type='submit'
           className='text-2xl font-semibold'
@@ -69,4 +67,4 @@ export function AuthForm({
       </form>
     </FormProvider>
   );
-}
+};
