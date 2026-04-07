@@ -15,7 +15,12 @@ import {
   selectStatus,
   useAuthStore,
 } from '@/entities/session';
-import { selectUser, useAuthMeQuery, useUserStore } from '@/entities/user';
+import {
+  selectUser,
+  useAuthMeQuery,
+  type UserRole,
+  useUserStore,
+} from '@/entities/user';
 
 import { ApiError } from '@/shared/api/api-error';
 import { Button } from '@/shared/ui/button';
@@ -32,6 +37,7 @@ import { Label } from '@/shared/ui/label';
 const AuthTestPage = () => {
   const [email, setEmail] = useState('test@example.com');
   const [password, setPassword] = useState('password123');
+  const [role, setRole] = useState<UserRole>('CANDIDATE');
   const [logs, setLogs] = useState<string[]>([]);
 
   const status = useAuthStore(selectStatus);
@@ -61,16 +67,17 @@ const AuthTestPage = () => {
   }
 
   function handleRegister() {
-    log('POST /auth/register ...');
+    log(`POST /auth/register (role=${role}) ...`);
     registerMutation.mutate(
       {
         email,
         password,
+        role,
       },
       {
         onSuccess: (data) => {
           log(
-            `Register OK. User: ${data.user.email}, Token: ${data.accessToken.slice(0, 20)}...`,
+            `Register OK. User: ${data.user.email}, role: ${data.user.role}, Token: ${data.accessToken.slice(0, 20)}...`,
           );
         },
         onError: (err) => {
@@ -81,16 +88,17 @@ const AuthTestPage = () => {
   }
 
   function handleLogin() {
-    log('POST /auth/login ...');
+    log(`POST /auth/login (role=${role}) ...`);
     loginMutation.mutate(
       {
         email,
         password,
+        role,
       },
       {
         onSuccess: (data) => {
           log(
-            `Login OK. User: ${data.user.email}, Token: ${data.accessToken.slice(0, 20)}...`,
+            `Login OK. User: ${data.user.email}, role: ${data.user.role}, Token: ${data.accessToken.slice(0, 20)}...`,
           );
         },
         onError: (err) => {
@@ -141,11 +149,35 @@ const AuthTestPage = () => {
             <CardHeader>
               <CardTitle>Auth Test</CardTitle>
               <CardDescription>
-                Register, login, then test /me and refresh flow
+                Выберите роль как на экране auth; register сохраняет её в
+                мок-БД. Login с другой ролью даёт 403. Затем /me и refresh.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className='flex flex-col gap-3'>
+                <div className='flex flex-col gap-1.5'>
+                  <Label>Роль</Label>
+                  <div className='grid grid-cols-2 gap-2'>
+                    <Button
+                      type='button'
+                      size='sm'
+                      variant={role === 'CANDIDATE' ? 'default' : 'outline'}
+                      onClick={() => setRole('CANDIDATE')}
+                      aria-pressed={role === 'CANDIDATE'}
+                    >
+                      CANDIDATE
+                    </Button>
+                    <Button
+                      type='button'
+                      size='sm'
+                      variant={role === 'RECRUITER' ? 'default' : 'outline'}
+                      onClick={() => setRole('RECRUITER')}
+                      aria-pressed={role === 'RECRUITER'}
+                    >
+                      RECRUITER
+                    </Button>
+                  </div>
+                </div>
                 <div className='flex flex-col gap-1.5'>
                   <Label htmlFor='email'>Email</Label>
                   <Input
@@ -249,9 +281,8 @@ const AuthTestPage = () => {
           <CardHeader>
             <CardTitle>Logs</CardTitle>
             <CardDescription>
-              {
-                'Request/response log. Test flow: Register > Clear Token > GET /me (triggers 401 > refresh > retry)'
-              }
+              Register → Clear Token → GET /me (401 → refresh с user.role →
+              retry). Роль в State должна совпадать с ролью при регистрации.
             </CardDescription>
           </CardHeader>
           <CardContent>

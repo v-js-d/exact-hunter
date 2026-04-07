@@ -1,10 +1,22 @@
 import { http, HttpResponse } from 'msw';
 
+/** Дублирует контракт API / entities.user; shared не импортирует entities (FSD). */
+type MockUserRole = 'CANDIDATE' | 'RECRUITER';
+
+const MOCK_ROLE_ALLOWLIST = {
+  CANDIDATE: true,
+  RECRUITER: true,
+} as const satisfies Record<MockUserRole, true>;
+
+function isMockUserRole(value: unknown): value is MockUserRole {
+  return typeof value === 'string' && value in MOCK_ROLE_ALLOWLIST;
+}
+
 interface MockUser {
   id: string;
   email: string;
   password: string;
-  role: string;
+  role: MockUserRole;
 }
 
 const mockUsers = new Map<string, MockUser>();
@@ -72,6 +84,7 @@ export const authHandlers = [
     const body = (await request.json()) as {
       email: string;
       password: string;
+      role?: unknown;
     };
 
     if (!body.email || !body.password) {
@@ -80,6 +93,15 @@ export const authHandlers = [
         { status: 400 },
       );
     }
+
+    if (!isMockUserRole(body.role)) {
+      return HttpResponse.json(
+        { message: 'Valid role (CANDIDATE or RECRUITER) is required' },
+        { status: 400 },
+      );
+    }
+
+    const role = body.role;
 
     const existingUser = Array.from(mockUsers.values()).find(
       (u) => u.email === body.email,
@@ -97,7 +119,7 @@ export const authHandlers = [
       id,
       email: body.email,
       password: body.password,
-      role: 'user',
+      role,
     };
 
     mockUsers.set(id, user);
@@ -118,6 +140,7 @@ export const authHandlers = [
     const body = (await request.json()) as {
       email: string;
       password: string;
+      role?: unknown;
     };
 
     const user = Array.from(mockUsers.values()).find(
@@ -129,6 +152,15 @@ export const authHandlers = [
         { message: 'Invalid email or password' },
         { status: 401 },
       );
+    }
+
+    if (body.role !== undefined && isMockUserRole(body.role)) {
+      if (body.role !== user.role) {
+        return HttpResponse.json(
+          { message: 'Роль не совпадает с аккаунтом' },
+          { status: 403 },
+        );
+      }
     }
 
     const { accessToken } = createTokenPair(user.id);
@@ -168,9 +200,24 @@ export const authHandlers = [
 
     refreshTokenToUserId.delete(refreshToken);
 
+    const user = mockUsers.get(userId);
+    if (!user) {
+      return HttpResponse.json(
+        { message: 'Invalid refresh token' },
+        { status: 401 },
+      );
+    }
+
     const { accessToken } = createTokenPair(userId);
 
-    return HttpResponse.json({ accessToken });
+    return HttpResponse.json({
+      accessToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      },
+    });
   }),
 
   http.post(`${BASE}/logout`, ({ request }) => {
