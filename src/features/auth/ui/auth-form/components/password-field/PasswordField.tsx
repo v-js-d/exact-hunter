@@ -4,28 +4,33 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Eye, EyeClosed } from 'lucide-react';
 
-import { AuthSchema } from '../../../../model/schema/AuthForm.shema';
+import { AuthTypes } from '../../../../model/schema/AuthForm.shema';
 
-import { PasswordFieldProps, PasswordMode } from './PasswordField.types';
+import {
+  PasswordFieldProps,
+  PasswordMode,
+  PasswordTitles,
+} from './PasswordField.types';
 
 import { FormField } from '@/shared/ui/form-field';
 import { Input } from '@/shared/ui/input';
 
 const PASSWORD_TITLES = {
-  password: 'Show',
-  text: 'Hide',
-} satisfies Record<PasswordMode, string>;
-
-const PASSWORD_ICONS = {
-  password: EyeClosed,
-  text: Eye,
-} as const;
+  password: {
+    text: 'Show',
+    icon: Eye,
+  },
+  text: {
+    text: 'Hide',
+    icon: EyeClosed,
+  },
+} satisfies Record<PasswordMode, PasswordTitles>;
 
 export const PasswordField = ({ errors, isPending }: PasswordFieldProps) => {
   const [passwordMode, setPasswordMode] = useState<PasswordMode>('password');
-  const { register } = useFormContext<AuthSchema>();
+  const { register } = useFormContext<AuthTypes>();
 
-  const Icon = PASSWORD_ICONS[passwordMode];
+  const Icon = PASSWORD_TITLES[passwordMode].icon;
 
   return (
     <FormField
@@ -48,7 +53,7 @@ export const PasswordField = ({ errors, isPending }: PasswordFieldProps) => {
           type='button'
           disabled={isPending}
           className='absolute top-1/2 right-4 flex -translate-y-1/2'
-          title={PASSWORD_TITLES[passwordMode]}
+          title={PASSWORD_TITLES[passwordMode].text}
           onClick={() =>
             setPasswordMode((prevMode) =>
               prevMode === 'password' ? 'text' : 'password',

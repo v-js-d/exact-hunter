@@ -7,10 +7,10 @@ import { useAuthServerErrors } from '../../model/hooks/useAuthServerErrors';
 import { useLoginMutation } from '../../model/hooks/useLoginMutation';
 import { useRegisterMutation } from '../../model/hooks/useRegisterMutation';
 import {
-  AuthSchema,
   authSchema,
-  EmailShema,
-  PhoneShema,
+  AuthTypes,
+  EmailTypes,
+  PhoneTypes,
 } from '../../model/schema/AuthForm.shema';
 
 import { FormEmail } from './components/form-email/FormEmail';
@@ -20,14 +20,14 @@ import { AuthFormProps } from './AuthForm.types';
 import { Button } from '@/shared/ui/button';
 import { ErrorField } from '@/shared/ui/error-field';
 
-const phoneDefaultValues: PhoneShema = {
+const phoneDefaultValues: PhoneTypes = {
   countryCode: '+7',
   phone: '',
   password: '',
   role: 'CANDIDATE',
 };
 
-const emailDefaultValues: EmailShema = {
+const emailDefaultValues: EmailTypes = {
   email: '',
   password: '',
   role: 'CANDIDATE',
@@ -39,7 +39,7 @@ const AUTH_METHODS = {
 } as const;
 
 export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
-  const form = useForm<AuthSchema>({
+  const form = useForm<AuthTypes>({
     resolver: zodResolver(authSchema),
     defaultValues:
       method === AUTH_METHODS.PHONE ? phoneDefaultValues : emailDefaultValues,
@@ -52,7 +52,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
 
   const { mutate: loginMutate, isPending: loginLoading } = useLoginMutation();
 
-  const onSubmit: SubmitHandler<AuthSchema> = (data) => {
+  const onSubmit: SubmitHandler<AuthTypes> = (data) => {
     const newUser = {
       ...data,
       role,
@@ -87,7 +87,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
           ) : (
             <FormEmail isPending={isPending} />
           )}
-          <ErrorField>{rootServerError}</ErrorField>
+          {rootServerError && <ErrorField>{rootServerError}</ErrorField>}
         </fieldset>
         <Button
           type='submit'

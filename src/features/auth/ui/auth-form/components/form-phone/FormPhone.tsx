@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { PhoneShema } from '../../../../model/schema/AuthForm.shema';
+import { PhoneTypes } from '../../../../model/schema/AuthForm.shema';
 import { PasswordField } from '../password-field/PasswordField';
 
 import { getFieldError } from '@/shared/lib';
@@ -20,7 +20,7 @@ export const FormPhone = ({ isPending }: { isPending: boolean }) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<PhoneShema>();
+  } = useFormContext<PhoneTypes>();
 
   return (
     <>

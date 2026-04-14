@@ -32,8 +32,8 @@ const titles = {
 
 export const AuthCard = ({ role, mode }: AuthCardProps) => {
   const router = useRouter();
-  const registrationPending = useRegisterMutation().isPending;
-  const loginPending = useLoginMutation().isPending;
+  const { isPending: registrationPending } = useRegisterMutation();
+  const { isPending: loginPending } = useLoginMutation();
   const isPending = registrationPending || loginPending;
 
   const title = titles[mode][role];
