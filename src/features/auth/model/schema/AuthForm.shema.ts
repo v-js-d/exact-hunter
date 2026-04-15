@@ -19,7 +19,7 @@ export const phoneSchema = z.object({
 
 export const authSchema = z.union([phoneSchema, emailSchema]);
 
-export type PhoneTypes = z.infer<typeof phoneSchema>;
-export type EmailTypes = z.infer<typeof emailSchema>;
+export type PhoneFormTypes = z.infer<typeof phoneSchema>;
+export type EmailFormTypes = z.infer<typeof emailSchema>;
 
-export type AuthTypes = z.infer<typeof authSchema>;
+export type AuthFormTypes = z.infer<typeof authSchema>;

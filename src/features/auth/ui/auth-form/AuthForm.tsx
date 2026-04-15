@@ -3,14 +3,13 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useAuthServerErrors } from '../../model/hooks/useAuthServerErrors';
 import { useLoginMutation } from '../../model/hooks/useLoginMutation';
 import { useRegisterMutation } from '../../model/hooks/useRegisterMutation';
 import {
+  AuthFormTypes,
   authSchema,
-  AuthTypes,
-  EmailTypes,
-  PhoneTypes,
+  EmailFormTypes,
+  PhoneFormTypes,
 } from '../../model/schema/AuthForm.shema';
 
 import { FormEmail } from './components/form-email/FormEmail';
@@ -20,14 +19,14 @@ import { AuthFormProps } from './AuthForm.types';
 import { Button } from '@/shared/ui/button';
 import { ErrorField } from '@/shared/ui/error-field';
 
-const phoneDefaultValues: PhoneTypes = {
+const phoneDefaultValues: PhoneFormTypes = {
   countryCode: '+7',
   phone: '',
   password: '',
   role: 'CANDIDATE',
 };
 
-const emailDefaultValues: EmailTypes = {
+const emailDefaultValues: EmailFormTypes = {
   email: '',
   password: '',
   role: 'CANDIDATE',
@@ -39,20 +38,19 @@ const AUTH_METHODS = {
 } as const;
 
 export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
-  const form = useForm<AuthTypes>({
+  const form = useForm<AuthFormTypes>({
     resolver: zodResolver(authSchema),
     defaultValues:
       method === AUTH_METHODS.PHONE ? phoneDefaultValues : emailDefaultValues,
   });
-
-  const { rootServerError, showErrors } = useAuthServerErrors();
 
   const { mutate: registerMutate, isPending: registerLoading } =
     useRegisterMutation();
 
   const { mutate: loginMutate, isPending: loginLoading } = useLoginMutation();
 
-  const onSubmit: SubmitHandler<AuthTypes> = (data) => {
+  const onSubmit: SubmitHandler<AuthFormTypes> = (data) => {
+    form.clearErrors('root');
     const newUser = {
       ...data,
       role,
@@ -62,17 +60,16 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
 
     mutation(newUser, {
       onError: (error) => {
-        const {
-          status,
-          data: { type },
-        } = error;
-
-        showErrors(status, type);
+        form.setError('root', {
+          message: error.data.message || 'Произошла ошибка. Попробуйте позже.',
+        });
       },
     });
   };
 
-  const isError = Object.keys(form.formState.errors).length > 0;
+  const isError =
+    Object.keys(form.formState.errors).length > 0 &&
+    !form.formState.errors.root;
   const isPending = registerLoading || loginLoading;
 
   return (
@@ -87,7 +84,9 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
           ) : (
             <FormEmail isPending={isPending} />
           )}
-          {rootServerError && <ErrorField>{rootServerError}</ErrorField>}
+          {form.formState.errors.root && (
+            <ErrorField>{form.formState.errors.root.message}</ErrorField>
+          )}
         </fieldset>
         <Button
           type='submit'
