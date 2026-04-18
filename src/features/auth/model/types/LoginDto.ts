@@ -1,10 +1,17 @@
 import { type User, type UserRole } from '@/entities/user';
 
-export interface LoginRequest {
+export interface LoginEmailRequest {
   email: string;
   password: string;
-  role?: UserRole;
+  role: UserRole;
 }
+export interface LoginPhoneRequest {
+  countryCode: string;
+  phone: string;
+  password: string;
+  role: UserRole;
+}
+export type LoginRequest = LoginEmailRequest | LoginPhoneRequest;
 
 export interface LoginResponse {
   accessToken: string;

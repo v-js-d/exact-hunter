@@ -1,10 +1,16 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 
 import { AuthPolicy } from './components/AuthPolicy/AuthPolicy';
 import { AuthSwitcher } from './components/AuthSwitcher/AuthSwitcher';
 import type { AuthCardProps } from './AuthCardProps';
 
-import { AuthMode } from '@/features/auth';
+import {
+  AuthMode,
+  useLoginMutation,
+  useRegisterMutation,
+} from '@/features/auth';
 
 import { type UserRole } from '@/entities/user';
 
@@ -26,11 +32,14 @@ const titles = {
 
 export const AuthCard = ({ role, mode }: AuthCardProps) => {
   const router = useRouter();
+  const { isPending: registrationPending } = useRegisterMutation();
+  const { isPending: loginPending } = useLoginMutation();
+  const isPending = registrationPending || loginPending;
 
   const title = titles[mode][role];
 
   return (
-    <div className='sm:border-gray-6b mx-auto grid w-full max-w-125 gap-y-6.25 rounded-[1.875rem] px-12.5 py-5 sm:border'>
+    <div className='sm:border-gray-6b relative mx-auto grid w-full max-w-125 gap-y-6.25 overflow-hidden rounded-[1.875rem] px-12.5 py-5 sm:border'>
       <div className='relative flex justify-center'>
         <BackButton
           className={'absolute top-0 left-0'}
@@ -43,8 +52,8 @@ export const AuthCard = ({ role, mode }: AuthCardProps) => {
         </span>
       </div>
       <h1 className='text-center text-2xl font-semibold'>{title}</h1>
-      <AuthSwitcher role={role} />
-      <AuthPolicy />
+      <AuthSwitcher isPending={isPending} mode={mode} role={role} />
+      <AuthPolicy isPending={isPending} />
     </div>
   );
 };

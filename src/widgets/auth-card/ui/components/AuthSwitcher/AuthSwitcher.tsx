@@ -13,7 +13,7 @@ const AUTH_METHODS = {
   EMAIL: 'email',
 } as const;
 
-export const AuthSwitcher = ({ role }: AuthSwitcherProps) => {
+export const AuthSwitcher = ({ role, mode, isPending }: AuthSwitcherProps) => {
   const [authMethod, setAuthMethod] = useState<AuthMethod>(AUTH_METHODS.PHONE);
 
   const activeMethod = (method: AuthMethod) =>
@@ -27,6 +27,7 @@ export const AuthSwitcher = ({ role }: AuthSwitcherProps) => {
         onClick={() => setAuthMethod(AUTH_METHODS.PHONE)}
         aria-pressed={authMethod === AUTH_METHODS.PHONE}
         className='text-lg font-medium'
+        disabled={isPending}
       >
         Телефон
       </Button>
@@ -36,10 +37,11 @@ export const AuthSwitcher = ({ role }: AuthSwitcherProps) => {
         onClick={() => setAuthMethod(AUTH_METHODS.EMAIL)}
         aria-pressed={authMethod === AUTH_METHODS.EMAIL}
         className='text-lg font-medium'
+        disabled={isPending}
       >
         Почта
       </Button>
-      <AuthForm key={authMethod} role={role} method={authMethod} />
+      <AuthForm key={authMethod} role={role} mode={mode} method={authMethod} />
     </div>
   );
 };

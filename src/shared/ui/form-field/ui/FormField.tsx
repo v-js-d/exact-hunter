@@ -15,7 +15,10 @@ export const FormField = ({
   labelHidden,
   ...props
 }: FormFieldProps) => (
-  <div className='relative grid grid-cols-[auto_1fr] gap-2.5' {...props}>
+  <div
+    className='relative grid grid-cols-[auto_1fr] gap-2.5 disabled:pointer-events-none disabled:opacity-50'
+    {...props}
+  >
     <Label htmlFor={htmlFor} className={clsx('', labelHidden && 'sr-only')}>
       {label}
     </Label>

@@ -8,16 +8,46 @@ const MOCK_ROLE_ALLOWLIST = {
   RECRUITER: true,
 } as const satisfies Record<MockUserRole, true>;
 
+const AUTH_METHODS = {
+  phone: 'phone',
+  email: 'email',
+} as const;
+
 function isMockUserRole(value: unknown): value is MockUserRole {
   return typeof value === 'string' && value in MOCK_ROLE_ALLOWLIST;
 }
+interface MockUserPhone {
+  id: string;
+  countryCode: string;
+  phone: string;
+  password: string;
+  role: MockUserRole;
+}
 
-interface MockUser {
+interface MockUserEmail {
   id: string;
   email: string;
   password: string;
   role: MockUserRole;
 }
+
+type MockUser = MockUserEmail | MockUserPhone;
+
+// new
+interface RequestUserPhone {
+  countryCode: string;
+  phone: string;
+  password: string;
+  role: MockUserRole;
+}
+// new
+interface RequestUserEmail {
+  email: string;
+  password: string;
+  role: MockUserRole;
+}
+
+type RequestUser = RequestUserPhone | RequestUserEmail;
 
 const mockUsers = new Map<string, MockUser>();
 const refreshTokenToUserId = new Map<string, string>();
@@ -79,20 +109,41 @@ function getUserByAccessToken(authHeader: string | null): MockUser | null {
 
 const BASE = '/auth';
 
+const createAccessToken = () => {
+  const id = crypto.randomUUID();
+  const { accessToken } = createTokenPair(id);
+
+  return {
+    id,
+    accessToken,
+  };
+};
+
+const userResponse = (user: MockUser) => {
+  if (AUTH_METHODS.email in user) {
+    return {
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+    };
+  }
+
+  return {
+    id: user.id,
+    countryCode: user.countryCode,
+    phone: user.phone,
+    password: user.password,
+    role: user.role,
+  };
+};
+
 export const authHandlers = [
   http.post(`${BASE}/register`, async ({ request }) => {
-    const body = (await request.json()) as {
-      email: string;
-      password: string;
-      role?: unknown;
-    };
+    const body = (await request.json()) as RequestUser;
 
-    if (!body.email || !body.password) {
-      return HttpResponse.json(
-        { message: 'Email and password are required' },
-        { status: 400 },
-      );
-    }
+    const isMethodEmail = AUTH_METHODS.email in body;
+    const isMethodPhone = AUTH_METHODS.phone in body;
 
     if (!isMockUserRole(body.role)) {
       return HttpResponse.json(
@@ -101,78 +152,164 @@ export const authHandlers = [
       );
     }
 
-    const role = body.role;
+    if (isMethodPhone) {
+      const { countryCode, password, phone, role } = body;
 
-    const existingUser = Array.from(mockUsers.values()).find(
-      (u) => u.email === body.email,
-    );
+      if (!countryCode && !phone && !password) {
+        return HttpResponse.json(
+          {
+            message: 'Invalid number data or password',
+            type: AUTH_METHODS.phone,
+          },
+          { status: 400 },
+        );
+      }
 
-    if (existingUser) {
-      return HttpResponse.json(
-        { message: 'User already exists' },
-        { status: 409 },
+      const existingUser = Array.from(mockUsers.values()).find(
+        (u): u is MockUserPhone =>
+          AUTH_METHODS.phone in u &&
+          u.phone === phone &&
+          u.countryCode === countryCode &&
+          u.password === password,
       );
+
+      if (existingUser) {
+        return HttpResponse.json(
+          { message: 'User already exists', type: AUTH_METHODS.phone },
+          { status: 409 },
+        );
+      }
+
+      const { accessToken, id } = createAccessToken();
+
+      const user: MockUserPhone = {
+        id,
+        countryCode,
+        phone,
+        password,
+        role,
+      };
+      mockUsers.set(id, user);
+
+      return HttpResponse.json({
+        accessToken,
+        user: userResponse(user),
+      });
     }
 
-    const id = crypto.randomUUID();
-    const user: MockUser = {
-      id,
-      email: body.email,
-      password: body.password,
-      role,
-    };
+    if (isMethodEmail) {
+      const { email, password, role } = body;
 
-    mockUsers.set(id, user);
+      if (!email && !password) {
+        return HttpResponse.json(
+          { message: 'Invalid email or password', type: AUTH_METHODS.email },
+          { status: 400 },
+        );
+      }
 
-    const { accessToken } = createTokenPair(id);
+      const existingUser = Array.from(mockUsers.values()).find(
+        (u): u is MockUserEmail =>
+          AUTH_METHODS.email in u &&
+          u.email === email &&
+          u.password === password,
+      );
 
-    return HttpResponse.json({
-      accessToken,
-      user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      },
-    });
+      if (existingUser) {
+        return HttpResponse.json(
+          { message: 'User already exists', type: AUTH_METHODS.email },
+          { status: 409 },
+        );
+      }
+
+      const { accessToken, id } = createAccessToken();
+
+      const user: MockUserEmail = {
+        id,
+        email,
+        password,
+        role,
+      };
+      mockUsers.set(id, user);
+
+      return HttpResponse.json({
+        accessToken,
+        user: userResponse(user),
+      });
+    }
   }),
 
   http.post(`${BASE}/login`, async ({ request }) => {
-    const body = (await request.json()) as {
-      email: string;
-      password: string;
-      role?: unknown;
-    };
+    const body = (await request.json()) as RequestUser;
 
-    const user = Array.from(mockUsers.values()).find(
-      (u) => u.email === body.email && u.password === body.password,
-    );
+    const isMethodEmail = AUTH_METHODS.email in body;
+    const isMethodPhone = AUTH_METHODS.phone in body;
 
-    if (!user) {
-      return HttpResponse.json(
-        { message: 'Invalid email or password' },
-        { status: 401 },
+    if (isMethodEmail) {
+      const { email, password, role } = body;
+
+      const user = Array.from(mockUsers.values()).find(
+        (u): u is MockUserEmail =>
+          AUTH_METHODS.email in u &&
+          u.email === email &&
+          u.password === password,
       );
-    }
 
-    if (body.role !== undefined && isMockUserRole(body.role)) {
-      if (body.role !== user.role) {
+      if (!user) {
         return HttpResponse.json(
-          { message: 'Роль не совпадает с аккаунтом' },
-          { status: 403 },
+          { message: 'Invalid email or password', type: 'email' },
+          { status: 401 },
         );
       }
+
+      if (role !== undefined && isMockUserRole(role)) {
+        if (role !== user.role) {
+          return HttpResponse.json(
+            { message: 'Роль не совпадает с аккаунтом', type: 'email' },
+            { status: 403 },
+          );
+        }
+      }
+      const { accessToken } = createTokenPair(user.id);
+
+      return HttpResponse.json({
+        accessToken,
+        user: userResponse(user),
+      });
     }
 
-    const { accessToken } = createTokenPair(user.id);
+    if (isMethodPhone) {
+      const { countryCode, password, phone, role } = body;
 
-    return HttpResponse.json({
-      accessToken,
-      user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      },
-    });
+      const user = Array.from(mockUsers.values()).find(
+        (u): u is MockUserPhone =>
+          AUTH_METHODS.phone in u &&
+          u.countryCode === countryCode &&
+          u.phone === phone &&
+          u.password === password,
+      );
+
+      if (!user) {
+        return HttpResponse.json(
+          { message: 'Invalid phone number or password', type: 'phone' },
+          { status: 401 },
+        );
+      }
+
+      if (role !== undefined && isMockUserRole(role)) {
+        if (role !== user.role) {
+          return HttpResponse.json(
+            { message: 'Роль не совпадает с аккаунтом' },
+            { status: 403 },
+          );
+        }
+      }
+      const { accessToken } = createTokenPair(user.id);
+
+      return HttpResponse.json({
+        accessToken,
+        user: userResponse(user),
+      });
+    }
   }),
 
   http.post(`${BASE}/refresh`, () => {
@@ -212,11 +349,7 @@ export const authHandlers = [
 
     return HttpResponse.json({
       accessToken,
-      user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      },
+      user: userResponse(user),
     });
   }),
 
@@ -251,11 +384,7 @@ export const authHandlers = [
     }
 
     return HttpResponse.json({
-      user: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-      },
+      user: userResponse(user),
     });
   }),
 ];

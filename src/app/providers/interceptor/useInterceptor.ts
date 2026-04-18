@@ -7,6 +7,8 @@ import { useAttachAuthToken, useSessionRefreshQuery } from '@/features/auth';
 import { $api } from '@/shared/api/api';
 import { ApiError } from '@/shared/api/api-error';
 
+const authPaths = ['/auth/login', '/auth/register', '/auth/refresh'];
+
 export default function useInterceptor() {
   const { attachAuthToken } = useAttachAuthToken();
   const { refreshToken } = useSessionRefreshQuery();
@@ -27,8 +29,13 @@ export default function useInterceptor() {
         const data = error.response?.data;
         const originalUrl = error.config?.url ?? '';
 
+        // Проверяем: содержит ли originalUrl хотя бы одну строку из массива
+        const isAuthRequest = authPaths.some((path) =>
+          originalUrl.includes(path),
+        );
+
         // если initial refresh возращает 401 выкидываем ошибку
-        if (status !== 401 || originalUrl.includes('/auth/refresh')) {
+        if (status !== 401 || isAuthRequest) {
           return Promise.reject(new ApiError(status, data));
         }
 
