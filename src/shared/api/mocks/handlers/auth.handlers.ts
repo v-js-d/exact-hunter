@@ -155,7 +155,7 @@ export const authHandlers = [
     if (isMethodPhone) {
       const { countryCode, password, phone, role } = body;
 
-      if (!countryCode && !phone && !password) {
+      if (!countryCode || !phone || !password) {
         return HttpResponse.json(
           {
             message: 'Invalid number data or password',
@@ -200,7 +200,7 @@ export const authHandlers = [
     if (isMethodEmail) {
       const { email, password, role } = body;
 
-      if (!email && !password) {
+      if (!email || !password) {
         return HttpResponse.json(
           { message: 'Invalid email or password', type: AUTH_METHODS.email },
           { status: 400 },
@@ -236,6 +236,15 @@ export const authHandlers = [
         user: userResponse(user),
       });
     }
+
+    // Fallback if neither email nor phone method was detected
+    return HttpResponse.json(
+      {
+        message:
+          'Invalid registration payload. Must contain email or (countryCode + phone).',
+      },
+      { status: 400 },
+    );
   }),
 
   http.post(`${BASE}/login`, async ({ request }) => {

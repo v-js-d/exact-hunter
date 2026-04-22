@@ -61,7 +61,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
     mutation(newUser, {
       onError: (error) => {
         form.setError('root', {
-          message: error.data.message || 'Произошла ошибка. Попробуйте позже.',
+          message: error.data.message,
         });
       },
     });
