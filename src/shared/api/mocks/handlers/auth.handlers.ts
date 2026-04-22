@@ -240,8 +240,7 @@ export const authHandlers = [
     // Fallback if neither email nor phone method was detected
     return HttpResponse.json(
       {
-        message:
-          'Invalid registration payload. Must contain email or (countryCode + phone).',
+        message: 'Invalid registration payload.',
       },
       { status: 400 },
     );
