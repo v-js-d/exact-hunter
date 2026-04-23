@@ -1,15 +1,14 @@
 import { useCallback, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { refreshAuthTokenFn, useAuthStore } from '@/entities/session';
-import { useUserStore } from '@/entities/user';
 
 const REFRESH_URL = '/auth/refresh';
 
 export function useSessionRefreshQuery() {
   const refreshPromiseRef = useRef<Promise<string> | null>(null);
+  const queryClient = useQueryClient();
   const { logout, setAccessToken } = useAuthStore((s) => s.actions);
-  const setUser = useUserStore((s) => s.actions.setUser);
 
   const { mutateAsync } = useMutation({
     mutationKey: ['auth', 'refresh'],
@@ -21,7 +20,7 @@ export function useSessionRefreshQuery() {
     onSuccess: (data) => {
       setAccessToken(data.accessToken);
       if (data.user) {
-        setUser(data.user);
+        queryClient.setQueryData(['auth', 'me'], { user: data.user });
       }
     },
     onError: () => {

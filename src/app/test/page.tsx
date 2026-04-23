@@ -15,12 +15,7 @@ import {
   selectStatus,
   useAuthStore,
 } from '@/entities/session';
-import {
-  selectUser,
-  useAuthMeQuery,
-  type UserRole,
-  useUserStore,
-} from '@/entities/user';
+import { type UserRole, useUser } from '@/entities/user';
 
 import { ApiError } from '@/shared/api/api-error';
 import { Button } from '@/shared/ui/button';
@@ -43,13 +38,12 @@ const AuthTestPage = () => {
   const status = useAuthStore(selectStatus);
   const accessToken = useAuthStore(selectAccessToken);
   const isAuthenticated = useAuthStore(selectIsAuthenticated);
-  const user = useUserStore(selectUser);
+  const { user, refetch: refetchMe, isFetching: isRefetchingMe } = useUser();
   const authActions = useAuthStore((s) => s.actions);
 
   const loginMutation = useLoginMutation();
   const registerMutation = useRegisterMutation();
   const logoutMutation = useLogoutMutation();
-  const { refetch: refetchMe, isFetching: isRefetchingMe } = useAuthMeQuery();
 
   function log(message: string) {
     setLogs((prev) => [

@@ -1,21 +1,19 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { useSessionRefreshQuery } from '@/features/auth';
 
 import { useAuthStore } from '@/entities/session';
-import { useAuthMeQuery, useUserStore } from '@/entities/user';
+import { useAuthMeQuery } from '@/entities/user';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
   const pathname = usePathname();
   const isLoginPage = pathname === '/auth';
 
   const { setStatus, logout } = useAuthStore((s) => s.actions);
   const isAuth = useAuthStore((s) => s.status === 'authenticated');
-  const { setUser, clearUser } = useUserStore((s) => s.actions);
 
   const { refreshToken } = useSessionRefreshQuery();
   const [isRefreshDone, setIsRefreshDone] = useState(isLoginPage);
@@ -39,35 +37,22 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     refreshToken()
       .catch(() => {
-        clearUser();
         setStatus('anonymous');
       })
       .finally(() => {
         setIsRefreshDone(true);
       });
-  }, [isLoginPage, refreshToken, clearUser, setStatus]);
+  }, [isLoginPage, refreshToken, setStatus]);
 
   useEffect(() => {
-    if (isSuccess && data) {
-      setUser(data.user);
+    if (isSuccess && data?.user) {
       setStatus('authenticated');
     }
 
     if (isError) {
       logout();
-      clearUser();
     }
-  }, [
-    isSuccess,
-    isError,
-    data,
-    setUser,
-    setStatus,
-    logout,
-    clearUser,
-    router,
-    isLoginPage,
-  ]);
+  }, [isSuccess, isError, data, setStatus, logout]);
 
   if (!isRefreshDone || isLoading) {
     return null;

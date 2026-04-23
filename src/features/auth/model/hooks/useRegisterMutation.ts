@@ -6,14 +6,12 @@ import { AuthErrorResponse } from '../types/auth.types';
 import { RegisterRequest, RegisterResponse } from '../types/RegDto';
 
 import { useAuthStore } from '@/entities/session';
-import { useUserStore } from '@/entities/user';
 
 import { AppRouter } from '@/shared/config/AppRouter';
 
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient();
   const authActions = useAuthStore((s) => s.actions);
-  const userActions = useUserStore((s) => s.actions);
 
   const router = useRouter();
 
@@ -26,7 +24,6 @@ export const useRegisterMutation = () => {
     onSuccess: (data) => {
       authActions.setAccessToken(data.accessToken);
       authActions.setStatus('authenticated');
-      userActions.setUser(data.user);
 
       queryClient.setQueryData(['auth', 'me'], { user: data.user });
 

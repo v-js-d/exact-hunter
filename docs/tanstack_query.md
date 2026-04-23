@@ -110,3 +110,26 @@ export const useVacancyRemoveMutation = () => {
   });
 };
 ```
+
+## Управление данными пользователя (TanStack Query как единственный источник истины)
+
+Сущность `user` entity не использует Zustand-стор (`user.store.ts`).
+Все данные пользователя храняться в TanStack Query с ключом `['auth', 'me']`:
+
+- `useAuthMeQuery()` / `useUser()` - основные хуки для текущего пользователя (`user: User | null`).
+- Мутации входа/регистрации и обновление сессии вызывают `queryClient.setQueryData(['auth', 'me'], { user: data.user })`.
+- `useLogoutMutation` очищает кэш через `removeQueries({ queryKey: ['auth', 'me'] })`.
+- `AuthProvider` реагирует только на успех/ошибку запроса для статуса сессии (без дублирования в Zustand-стор).
+
+**Рекомендуемое использование:**
+
+```tsx
+import { useUser } from '@/entities/user';
+
+const MyComponent = () => {
+  const { user, isLoading } = useUser();
+  // `user` берётся напрямую из кэша запроса
+};
+```
+
+Такой подход следует паттерну TanStack-first и убирает рассинхрон между стором и кэшем.
