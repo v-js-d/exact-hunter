@@ -15,6 +15,5 @@ export interface RegisterPhoneRequest {
 export type RegisterRequest = RegisterEmailRequest | RegisterPhoneRequest;
 
 export interface RegisterResponse {
-  accessToken: string;
   user: User;
 }

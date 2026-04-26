@@ -22,12 +22,11 @@ export const useRegisterMutation = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      authActions.setAccessToken(data.accessToken);
       authActions.setStatus('authenticated');
 
       queryClient.setQueryData(['auth', 'me'], { user: data.user });
 
-      router.push(AppRouter.me);
+      router.push(AppRouter.main);
     },
   });
 };

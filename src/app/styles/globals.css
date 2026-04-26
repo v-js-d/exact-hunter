@@ -4,6 +4,55 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@layer components {
+  .typo-h1 {
+    @apply text-4xl leading-tight font-semibold tracking-tight;
+  }
+
+  .typo-h2 {
+    @apply text-3xl leading-tight font-semibold tracking-tight;
+  }
+
+  .typo-h3 {
+    @apply text-2xl leading-snug font-semibold tracking-tight;
+  }
+
+  .typo-body {
+    @apply text-base leading-6;
+  }
+
+  .typo-body-sm {
+    @apply text-sm leading-5;
+  }
+
+  .typo-caption {
+    @apply text-xs leading-4;
+  }
+
+  .typo-muted {
+    @apply text-muted-foreground text-sm leading-5;
+  }
+
+  .typo-mono {
+    @apply font-mono text-sm leading-5;
+  }
+
+  .link-nav {
+    @apply rounded-md px-3 py-2 text-sm font-semibold transition-colors;
+    @apply text-muted-foreground hover:bg-accent hover:text-accent-foreground;
+    @apply focus-visible:ring-ring/50 focus-visible:ring-2 focus-visible:outline-none;
+    @apply aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground;
+  }
+
+  .link-inline {
+    @apply underline-offset-4 transition-colors hover:underline;
+  }
+
+  .link-inline-primary {
+    @apply text-primary underline-offset-4 transition-colors hover:underline;
+  }
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(100% 0 0deg);
@@ -136,7 +185,7 @@
   }
 
   body {
-    @apply bg-background text-foreground leading-[120%];
+    @apply bg-background text-foreground font-sans leading-[120%];
   }
 
   html,
