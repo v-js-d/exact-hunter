@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { Briefcase, Eye, MapPin, Star } from 'lucide-react';
 
+import { AuthStatus, useAuthStore } from '../../../session';
+
 import { VacancyTags } from './components/vacancy-tags/VacancyTags';
 import { VacancyCardProps } from './VacancyCard.types';
 
@@ -29,12 +31,20 @@ export const VacancyCard = (props: VacancyCardProps) => {
     },
   } = props;
 
+  const authStatus = useAuthStore((state) => state.status);
+
+  const VACANCIES_NAVIGATE = {
+    authenticated: `${AppRouter.vacancy}/${id}`,
+    anonymous: AppRouter.auth,
+    loading: '',
+  } satisfies Record<AuthStatus, string>;
+
   const tags: string[] = [position, employmentType, workType];
 
   return (
     <Card className='border-muted-foreground/10 group-hover:border-primary/20 relative flex h-full flex-col gap-y-3 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
       <Link
-        href={`${AppRouter.vacancy}/${id}`}
+        href={VACANCIES_NAVIGATE[authStatus]}
         target='_blank'
         rel='noopener noreferrer'
         className='absolute inset-0 z-10'
@@ -71,9 +81,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
             size='lg'
             className='z-20 w-fit leading-[120%] font-semibold transition-transform'
             type='button'
-            onClick={() => {
-              console.log('Откликнуться');
-            }}
+            onClick={() => console.log('otklik')}
           >
             Откликнуться
           </Button>

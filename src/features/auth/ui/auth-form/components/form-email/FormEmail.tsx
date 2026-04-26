@@ -26,9 +26,10 @@ export const FormEmail = ({ isPending }: { isPending: boolean }) => {
         <Input
           type='email'
           id='register-email-input'
+          size={'circle'}
           disabled={isPending}
           placeholder='Ваша почта'
-          className='border-gray-6b col-span-2 rounded-4xl px-5 py-2.5'
+          className='col-span-2'
           {...register('email')}
         />
       </FormField>

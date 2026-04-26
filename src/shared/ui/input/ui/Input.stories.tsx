@@ -7,9 +7,16 @@ const meta: Meta<typeof Input> = {
   component: Input,
   tags: ['autodocs'],
   argTypes: {
-    type: {
+    variant: {
       control: 'select',
-      options: ['text', 'email', 'password', 'number', 'file'],
+      options: ['default', 'destructive', 'secondary'],
+    },
+    size: {
+      control: 'select',
+      options: ['default', 'sm'],
+    },
+    disabled: {
+      control: 'boolean',
     },
   },
 };
@@ -17,45 +24,48 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
+// Базовый пример
 export const Default: Story = {
   args: {
-    type: 'text',
-    placeholder: 'Enter text...',
+    placeholder: 'Введите текст...',
+    variant: 'default',
+    size: 'default',
   },
 };
 
-export const Disabled: Story = {
-  args: {
-    type: 'text',
-    placeholder: 'Disabled input',
-    disabled: true,
-  },
+// Все варианты оформления
+export const Variants: Story = {
+  render: () => (
+    <div className='flex w-72 flex-col gap-4'>
+      <Input variant='default' placeholder='Default variant' />
+      <Input variant='secondary' placeholder='Secondary variant' />
+      <Input variant='destructive' placeholder='Destructive (Error)' />
+    </div>
+  ),
 };
 
+// Размеры
+export const Sizes: Story = {
+  render: () => (
+    <div className='flex w-72 flex-col gap-4'>
+      <Input size='sm' placeholder='Small input (sm)' />
+      <Input size='default' placeholder='Default input' />
+    </div>
+  ),
+};
+
+// Состояние ошибки (используем aria-invalid)
 export const Invalid: Story = {
   args: {
-    type: 'text',
-    placeholder: 'Invalid input',
     'aria-invalid': true,
+    placeholder: 'Поле с ошибкой',
   },
 };
 
-export const Password: Story = {
+// Заблокированный
+export const Disabled: Story = {
   args: {
-    type: 'password',
-    placeholder: 'Enter password',
-  },
-};
-
-export const File: Story = {
-  args: {
-    type: 'file',
-  },
-};
-
-export const WithValue: Story = {
-  args: {
-    type: 'text',
-    defaultValue: 'Hello world',
+    disabled: true,
+    value: 'Этот текст нельзя редактировать',
   },
 };

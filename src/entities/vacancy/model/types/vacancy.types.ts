@@ -24,3 +24,12 @@ export interface Vacancy {
   createdBy: string;
   updatedBy: string;
 }
+
+export interface VacanciesResponse {
+  result: {
+    page: number;
+    totalPages: number;
+    totalItems: number;
+    items: Vacancy[];
+  };
+}

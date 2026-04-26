@@ -1,25 +1,33 @@
 'use client';
 
-import { useVacancies } from '../model/hooks/useVacancies';
-
-import { VacancyCard } from '@/entities/vacancy';
+import { useVacancies, VacancyCard } from '@/entities/vacancy';
 
 import { ErrorField } from '@/shared/ui/error-field';
 
 export const VacanciesList = () => {
-  const { data, error, isLoading } = useVacancies();
+  const { data, error, isLoading, isFetching } = useVacancies();
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   if (error) return <ErrorField>{error.message}</ErrorField>;
-  if (isLoading) return <h1>Loading...</h1>;
-  if (!data) return <h1>Oops, try it later</h1>;
 
-  const vacancies = data.result.items;
+  const vacancies = data?.result?.items || [];
+
+  if (vacancies.length === 0) {
+    return <h1>No vacancies found</h1>;
+  }
 
   return (
-    <ul className='flex flex-col gap-y-2.5'>
-      {vacancies.map((vacancy) => (
-        <VacancyCard vacancy={vacancy} key={vacancy.id} />
-      ))}
-    </ul>
+    <div className='relative'>
+      {isFetching && <div className='opacity-50'>Updating...</div>}
+
+      <ul className='flex flex-col gap-y-2.5'>
+        {vacancies.map((vacancy) => (
+          <li key={vacancy.id}>
+            <VacancyCard vacancy={vacancy} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };

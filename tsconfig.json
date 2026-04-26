@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "src/features/vacancies-list/ui/components/vacancies-pagination"
   ],
   "exclude": ["node_modules"]
 }
