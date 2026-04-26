@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import AuthProvider from './providers/AuthProvider';
 import InterceptorProvider from './providers/interceptor/InterceptorProvider';
 import MswProvider from './providers/MswProvider';
 import QueryProvider from './providers/QueryProvider';
+import AuthProvider from './providers/router/AuthProvider';
 
 import './styles/globals.css';
 

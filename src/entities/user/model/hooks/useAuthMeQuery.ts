@@ -9,6 +9,6 @@ export const useAuthMeQuery = (options?: { enabled?: boolean }) =>
   useQuery<MeResponse>({
     queryKey: ['auth', 'me'],
     queryFn: async () => getMe('/auth/me').then((resp) => resp.data),
-    enabled: !!options?.enabled,
+    enabled: options?.enabled ?? true,
     retry: 0,
   });
