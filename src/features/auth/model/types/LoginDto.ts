@@ -14,6 +14,5 @@ export interface LoginPhoneRequest {
 export type LoginRequest = LoginEmailRequest | LoginPhoneRequest;
 
 export interface LoginResponse {
-  accessToken: string;
   user: User;
 }

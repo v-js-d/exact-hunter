@@ -5,15 +5,14 @@ import { useState } from 'react';
 import {
   AuthErrorResponse,
   useLoginMutation,
-  useLogoutMutation,
   useRegisterMutation,
 } from '@/features/auth';
 
 import {
-  selectAccessToken,
   selectIsAuthenticated,
   selectStatus,
   useAuthStore,
+  useLogoutMutation,
 } from '@/entities/session';
 import { type UserRole, useUser } from '@/entities/user';
 
@@ -36,10 +35,8 @@ const AuthTestPage = () => {
   const [logs, setLogs] = useState<string[]>([]);
 
   const status = useAuthStore(selectStatus);
-  const accessToken = useAuthStore(selectAccessToken);
   const isAuthenticated = useAuthStore(selectIsAuthenticated);
   const { user, refetch: refetchMe, isFetching: isRefetchingMe } = useUser();
-  const authActions = useAuthStore((s) => s.actions);
 
   const loginMutation = useLoginMutation();
   const registerMutation = useRegisterMutation();
@@ -70,9 +67,7 @@ const AuthTestPage = () => {
       },
       {
         onSuccess: (data) => {
-          log(
-            `Register OK. User: ${data.user.email}, role: ${data.user.role}, Token: ${data.accessToken.slice(0, 20)}...`,
-          );
+          log(`Register OK. User: ${data.user.email}, role: ${data.user.role}`);
         },
         onError: (err) => {
           log(formatApiError(err, 'Register FAILED'));
@@ -91,9 +86,7 @@ const AuthTestPage = () => {
       },
       {
         onSuccess: (data) => {
-          log(
-            `Login OK. User: ${data.user.email}, role: ${data.user.role}, Token: ${data.accessToken.slice(0, 20)}...`,
-          );
+          log(`Login OK. User: ${data.user.email}, role: ${data.user.role}`);
         },
         onError: (err) => {
           log(formatApiError(err, 'Login FAILED'));
@@ -126,13 +119,6 @@ const AuthTestPage = () => {
         log(formatApiError(err, 'Logout FAILED'));
       },
     });
-  }
-
-  function handleClearToken() {
-    authActions.setAccessToken(undefined);
-    log(
-      'Access token cleared from store (simulating page reload / token expiry)',
-    );
   }
 
   return (
@@ -224,9 +210,6 @@ const AuthTestPage = () => {
                 >
                   {isRefetchingMe ? 'Loading...' : 'GET /auth/me'}
                 </Button>
-                <Button onClick={handleClearToken} variant='outline'>
-                  Clear Access Token
-                </Button>
                 <Button
                   onClick={handleLogout}
                   variant='destructive'
@@ -255,12 +238,6 @@ const AuthTestPage = () => {
                   </span>
                 </div>
                 <div>
-                  <span className='text-muted-foreground'>Token:</span>{' '}
-                  <span className='font-mono text-xs break-all'>
-                    {accessToken ? `${accessToken.slice(0, 30)}...` : 'none'}
-                  </span>
-                </div>
-                <div>
                   <span className='text-muted-foreground'>User:</span>{' '}
                   <span className='font-mono text-xs'>
                     {user ? `${user.email} (${user.role})` : 'none'}
@@ -275,8 +252,8 @@ const AuthTestPage = () => {
           <CardHeader>
             <CardTitle>Logs</CardTitle>
             <CardDescription>
-              Register → Clear Token → GET /me (401 → refresh с user.role →
-              retry). Роль в State должна совпадать с ролью при регистрации.
+              Register → GET /me. Auth cookies are managed by the API/MSW. Роль
+              в State должна совпадать с ролью при регистрации.
             </CardDescription>
           </CardHeader>
           <CardContent>
