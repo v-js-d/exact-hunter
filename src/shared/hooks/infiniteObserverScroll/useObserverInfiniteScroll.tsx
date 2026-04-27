@@ -79,9 +79,4 @@ export const useObserverInfiniteScroll = <T extends HTMLElement>(
       }
     };
   }, [callBack, rootMargin, threshold, triggerRef, wrapperRef]);
-
-  return {
-    triggerRef,
-    wrapperRef,
-  };
 };

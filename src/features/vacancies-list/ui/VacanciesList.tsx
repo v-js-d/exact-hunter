@@ -1,15 +1,42 @@
 'use client';
 
-import { useInfinityScrollVacancies } from '../model/hooks/useInfinityScrollVacancies';
+import { useCallback, useMemo, useRef } from 'react';
 
-import { VacancyCard } from '@/entities/vacancy';
+import { useVacancies, VacancyCard } from '@/entities/vacancy';
 
+import { useObserverInfiniteScroll } from '@/shared/hooks';
 import { ErrorField } from '@/shared/ui/error-field';
 import { Spinner } from '@/shared/ui/spinner';
 
 export const VacanciesList = () => {
-  const { allVacancies, isFetchingNextPage, isLoading, error } =
-    useInfinityScrollVacancies();
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error,
+  } = useVacancies();
+
+  const allVacancies = useMemo(
+    () => data?.pages.flatMap((page) => page.result.items) ?? [],
+    [data],
+  );
+
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  const loadMore = useCallback(async () => {
+    if (isLoading || !hasNextPage || isFetchingNextPage) {
+      return;
+    }
+
+    await fetchNextPage();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage, isLoading]);
+
+  useObserverInfiniteScroll({
+    callBack: loadMore,
+    triggerRef,
+  });
 
   if (isLoading) return <h2>Loading...</h2>;
 
@@ -40,6 +67,7 @@ export const VacanciesList = () => {
           />
         )}
       </ul>
+      <div ref={triggerRef} className='h-px w-full shrink-0' aria-hidden />
     </>
   );
 };
