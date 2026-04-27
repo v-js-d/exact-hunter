@@ -6,7 +6,7 @@ import { AuthStatus, useAuthStore } from '../../../session';
 import { VacancyTags } from './components/vacancy-tags/VacancyTags';
 import { VacancyCardProps } from './VacancyCard.types';
 
-import { AppRouter } from '@/shared/config/AppRouter';
+import { AppRouter, ID_TEMPLATE } from '@/shared/config/AppRouter';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -33,9 +33,11 @@ export const VacancyCard = (props: VacancyCardProps) => {
 
   const authStatus = useAuthStore((state) => state.status);
 
+  const vacancyPath = AppRouter.vacancy.replace(ID_TEMPLATE, id);
+
   const VACANCIES_NAVIGATE = {
-    authenticated: `${AppRouter.vacancy}/${id}`,
-    anonymous: AppRouter.auth,
+    authenticated: vacancyPath,
+    anonymous: /* AppRouter.auth */ vacancyPath,
     loading: '',
   } satisfies Record<AuthStatus, string>;
 
@@ -59,7 +61,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
             {company.name}
           </p>
         </div>
-        <VacancyTags tags={tags} />
+        <VacancyTags vacancyCardId={id} tags={tags} />
       </CardHeader>
 
       <CardContent className='flex flex-col gap-y-3'>

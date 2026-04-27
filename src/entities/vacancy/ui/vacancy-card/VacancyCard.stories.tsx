@@ -29,7 +29,6 @@ const mockVacancy: Vacancy = {
     location: 'Russia',
     name: 'Tech Innovators Corp',
     rating: 4.8,
-    // добавь другие поля Company, если они обязательны
   },
   projectId: null,
   title: 'Senior Frontend Engineer',
@@ -58,7 +57,7 @@ export const Default: Story = {
   },
 };
 
-// 2. без откликов
+// без откликов
 export const New: Story = {
   args: {
     vacancy: {
@@ -68,7 +67,7 @@ export const New: Story = {
   },
 };
 
-// 4. Длинный заголовок (проверка верстки)
+// Длинный заголовок (проверка верстки)
 export const LongTitle: Story = {
   args: {
     vacancy: {

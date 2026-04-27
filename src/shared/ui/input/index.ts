@@ -1,1 +1,1 @@
-export { Input } from './ui/Input';
+export { Input, SearchInput } from './ui/Input';

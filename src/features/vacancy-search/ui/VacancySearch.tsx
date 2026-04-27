@@ -9,15 +9,16 @@ import {
 } from '../model/schema/VacancySearch.schema';
 
 import { Button } from '@/shared/ui/button';
-import { FormField } from '@/shared/ui/form-field';
-import { Input } from '@/shared/ui/input';
+import { SearchInput } from '@/shared/ui/input/ui/Input';
+
+const searchFormDefaultValues = {
+  title: '',
+};
 
 export const VacancySearch = () => {
   const { register, handleSubmit } = useForm<VacancySearchTypes>({
     resolver: zodResolver(vacancySearchSchema),
-    defaultValues: {
-      title: '',
-    },
+    defaultValues: searchFormDefaultValues,
   });
 
   const onSubmit: SubmitHandler<VacancySearchTypes> = (data) => {
@@ -29,19 +30,12 @@ export const VacancySearch = () => {
       className='flex items-center justify-between gap-x-5'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <FormField
-        htmlFor='vacancy-search'
-        label={'Search vacancies'}
-        labelHidden
-        className='w-full'
-      >
-        <Input
-          id='vacancy-search'
-          type='search'
-          {...register('title')}
-          placeholder='Search vacancies...'
-        />
-      </FormField>
+      <SearchInput
+        id='vacancy-search'
+        type='search'
+        {...register('title')}
+        placeholder='Найти вакансии...'
+      />
       <Button size={'lg'} type='submit'>
         Найти
       </Button>

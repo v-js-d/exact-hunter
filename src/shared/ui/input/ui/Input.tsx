@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { cva } from 'class-variance-authority';
+import { SearchIcon } from 'lucide-react';
 
 import { cn } from '../../../lib/utils/cn';
+import { Label } from '../../label';
 
 import { ExtendedInputProps } from './Input.types';
 
@@ -15,6 +17,8 @@ export const inputVariants = cva(
           'border-destructive focus-visible:border-destructive placeholder:text-destructive focus-visible:ring-destructive/20',
         secondary:
           'bg-muted/50 focus-visible:border-ring border-transparent focus-visible:bg-transparent',
+        transparent:
+          'border-none bg-transparent px-0 shadow-none focus-visible:ring-0 focus-visible:ring-offset-0',
       },
       size: {
         default: 'h-10 rounded-xl px-3 py-2.5',
@@ -41,6 +45,30 @@ const Input = React.forwardRef<HTMLInputElement, ExtendedInputProps>(
   ),
 );
 
+const SearchInput = React.forwardRef<HTMLInputElement, ExtendedInputProps>(
+  ({ className, variant, size, type, id, ...props }, ref) => (
+    <Label
+      htmlFor={id}
+      className={cn(
+        inputVariants({ variant, size }),
+        'flex items-center gap-x-2',
+        'focus-within:ring-ring/50 cursor-text transition-shadow focus-within:ring-[3px]',
+        className,
+      )}
+    >
+      <SearchIcon className='text-muted-foreground size-5 shrink-0' />
+      <input
+        id={id}
+        type={type}
+        ref={ref}
+        className='placeholder:text-muted-foreground w-full bg-transparent outline-none'
+        {...props}
+      />
+    </Label>
+  ),
+);
+
+SearchInput.displayName = 'SearchInput';
 Input.displayName = 'Input';
 
-export { Input };
+export { Input, SearchInput };

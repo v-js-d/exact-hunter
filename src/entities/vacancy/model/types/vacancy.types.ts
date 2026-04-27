@@ -1,5 +1,10 @@
-import { Company } from './vacancy-company.types';
-
+export interface Company {
+  id: string;
+  name: string;
+  location: string;
+  city: string;
+  rating: number;
+}
 export interface Vacancy {
   id: string;
   companyId: string;
@@ -23,13 +28,4 @@ export interface Vacancy {
   updatedAt: string;
   createdBy: string;
   updatedBy: string;
-}
-
-export interface VacanciesResponse {
-  result: {
-    page: number;
-    totalPages: number;
-    totalItems: number;
-    items: Vacancy[];
-  };
 }
