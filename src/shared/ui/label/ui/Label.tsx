@@ -2,7 +2,7 @@
 
 import { Label as LabelPrimitive } from 'radix-ui';
 
-import { cn } from '../../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn/cn';
 
 import type { LabelProps } from './Label.types';
 

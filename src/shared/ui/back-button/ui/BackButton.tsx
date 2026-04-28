@@ -2,7 +2,7 @@
 
 import { ChevronRight } from 'lucide-react';
 
-import { cn } from '../../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn/cn';
 import { Button } from '../../button';
 
 import type { BackButtonProps } from './BackButton.types';
