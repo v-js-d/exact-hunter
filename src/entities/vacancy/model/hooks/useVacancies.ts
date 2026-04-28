@@ -12,7 +12,7 @@ export const useVacancies = () =>
     queryKey: ['vacancies'],
 
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get(`api/mock/vacancies`, {
+      const response = await axios.get('/api/mock/vacancies', {
         params: {
           page: pageParam,
           limit: VACANCIES_PAGE_SIZE,

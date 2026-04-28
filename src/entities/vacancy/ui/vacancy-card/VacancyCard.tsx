@@ -47,8 +47,6 @@ export const VacancyCard = (props: VacancyCardProps) => {
     <Card className='border-muted-foreground/10 group-hover:border-primary/20 relative flex h-full flex-col gap-y-3 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
       <Link
         href={VACANCIES_NAVIGATE[authStatus]}
-        target='_blank'
-        rel='noopener noreferrer'
         className='absolute inset-0 z-10'
       />
       <CardHeader className='flex flex-col gap-y-3 pb-2'>
