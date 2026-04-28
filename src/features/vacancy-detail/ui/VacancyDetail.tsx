@@ -50,7 +50,7 @@ export const VacancyDetail = ({ vacancyId }: VacancyDetailProps) => {
               <BriefcaseBusiness className='size-4 shrink-0' />
               <span className='truncate'>Вакансия #{vacancyId}</span>
             </div>
-            <Button asChild size='sm' variant='outline'>
+            <Button asChild size='lg' variant='outline'>
               <Link href={AppRouter.vacancies}>К списку вакансий</Link>
             </Button>
           </div>

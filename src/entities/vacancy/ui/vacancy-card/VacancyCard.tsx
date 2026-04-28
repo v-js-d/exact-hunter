@@ -3,7 +3,6 @@ import { Briefcase, Eye, MapPin, Star } from 'lucide-react';
 
 import { AuthStatus, useAuthStore } from '../../../session';
 
-import { VacancyTags } from './components/vacancy-tags/VacancyTags';
 import { VacancyCardProps } from './VacancyCard.types';
 
 import { AppRouter, ID_TEMPLATE } from '@/shared/config/AppRouter';
@@ -16,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/ui/card';
+import { TagsList } from '@/shared/ui/tags-list/ui/TagsList';
 
 export const VacancyCard = (props: VacancyCardProps) => {
   const {
@@ -70,7 +70,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
             {company.name}
           </p>
         </div>
-        <VacancyTags vacancyCardId={id} tags={tags} />
+        <TagsList variant={'secondary'} size={'md'} tags={tags} />
       </CardHeader>
 
       <CardContent className='flex flex-col gap-y-3'>

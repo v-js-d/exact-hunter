@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
+import { TagsList } from '@/shared/ui/tags-list/ui/TagsList';
 
 interface VacancyMainContentProps {
   vacancy: Vacancy;
@@ -33,14 +34,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
     <Card className='py-0'>
       <CardHeader className='gap-4 border-b py-6'>
         <div className='flex flex-wrap items-center gap-2'>
-          {tags.map((tag, index) => (
-            <span
-              key={index}
-              className='text-gray-6b bg-light-ed rounded-[0.625rem] px-2.5 py-1.25 text-sm leading-[120%] font-medium capitalize'
-            >
-              {tag}
-            </span>
-          ))}
+          <TagsList variant={'secondary'} size={'md'} tags={tags} />
         </div>
 
         <div className='space-y-2'>
