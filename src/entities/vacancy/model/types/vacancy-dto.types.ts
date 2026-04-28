@@ -8,3 +8,7 @@ export interface VacanciesResponse {
     items: Vacancy[];
   };
 }
+
+export interface VacancyResponse {
+  result: Vacancy;
+}
