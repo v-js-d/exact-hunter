@@ -34,6 +34,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
 
   const authStatus = useAuthStore(selectStatus);
 
+  // Авторизованных ведем на вакансию, гостей на регистрацию.
   const VACANCIES_NAVIGATE = {
     authenticated: replacePathId('vacancy', id),
     anonymous: AppRouter.auth,
