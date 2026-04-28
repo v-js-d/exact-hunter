@@ -1,23 +1,23 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 import { VacanciesResponse } from '../types/vacancy-dto.types';
 
-const VACANCIES_PAGE_SIZE = 10;
+import { query } from '@/shared/api/api';
+
+const VACANCIES_PAGE_SIZE = 20;
 
 export const useVacancies = () =>
   useInfiniteQuery<VacanciesResponse>({
     queryKey: ['vacancies'],
 
     queryFn: async ({ pageParam = 1 }) => {
-      const response = await axios.get('/api/mock/vacancies', {
-        params: {
-          page: pageParam,
-          limit: VACANCIES_PAGE_SIZE,
-        },
+      const queryActions = query<unknown, VacanciesResponse>(null, {
+        params: { page: pageParam, limit: VACANCIES_PAGE_SIZE },
       });
+
+      const response = await queryActions('mock/vacancies');
       return response.data;
     },
 

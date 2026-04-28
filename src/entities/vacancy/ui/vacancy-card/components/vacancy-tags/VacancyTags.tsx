@@ -2,18 +2,20 @@ import clsx from 'clsx';
 
 import { VacancyTagsProps } from './VacancyTags.types';
 
+import { Badge } from '@/shared/ui/badge';
+
 export const VacancyTags = (props: VacancyTagsProps) => {
   const { tags, vacancyCardId, className = '' } = props;
 
   return (
     <ul className={clsx('flex max-w-190 flex-wrap gap-2.5', className)}>
       {tags.map((tag, index) => (
-        <p
+        <Badge
           key={`${tag.toLowerCase()}-${vacancyCardId}-${index}`}
-          className='text-gray-6b bg-light-ed rounded-[0.625rem] px-2.5 py-1.25 text-sm leading-[120%] font-medium capitalize'
+          className='text-sm font-medium capitalize'
         >
           {tag.toLowerCase()}
-        </p>
+        </Badge>
       ))}
     </ul>
   );

@@ -1,5 +1,3 @@
-import { env } from '../config/env';
-
 import {
   createApiClient,
   QueryInputType,
@@ -10,9 +8,6 @@ const {
   instance: $api,
   mutation,
   query,
-} = createApiClient(
-  { baseURL: env.NEXT_PUBLIC_API_URL },
-  { withCredentials: true },
-);
+} = createApiClient({ baseURL: 'api/' }, { withCredentials: true });
 
 export { $api, mutation, query, type QueryInputType, RequestType };

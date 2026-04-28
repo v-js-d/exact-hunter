@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Briefcase, Eye, MapPin, Star } from 'lucide-react';
 
-import { AuthStatus, useAuthStore } from '../../../session';
+import { AuthStatus, selectStatus, useAuthStore } from '../../../session';
 
 import { VacancyTags } from './components/vacancy-tags/VacancyTags';
 import { VacancyCardProps } from './VacancyCard.types';
 
-import { AppRouter, ID_TEMPLATE } from '@/shared/config/AppRouter';
+import { AppRouter } from '@/shared/config/AppRouter';
+import { replacePathId } from '@/shared/lib/helpers/replacePathId';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -31,13 +32,11 @@ export const VacancyCard = (props: VacancyCardProps) => {
     },
   } = props;
 
-  const authStatus = useAuthStore((state) => state.status);
-
-  const vacancyPath = AppRouter.vacancy.replace(ID_TEMPLATE, id);
+  const authStatus = useAuthStore(selectStatus);
 
   const VACANCIES_NAVIGATE = {
-    authenticated: vacancyPath,
-    anonymous: /* AppRouter.auth */ vacancyPath,
+    authenticated: replacePathId('vacancy', id),
+    anonymous: AppRouter.auth,
     loading: '',
   } satisfies Record<AuthStatus, string>;
 
@@ -76,7 +75,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
       </CardContent>
 
       <CardFooter className='bg-muted/30 mt-auto flex items-center justify-between gap-2 border-t pt-4'>
-        <div className='relative z-10'>
+        <div className='z-10'>
           <Button
             size='lg'
             className='z-20 w-fit leading-[120%] font-semibold transition-transform'

@@ -1,10 +1,5 @@
 import { Vacancy } from './vacancy.types';
 
-export interface VacanciesResponse {
-  result: {
-    page: number;
-    totalPages: number;
-    totalItems: number;
-    items: Vacancy[];
-  };
-}
+import { RespWithPagination } from '@/shared/types/pagination.types';
+
+export type VacanciesResponse = RespWithPagination<Vacancy>;
