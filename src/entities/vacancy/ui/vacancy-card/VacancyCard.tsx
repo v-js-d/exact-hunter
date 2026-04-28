@@ -7,6 +7,7 @@ import { VacancyTags } from './components/vacancy-tags/VacancyTags';
 import { VacancyCardProps } from './VacancyCard.types';
 
 import { AppRouter, ID_TEMPLATE } from '@/shared/config/AppRouter';
+import { getCurrencyRange } from '@/shared/lib/';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -25,6 +26,9 @@ export const VacancyCard = (props: VacancyCardProps) => {
       employmentType,
       workType,
       location,
+      salaryMin,
+      salaryMax,
+      currency,
       viewsCount,
       title,
       repliesCount,
@@ -54,6 +58,13 @@ export const VacancyCard = (props: VacancyCardProps) => {
           <CardTitle className='text-foreground group-hover:text-primary text-2xl font-bold tracking-tight transition-colors'>
             {title}
           </CardTitle>
+          <p className='text-xl leading-tight font-semibold tracking-tight'>
+            {getCurrencyRange({
+              min: salaryMin,
+              max: salaryMax,
+              currency,
+            })}
+          </p>
           <p className='text-muted-foreground flex items-center gap-x-1.5 text-base font-medium'>
             <Briefcase size={16} />
             {company.name}

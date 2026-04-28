@@ -8,6 +8,7 @@ import {
   CalendarDays,
   Eye,
   MapPin,
+  Star,
   Users,
 } from 'lucide-react';
 
@@ -120,8 +121,16 @@ export const VacancyDetail = ({ vacancyId }: VacancyDetailProps) => {
                   </div>
                   <div className='flex min-w-55 flex-1 items-start gap-2'>
                     <Building2 className='mt-0.5 size-4 shrink-0 text-zinc-500' />
-                    <span className='leading-snug wrap-break-word'>
-                      Рейтинг компании: {data.company?.rating ?? 0}
+                    <span className='flex items-center gap-x-1 leading-snug wrap-break-word'>
+                      Рейтинг компании:
+                      <p className='flex items-center gap-x-1 rounded-md bg-yellow-400/10 px-2 py-0.5 font-bold text-yellow-600'>
+                        <Star
+                          size={14}
+                          fill='currentColor'
+                          aria-label='Rating'
+                        />
+                        <span>{data.company?.rating ?? 0}</span>
+                      </p>
                     </span>
                   </div>
                 </div>
