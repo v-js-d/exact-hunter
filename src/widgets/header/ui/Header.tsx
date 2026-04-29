@@ -3,6 +3,7 @@ import { Bell } from 'lucide-react';
 
 import { HeaderNav } from './components/HeaderNav/HeaderNav';
 
+import { AppRouter } from '@/shared/config/AppRouter';
 import { Button } from '@/shared/ui/button';
 
 const Header = () => (
@@ -12,16 +13,13 @@ const Header = () => (
       <HeaderNav />
     </div>
 
-    <div className='flex items-center gap-10'>
+    <div className='flex items-center gap-5'>
       <Button size='icon' variant={'ghost'}>
         <Bell />
       </Button>
       <div className='flex items-center gap-2 text-sm'>
-        <Link href='#' className='text-gray-500'>
-          Sign in
-        </Link>
-        <Link href='#' className='text-gray-500'>
-          Sign up
+        <Link href={AppRouter.auth} className='link-nav'>
+          Войти
         </Link>
       </div>
     </div>
