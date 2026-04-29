@@ -6,6 +6,7 @@ import { Building2, CalendarDays, MapPin, Star } from 'lucide-react';
 import type { Vacancy } from '@/entities/vacancy';
 
 import { getCurrencyRange, useDateTime } from '@/shared/lib/';
+import { BadgeList } from '@/shared/ui/badge-list';
 import {
   Card,
   CardContent,
@@ -14,7 +15,6 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
-import { TagsList } from '@/shared/ui/tags-list/ui/TagsList';
 
 interface VacancyMainContentProps {
   vacancy: Vacancy;
@@ -32,7 +32,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
     <Card className='py-0'>
       <CardHeader className='gap-4 border-b py-6'>
         <div className='flex flex-wrap items-center gap-2'>
-          <TagsList variant={'secondary'} size={'md'} tags={tags} />
+          <BadgeList variant={'default'} size={'md'} tags={tags} />
         </div>
 
         <div className='space-y-2'>
