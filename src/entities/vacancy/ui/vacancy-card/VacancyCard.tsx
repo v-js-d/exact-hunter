@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { Briefcase, Eye, MapPin, Star } from 'lucide-react';
 
-import { AuthStatus, useAuthStore } from '../../../session';
+import { AuthStatus, selectStatus, useAuthStore } from '../../../session';
 
 import { VacancyCardProps } from './VacancyCard.types';
 
-import { AppRouter, ID_TEMPLATE } from '@/shared/config/AppRouter';
 import { getCurrencyRange } from '@/shared/lib/';
+import { replacePathId } from '@/shared/lib/helpers/replacePathId';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -35,13 +35,13 @@ export const VacancyCard = (props: VacancyCardProps) => {
     },
   } = props;
 
-  const authStatus = useAuthStore((state) => state.status);
-
-  const vacancyPath = AppRouter.vacancy.replace(ID_TEMPLATE, id);
+  const authStatus = useAuthStore(selectStatus);
 
   const VACANCIES_NAVIGATE = {
-    authenticated: vacancyPath,
-    anonymous: /* AppRouter.auth */ vacancyPath,
+    authenticated: replacePathId('vacancy', id),
+    //TODO: Temporary disabled:
+    //anonymous: AppRouter.auth,
+    anonymous: replacePathId('vacancy', id),
     loading: '',
   } satisfies Record<AuthStatus, string>;
 
@@ -92,7 +92,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
             size='lg'
             className='z-20 w-fit leading-[120%] font-semibold transition-transform'
             type='button'
-            onClick={() => console.log('otklik')}
+            onClick={() => {}}
           >
             Откликнуться
           </Button>

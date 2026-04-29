@@ -38,7 +38,8 @@ export const VacanciesList = () => {
     triggerRef,
   });
 
-  if (isLoading) return <h2>Loading...</h2>;
+  if (isLoading)
+    return <Spinner size={30} className='flex w-full justify-center' />;
 
   if (error)
     return (
