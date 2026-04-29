@@ -2,7 +2,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { SearchIcon } from 'lucide-react';
 
-import { cn } from '../../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn/cn';
 import { Label } from '../../label';
 
 import { ExtendedInputProps } from './Input.types';
