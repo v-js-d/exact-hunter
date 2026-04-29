@@ -7,6 +7,7 @@ import { VacancyCardProps } from './VacancyCard.types';
 
 import { getCurrencyRange } from '@/shared/lib/';
 import { replacePathId } from '@/shared/lib/helpers/replacePathId';
+import { BadgeList } from '@/shared/ui/badge-list';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -15,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/ui/card';
-import { TagsList } from '@/shared/ui/tags-list/ui/TagsList';
 
 export const VacancyCard = (props: VacancyCardProps) => {
   const {
@@ -70,7 +70,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
             {company.name}
           </p>
         </div>
-        <TagsList variant={'secondary'} size={'md'} tags={tags} />
+        <BadgeList variant={'default'} size={'md'} tags={tags} />`
       </CardHeader>
 
       <CardContent className='flex flex-col gap-y-3'>

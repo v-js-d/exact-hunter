@@ -1,8 +1,8 @@
-import type { TagVariant } from '../../Tag';
+import type { BadgeProps } from '../../badge/ui/Badge.types';
 
-export interface TagsListProps {
+export interface BadgeListProps {
   tags: string[] | null | undefined;
-  variant?: TagVariant;
+  variant?: NonNullable<BadgeProps['variant']>;
   size?: 'sm' | 'md';
   removable?: boolean;
   onRemove?: (tag: string, index: number) => void;
