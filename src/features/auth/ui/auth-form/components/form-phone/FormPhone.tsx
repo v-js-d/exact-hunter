@@ -34,6 +34,7 @@ export const FormPhone = ({ isPending }: { isPending: boolean }) => {
           disabled={isPending}
           id='register-select-code'
           className='w-fit'
+          {...register('countryCode')}
         >
           {countryNumbers.map(({ code }) => (
             <option key={code} value={code}>
