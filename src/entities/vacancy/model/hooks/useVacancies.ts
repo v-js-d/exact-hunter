@@ -17,7 +17,7 @@ export const useVacancies = () =>
         params: { page: pageParam, limit: VACANCIES_PAGE_SIZE },
       });
 
-      const response = await queryActions('api/mock/vacancies');
+      const response = await queryActions('/mock/vacancies');
       return response.data;
     },
 

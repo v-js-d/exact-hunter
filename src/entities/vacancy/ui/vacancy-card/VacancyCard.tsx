@@ -5,6 +5,7 @@ import { AuthStatus, selectStatus, useAuthStore } from '../../../session';
 
 import { VacancyCardProps } from './VacancyCard.types';
 
+import { AppRouter } from '@/shared/config/AppRouter';
 import { getCurrencyRange } from '@/shared/lib/';
 import { replacePathId } from '@/shared/lib/helpers/replacePathId';
 import { BadgeList } from '@/shared/ui/badge-list';
@@ -39,9 +40,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
 
   const VACANCIES_NAVIGATE = {
     authenticated: replacePathId('vacancy', id),
-    //TODO: Temporary disabled:
-    //anonymous: AppRouter.auth,
-    anonymous: replacePathId('vacancy', id),
+    anonymous: AppRouter.auth,
     loading: '',
   } satisfies Record<AuthStatus, string>;
 
