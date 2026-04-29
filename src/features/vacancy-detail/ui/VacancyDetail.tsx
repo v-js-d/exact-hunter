@@ -15,8 +15,6 @@ import { Container } from '@/shared/ui/container';
 import { ErrorField } from '@/shared/ui/error-field';
 import { Spinner } from '@/shared/ui/spinner';
 
-const TEXT_FALL_BACK = 'Не указано';
-
 export const VacancyDetail = ({ vacancyId }: VacancyDetailProps) => {
   const { data, isLoading, error } = useVacancy(vacancyId);
 
@@ -38,7 +36,7 @@ export const VacancyDetail = ({ vacancyId }: VacancyDetailProps) => {
   }
 
   if (!data) {
-    return <p className='text-muted-foreground'>{TEXT_FALL_BACK}</p>;
+    return null;
   }
 
   return (

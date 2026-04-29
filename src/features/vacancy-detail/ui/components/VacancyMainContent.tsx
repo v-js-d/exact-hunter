@@ -20,8 +20,6 @@ interface VacancyMainContentProps {
   vacancy: Vacancy;
 }
 
-const TEXT_FALL_BACK = 'Не указано';
-
 export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
   const dateTime = useDateTime();
 
@@ -39,11 +37,10 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
 
         <div className='space-y-2'>
           <CardTitle className='text-2xl leading-tight font-semibold md:text-3xl'>
-            {vacancy.title || TEXT_FALL_BACK}
+            {vacancy.title || ''}
           </CardTitle>
           <CardDescription className='text-base text-zinc-600 dark:text-zinc-300'>
-            {vacancy.company?.name || TEXT_FALL_BACK} &bull;{' '}
-            {vacancy.location || TEXT_FALL_BACK}
+            {vacancy.company?.name || ''} &bull; {vacancy.location || ''}
           </CardDescription>
         </div>
 
@@ -51,15 +48,13 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
           <div className='flex min-w-55 flex-1 items-start gap-2'>
             <MapPin className='mt-0.5 size-4 shrink-0 text-zinc-500' />
             <span className='leading-snug wrap-break-word'>
-              {vacancy.company?.city || TEXT_FALL_BACK},{' '}
-              {vacancy.company?.location || TEXT_FALL_BACK}
+              {vacancy.company?.city || ''}, {vacancy.company?.location || ''}
             </span>
           </div>
           <div className='flex min-w-55 flex-1 items-start gap-2'>
             <CalendarDays className='mt-0.5 size-4 shrink-0 text-zinc-500' />
             <span className='leading-snug wrap-break-word'>
-              Опубликовано{' '}
-              {dateTime.getFormatRuDate(vacancy.createdAt) || TEXT_FALL_BACK}
+              Опубликовано {dateTime.getFormatRuDate(vacancy.createdAt) || ''}
             </span>
           </div>
           <div className='flex min-w-55 flex-1 items-start gap-2'>
@@ -92,7 +87,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
         <section className='space-y-3'>
           <h2 className='text-lg font-semibold'>Описание</h2>
           <p className='leading-relaxed text-zinc-700 dark:text-zinc-300'>
-            {vacancy.description || TEXT_FALL_BACK}
+            {vacancy.description || ''}
           </p>
         </section>
 
@@ -103,15 +98,12 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
           <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
             <div className='rounded-lg border bg-zinc-50 p-4 dark:bg-zinc-900/40'>
               <p className='text-sm text-zinc-500'>Компания</p>
-              <p className='mt-1 font-medium'>
-                {vacancy.company?.name || TEXT_FALL_BACK}
-              </p>
+              <p className='mt-1 font-medium'>{vacancy.company?.name || ''}</p>
             </div>
             <div className='rounded-lg border bg-zinc-50 p-4 dark:bg-zinc-900/40'>
               <p className='text-sm text-zinc-500'>Локация</p>
               <p className='mt-1 font-medium'>
-                {vacancy.company?.city || TEXT_FALL_BACK},{' '}
-                {vacancy.company?.location || TEXT_FALL_BACK}
+                {vacancy.company?.city || ''}, {vacancy.company?.location || ''}
               </p>
             </div>
           </div>
