@@ -4,6 +4,7 @@ import { useCallback, useMemo, useRef } from 'react';
 
 import { useVacancies, VacancyCard } from '@/entities/vacancy';
 
+import { TextFallBack } from '@/shared/config/TextFallBack';
 import { useObserverInfiniteScroll } from '@/shared/hooks';
 import { ErrorField } from '@/shared/ui/error-field';
 import { Spinner } from '@/shared/ui/spinner';
@@ -44,13 +45,17 @@ export const VacanciesList = () => {
   if (error)
     return (
       <ErrorField className='flex flex-col text-center'>
-        <span className='text-3xl'>Oops O_O...</span>
-        <span className='text-2xl'>{error.message}</span>
+        <span className='text-3xl'>
+          {TextFallBack.vacanciesList.errorTitle}
+        </span>
+        <span className='text-2xl'>
+          {error.message || TextFallBack.vacanciesList.errorDescription}
+        </span>
       </ErrorField>
     );
 
   if (allVacancies.length === 0) {
-    return <h1>Vacancies not found</h1>;
+    return <h1>{TextFallBack.vacanciesList.emptyState}</h1>;
   }
 
   return (

@@ -4,6 +4,7 @@ import { Eye, Users } from 'lucide-react';
 
 import type { VacancySummaryCardProps } from './VacancySummaryCard.types';
 
+import { TextFallBack } from '@/shared/config/TextFallBack';
 import { useDateTime } from '@/shared/lib';
 import { Button } from '@/shared/ui/button';
 import {
@@ -14,8 +15,6 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
-
-const TEXT_FALL_BACK = 'Не указано';
 
 export const VacancySummaryCard = ({ vacancy }: VacancySummaryCardProps) => {
   const dateTime = useDateTime();
@@ -31,7 +30,8 @@ export const VacancySummaryCard = ({ vacancy }: VacancySummaryCardProps) => {
           <div className='space-y-1'>
             <p className='text-sm text-zinc-500'>Дедлайн отклика</p>
             <p className='font-medium'>
-              {dateTime.getFormatRuDate(vacancy.createdAt) || TEXT_FALL_BACK}
+              {dateTime.getFormatRuDate(vacancy.createdAt) ||
+                TextFallBack.common.notSpecified}
             </p>
           </div>
           <Separator />

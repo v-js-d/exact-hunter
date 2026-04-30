@@ -5,6 +5,7 @@ import { Building2, CalendarDays, MapPin, Star } from 'lucide-react';
 
 import type { VacancyMainContentProps } from './VacancyMainContent.types';
 
+import { TextFallBack } from '@/shared/config/TextFallBack';
 import { getCurrencyRange, useDateTime } from '@/shared/lib';
 import { BadgeList } from '@/shared/ui/badge-list';
 import {
@@ -24,6 +25,15 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
     [vacancy.employmentType, vacancy.position, vacancy.workType],
   );
 
+  const salary = getCurrencyRange({
+    min: vacancy.salaryMin,
+    max: vacancy.salaryMax,
+    currency: vacancy.currency,
+  });
+  const companyLocation = [vacancy.company?.city, vacancy.company?.location]
+    .filter(Boolean)
+    .join(', ');
+
   return (
     <Card className='py-0'>
       <CardHeader className='gap-4 border-b py-6'>
@@ -33,10 +43,11 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
 
         <div className='space-y-2'>
           <CardTitle className='text-2xl leading-tight font-semibold md:text-3xl'>
-            {vacancy.title || ''}
+            {vacancy.title || TextFallBack.vacancy.title}
           </CardTitle>
           <CardDescription className='text-base text-zinc-600 dark:text-zinc-300'>
-            {vacancy.company?.name || ''} &bull; {vacancy.location || ''}
+            {vacancy.company?.name || TextFallBack.company.name} &bull;{' '}
+            {vacancy.location || TextFallBack.vacancy.location}
           </CardDescription>
         </div>
 
@@ -44,13 +55,15 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
           <div className='flex min-w-55 flex-1 items-start gap-2'>
             <MapPin className='mt-0.5 size-4 shrink-0 text-zinc-500' />
             <span className='leading-snug wrap-break-word'>
-              {vacancy.company?.city || ''}, {vacancy.company?.location || ''}
+              {companyLocation || TextFallBack.company.location}
             </span>
           </div>
           <div className='flex min-w-55 flex-1 items-start gap-2'>
             <CalendarDays className='mt-0.5 size-4 shrink-0 text-zinc-500' />
             <span className='leading-snug wrap-break-word'>
-              Опубликовано {dateTime.getFormatRuDate(vacancy.createdAt) || ''}
+              Опубликовано{' '}
+              {dateTime.getFormatRuDate(vacancy.createdAt) ||
+                TextFallBack.common.notSpecified}
             </span>
           </div>
           <div className='flex min-w-55 flex-1 items-start gap-2'>
@@ -70,11 +83,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
         <section className='space-y-3'>
           <h2 className='text-lg font-semibold'>Зарплата</h2>
           <p className='text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100'>
-            {getCurrencyRange({
-              min: vacancy.salaryMin,
-              max: vacancy.salaryMax,
-              currency: vacancy.currency,
-            })}
+            {salary}
           </p>
         </section>
 
@@ -83,7 +92,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
         <section className='space-y-3'>
           <h2 className='text-lg font-semibold'>Описание</h2>
           <p className='leading-relaxed text-zinc-700 dark:text-zinc-300'>
-            {vacancy.description || ''}
+            {vacancy.description || TextFallBack.vacancy.description}
           </p>
         </section>
 
@@ -94,12 +103,14 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
           <div className='grid grid-cols-1 gap-3 md:grid-cols-2'>
             <div className='rounded-lg border bg-zinc-50 p-4 dark:bg-zinc-900/40'>
               <p className='text-sm text-zinc-500'>Компания</p>
-              <p className='mt-1 font-medium'>{vacancy.company?.name || ''}</p>
+              <p className='mt-1 font-medium'>
+                {vacancy.company?.name || TextFallBack.company.name}
+              </p>
             </div>
             <div className='rounded-lg border bg-zinc-50 p-4 dark:bg-zinc-900/40'>
               <p className='text-sm text-zinc-500'>Локация</p>
               <p className='mt-1 font-medium'>
-                {vacancy.company?.city || ''}, {vacancy.company?.location || ''}
+                {companyLocation || TextFallBack.company.location}
               </p>
             </div>
           </div>
