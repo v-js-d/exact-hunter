@@ -1,12 +1,15 @@
 'use client';
 
 import { useCallback, useMemo, useRef } from 'react';
+import Link from 'next/link';
 
 import { useVacancies, VacancyCard } from '@/entities/vacancy';
 
+import { AppRouter } from '@/shared/config/AppRouter';
 import { TextFallBack } from '@/shared/config/TextFallBack';
 import { useObserverInfiniteScroll } from '@/shared/hooks';
-import { ErrorField } from '@/shared/ui/error-field';
+import { Button } from '@/shared/ui/button';
+import { Empty } from '@/shared/ui/empty';
 import { Spinner } from '@/shared/ui/spinner';
 
 export const VacanciesList = () => {
@@ -39,20 +42,24 @@ export const VacanciesList = () => {
     triggerRef,
   });
 
-  if (isLoading)
+  if (isLoading) {
     return <Spinner size={30} className='flex w-full justify-center' />;
+  }
 
-  if (error)
+  if (error) {
     return (
-      <ErrorField className='flex flex-col text-center'>
-        <span className='text-3xl'>
-          {TextFallBack.vacanciesList.errorTitle}
-        </span>
-        <span className='text-2xl'>
-          {error.message || TextFallBack.vacanciesList.errorDescription}
-        </span>
-      </ErrorField>
+      <Empty
+        title='Что-то пошло не так...'
+        variant='error'
+        className='min-h-[30vh]'
+        actions={
+          <Button asChild>
+            <Link href={AppRouter.main}>На главную</Link>
+          </Button>
+        }
+      />
     );
+  }
 
   if (allVacancies.length === 0) {
     return <h1>{TextFallBack.vacanciesList.emptyState}</h1>;

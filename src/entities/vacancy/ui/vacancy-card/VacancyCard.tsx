@@ -2,11 +2,8 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import { Briefcase, Eye, MapPin, Star } from 'lucide-react';
 
-import { AuthStatus, selectStatus, useAuthStore } from '../../../session';
-
 import { VacancyCardProps } from './VacancyCard.types';
 
-import { AppRouter } from '@/shared/config/AppRouter';
 import { TextFallBack } from '@/shared/config/TextFallBack';
 import { getCurrencyRange } from '@/shared/lib/';
 import { replacePathId } from '@/shared/lib/helpers/replacePathId';
@@ -36,13 +33,13 @@ export const VacancyCard = (props: VacancyCardProps) => {
     repliesCount,
   } = props.vacancy;
 
-  const authStatus = useAuthStore(selectStatus);
+  // const authStatus = useAuthStore(selectStatus);
 
-  const VACANCIES_NAVIGATE = {
-    authenticated: replacePathId('vacancy', id),
-    anonymous: AppRouter.auth,
-    loading: '',
-  } satisfies Record<AuthStatus, string>;
+  // const VACANCIES_NAVIGATE = {
+  //   authenticated: replacePathId('vacancy', id),
+  //   anonymous: AppRouter.auth,
+  //   loading: '',
+  // } satisfies Record<AuthStatus, string>;
 
   const tags = useMemo(
     () => [position, employmentType, workType],
@@ -58,7 +55,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
   return (
     <Card className='border-muted-foreground/10 group-hover:border-primary/20 relative flex h-full flex-col gap-y-3 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'>
       <Link
-        href={VACANCIES_NAVIGATE[authStatus]}
+        href={replacePathId('vacancy', id)}
         className='absolute inset-0 z-10'
       />
       <CardHeader className='flex flex-col gap-y-3 pb-2'>
