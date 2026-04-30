@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef } from 'react';
+import { type ReactNode, useCallback, useMemo, useRef } from 'react';
 import Link from 'next/link';
 
 import { useVacancies, VacancyCard } from '@/entities/vacancy';
@@ -12,7 +12,11 @@ import { Button } from '@/shared/ui/button';
 import { Empty } from '@/shared/ui/empty';
 import { Spinner } from '@/shared/ui/spinner';
 
-export const VacanciesList = () => {
+interface VacanciesListProps {
+  renderAction?: (vacancyId: string) => ReactNode;
+}
+
+export const VacanciesList = ({ renderAction }: VacanciesListProps) => {
   const {
     data,
     fetchNextPage,
@@ -70,7 +74,10 @@ export const VacanciesList = () => {
       <ul className='flex flex-col gap-y-2.5 pb-5'>
         {allVacancies.map((vacancy) => (
           <li key={vacancy.id}>
-            <VacancyCard vacancy={vacancy} />
+            <VacancyCard
+              vacancy={vacancy}
+              action={renderAction?.(vacancy.id)}
+            />
           </li>
         ))}
         {isFetchingNextPage && (

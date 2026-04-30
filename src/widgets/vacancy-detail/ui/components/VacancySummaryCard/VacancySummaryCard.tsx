@@ -4,9 +4,10 @@ import { Eye, Users } from 'lucide-react';
 
 import type { VacancySummaryCardProps } from './VacancySummaryCard.types';
 
+import { ApplyToVacancyButton } from '@/features/vacancy-apply';
+
 import { TextFallBack } from '@/shared/config/TextFallBack';
 import { useDateTime } from '@/shared/lib';
-import { Button } from '@/shared/ui/button';
 import {
   Card,
   CardContent,
@@ -54,9 +55,11 @@ export const VacancySummaryCard = ({ vacancy }: VacancySummaryCardProps) => {
             </div>
           </div>
           <Separator />
-          <Button size='lg' className='w-full'>
-            Откликнуться
-          </Button>
+          <ApplyToVacancyButton
+            vacancyId={vacancy.id}
+            size='lg'
+            className='w-full'
+          />
         </CardContent>
       </Card>
     </aside>
