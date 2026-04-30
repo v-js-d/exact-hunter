@@ -13,3 +13,7 @@ export interface User {
 export interface MeResponse {
   user: User;
 }
+
+export interface MeEnvelope {
+  result: MeResponse;
+}

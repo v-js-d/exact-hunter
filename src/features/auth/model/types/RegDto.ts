@@ -15,5 +15,7 @@ export interface RegisterPhoneRequest {
 export type RegisterRequest = RegisterEmailRequest | RegisterPhoneRequest;
 
 export interface RegisterResponse {
-  user: User;
+  result: {
+    user: User;
+  };
 }

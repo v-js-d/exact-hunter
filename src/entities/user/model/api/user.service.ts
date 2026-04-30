@@ -1,5 +1,5 @@
-import { MeResponse } from '../types/user.types';
+import { MeEnvelope } from '../types/user.types';
 
 import { query } from '@/shared/api/api';
 
-export const getMe = query<null, MeResponse>();
+export const getMe = query<null, MeEnvelope>();

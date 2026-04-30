@@ -24,7 +24,7 @@ export const useLoginMutation = () => {
     onSuccess: (data) => {
       authActions.setStatus('authenticated');
 
-      queryClient.setQueryData(['auth', 'me'], { user: data.user });
+      queryClient.setQueryData(['auth', 'me'], { user: data.result.user });
 
       router.push(AppRouter.main);
     },

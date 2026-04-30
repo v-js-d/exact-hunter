@@ -1,28 +1,22 @@
 'use client';
 
 import Link from 'next/link';
-import { Bell, CircleUserRound } from 'lucide-react';
 
+import { HeaderActions } from './components/HeaderActions/HeaderActions';
 import { HeaderNav } from './components/HeaderNav/HeaderNav';
 
-import {
-  selectStatus,
-  useAuthStore,
-  useLogoutMutation,
-} from '@/entities/session';
-import { useAuthMeQuery } from '@/entities/user';
-
 import { AppRouter } from '@/shared/config/AppRouter';
-import { Button } from '@/shared/ui/button';
+import { cn } from '@/shared/lib';
 
 const Header = () => {
-  const status = useAuthStore(selectStatus);
-  const isAuthenticated = status === 'authenticated';
-  const { mutate: logout, isPending: isLoggingOut } = useLogoutMutation();
-  const { data: me } = useAuthMeQuery({ enabled: isAuthenticated });
+  const headerClassName = cn(
+    'bg-card text-card-foreground border-border',
+    'relative z-10 flex h-15 shrink-0 items-center justify-between gap-10',
+    'border-b px-10 py-5 shadow-sm',
+  );
 
   return (
-    <header className='bg-card text-card-foreground border-border relative z-10 flex h-15 shrink-0 items-center justify-between gap-10 border-b px-10 py-5 shadow-sm'>
+    <header className={headerClassName}>
       <div className='flex items-center gap-15'>
         <Link href={AppRouter.main} className='typo-h3'>
           ExactHunter
@@ -30,36 +24,7 @@ const Header = () => {
         <HeaderNav />
       </div>
 
-      <div className='flex items-center gap-5'>
-        <Button size='icon' variant='ghost'>
-          <Bell />
-        </Button>
-        {isAuthenticated ? (
-          <div className='flex items-center gap-3 text-sm'>
-            <div className='text-muted-foreground flex items-center gap-2'>
-              <CircleUserRound className='size-5' aria-hidden />
-              <span>
-                {(me?.user?.email || me?.user?.phone) ?? 'Пользователь'}
-              </span>
-            </div>
-            <Button
-              className='link-nav'
-              size='sm'
-              variant='ghost'
-              onClick={() => logout()}
-              disabled={isLoggingOut}
-            >
-              Выйти
-            </Button>
-          </div>
-        ) : (
-          <div className='flex items-center gap-2 text-sm'>
-            <Link href={AppRouter.auth} className='link-nav'>
-              Войти
-            </Link>
-          </div>
-        )}
-      </div>
+      <HeaderActions />
     </header>
   );
 };
