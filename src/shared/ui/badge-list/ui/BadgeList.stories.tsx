@@ -32,7 +32,7 @@ const sampleTags = ['Frontend', 'Remote', 'Full-time'];
 
 export const Default: Story = {
   args: {
-    tags: sampleTags,
+    data: sampleTags,
     variant: 'default',
     size: 'sm',
   },
@@ -41,19 +41,19 @@ export const Default: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className='flex flex-col gap-4'>
-      <BadgeList tags={sampleTags} variant='default' />
-      <BadgeList tags={sampleTags} variant='secondary' />
-      <BadgeList tags={sampleTags} variant='destructive' />
-      <BadgeList tags={sampleTags} variant='outline' />
-      <BadgeList tags={sampleTags} variant='ghost' />
-      <BadgeList tags={sampleTags} variant='link' />
+      <BadgeList data={sampleTags} variant='default' />
+      <BadgeList data={sampleTags} variant='secondary' />
+      <BadgeList data={sampleTags} variant='destructive' />
+      <BadgeList data={sampleTags} variant='outline' />
+      <BadgeList data={sampleTags} variant='ghost' />
+      <BadgeList data={sampleTags} variant='link' />
     </div>
   ),
 };
 
 export const MediumSize: Story = {
   args: {
-    tags: sampleTags,
+    data: sampleTags,
     variant: 'secondary',
     size: 'md',
   },
@@ -61,7 +61,7 @@ export const MediumSize: Story = {
 
 export const RemovableAndClickable: Story = {
   args: {
-    tags: sampleTags,
+    data: sampleTags,
     variant: 'outline',
     removable: true,
     onTagClick: () => {},

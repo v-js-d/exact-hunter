@@ -69,7 +69,7 @@ export const VacancyCard = (props: VacancyCardProps) => {
             {company.name}
           </p>
         </div>
-        <BadgeList variant={'default'} size={'md'} tags={tags} />`
+        <BadgeList variant={'default'} size={'md'} data={tags} />`
       </CardHeader>
 
       <CardContent className='flex flex-col gap-y-3'>

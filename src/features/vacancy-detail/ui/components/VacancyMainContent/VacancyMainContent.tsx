@@ -28,7 +28,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
     <Card className='py-0'>
       <CardHeader className='gap-4 border-b py-6'>
         <div className='flex flex-wrap items-center gap-2'>
-          <BadgeList variant={'default'} size={'md'} tags={tags} />
+          <BadgeList variant={'default'} size={'md'} data={tags} />
         </div>
 
         <div className='space-y-2'>

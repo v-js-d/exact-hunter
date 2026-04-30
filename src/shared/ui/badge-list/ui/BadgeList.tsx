@@ -10,7 +10,7 @@ const sizeClasses: Record<NonNullable<BadgeListProps['size']>, string> = {
 };
 
 export const BadgeList = ({
-  tags,
+  data,
   variant = 'default',
   size = 'sm',
   removable = false,
@@ -19,17 +19,17 @@ export const BadgeList = ({
   className,
   tagClassName,
 }: BadgeListProps) => {
-  if (!Array.isArray(tags) || tags.length === 0) {
+  if (!Array.isArray(data) || data.length === 0) {
     return null;
   }
 
   return (
     <ul className={clsx('flex flex-wrap gap-2.5', className)}>
-      {tags.map((tag, index) => (
-        <li key={index}>
+      {data.map((el, index) => (
+        <li key={`${el}-${index}`}>
           <Badge
             variant={variant}
-            onClick={onTagClick ? () => onTagClick(tag) : undefined}
+            onClick={onTagClick ? () => onTagClick(el) : undefined}
             className={clsx(
               sizeClasses[size],
               onTagClick && 'cursor-pointer',
@@ -37,15 +37,15 @@ export const BadgeList = ({
               tagClassName,
             )}
           >
-            <span>{tag}</span>
+            <span>{el}</span>
             {removable && (
               <button
                 type='button'
-                aria-label={`Remove ${tag}`}
+                aria-label={`Remove ${el}`}
                 className='cursor-pointer rounded-full p-0.5 hover:bg-black/10'
                 onClick={(event) => {
                   event.stopPropagation();
-                  onRemove?.(tag, index);
+                  onRemove?.(el, index);
                 }}
               >
                 x

@@ -1,7 +1,7 @@
 import type { BadgeProps } from '../../badge/ui/Badge.types';
 
 export interface BadgeListProps {
-  tags: string[] | null | undefined;
+  data: string[] | null | undefined;
   variant?: NonNullable<BadgeProps['variant']>;
   size?: 'sm' | 'md';
   removable?: boolean;
