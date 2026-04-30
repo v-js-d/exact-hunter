@@ -29,6 +29,10 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
     currency: vacancy.currency,
   });
 
+  const vacancyCreatedDate =
+    dateTime.getFormatRuDate(vacancy.createdAt) ||
+    TextFallBack.common.notSpecified;
+
   const companyLocation = [vacancy.company?.city, vacancy.company?.location]
     .filter(Boolean)
     .join(', ');
@@ -39,9 +43,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
     companyName: vacancy.company?.name || TextFallBack.company.name,
     vacancyLocation: vacancy.location || TextFallBack.vacancy.location,
     companyLocation: companyLocation || TextFallBack.company.location,
-    publishedAt:
-      dateTime.getFormatRuDate(vacancy.createdAt) ||
-      TextFallBack.common.notSpecified,
+    publishedAt: vacancyCreatedDate,
     companyRating: vacancy.company?.rating ?? 0,
   };
 
