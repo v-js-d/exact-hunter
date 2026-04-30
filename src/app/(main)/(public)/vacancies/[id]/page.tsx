@@ -1,4 +1,4 @@
-import { VacancyDetail } from '@/features/vacancy-detail';
+import { VacancyDetail } from '@/widgets/vacancy-detail';
 
 type VacancyPageProps = {
   params: Promise<{ id: string }>;
