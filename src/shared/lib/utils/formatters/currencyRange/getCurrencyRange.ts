@@ -1,3 +1,7 @@
+import { TextFallBack } from '../../../../config/TextFallBack';
+
+import { formatCurrency } from './formatCurrency';
+
 interface CurrencyRangeOptions {
   min?: number | null;
   max?: number | null;
@@ -9,23 +13,26 @@ export function getCurrencyRange({
   max,
   currency = 'RUB',
 }: CurrencyRangeOptions): string {
-  if (min == null && max == null) {
-    return 'Не указана';
+  switch (true) {
+    case min != null && max != null:
+      return `${formatCurrency({
+        amount: min,
+        currency,
+      })} - ${formatCurrency({
+        amount: max,
+        currency,
+      })}`;
+    case min != null:
+      return `от ${formatCurrency({
+        amount: min,
+        currency,
+      })}`;
+    case max != null:
+      return `до ${formatCurrency({
+        amount: max,
+        currency,
+      })}`;
+    default:
+      return TextFallBack.common.notSpecified;
   }
-
-  const formatter = new Intl.NumberFormat('ru-RU', {
-    style: 'currency',
-    currency,
-    maximumFractionDigits: 0,
-  });
-
-  if (min != null && max != null) {
-    return `${formatter.format(min)} - ${formatter.format(max)}`;
-  }
-
-  if (min != null) {
-    return `от ${formatter.format(min)}`;
-  }
-
-  return `до ${formatter.format(max as number)}`;
 }
