@@ -42,10 +42,10 @@ export const VacancyCard = (props: VacancyCardProps) => {
   const displayData = {
     title: title || TextFallBack.vacancy.title,
     companyName: company.name || TextFallBack.company.name,
-    companyRating: company.rating || TextFallBack.company.rating,
+    companyRating: company.rating ?? TextFallBack.company.rating,
     location: location || TextFallBack.vacancy.location,
-    viewsCount: viewsCount || 0,
-    repliesCount: repliesCount || 0,
+    viewsCount: viewsCount ?? 0,
+    repliesCount: repliesCount ?? 0,
   };
 
   const vacancyCardClassName = cn(
