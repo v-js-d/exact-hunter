@@ -48,7 +48,7 @@ const Home = () => (
               <Badge>Beta</Badge>
             </div>
 
-            <h1 className='typo-h1 max-w-3xl'>
+            <h1 className='typo-h1 max-w-4xl'>
               Exact Hunter - Меньше откликов, больше офферов
             </h1>
             <p className='typo-body text-muted-foreground mt-4 max-w-2xl'>
