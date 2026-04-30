@@ -2,9 +2,9 @@
 
 import { Eye, Users } from 'lucide-react';
 
-import type { Vacancy } from '@/entities/vacancy';
+import type { VacancySummaryCardProps } from './VacancySummaryCard.types';
 
-import { useDateTime } from '@/shared/lib/';
+import { useDateTime } from '@/shared/lib';
 import { Button } from '@/shared/ui/button';
 import {
   Card,
@@ -14,10 +14,6 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
-
-interface VacancySummaryCardProps {
-  vacancy: Vacancy;
-}
 
 const TEXT_FALL_BACK = 'Не указано';
 

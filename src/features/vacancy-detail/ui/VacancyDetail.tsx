@@ -3,9 +3,8 @@
 import Link from 'next/link';
 import { BriefcaseBusiness } from 'lucide-react';
 
-import { VacancyMainContent } from './components/VacancyMainContent';
-import { VacancySummaryCard } from './components/VacancySummaryCard';
-import { VacancyDetailProps } from './VacancyDetail.types';
+import { VacancyMainContent, VacancySummaryCard } from './components';
+import type { VacancyDetailProps } from './VacancyDetail.types';
 
 import { useVacancy } from '@/entities/vacancy';
 

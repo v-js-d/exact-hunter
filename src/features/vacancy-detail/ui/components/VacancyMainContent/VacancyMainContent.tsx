@@ -3,9 +3,9 @@
 import { useMemo } from 'react';
 import { Building2, CalendarDays, MapPin, Star } from 'lucide-react';
 
-import type { Vacancy } from '@/entities/vacancy';
+import type { VacancyMainContentProps } from './VacancyMainContent.types';
 
-import { getCurrencyRange, useDateTime } from '@/shared/lib/';
+import { getCurrencyRange, useDateTime } from '@/shared/lib';
 import { BadgeList } from '@/shared/ui/badge-list';
 import {
   Card,
@@ -15,10 +15,6 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
-
-interface VacancyMainContentProps {
-  vacancy: Vacancy;
-}
 
 export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
   const dateTime = useDateTime();
