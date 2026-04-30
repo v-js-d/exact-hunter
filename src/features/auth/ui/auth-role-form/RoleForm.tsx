@@ -14,7 +14,7 @@ export const RoleForm = ({ role, ref }: RoleFormProps) => (
       color='blue'
     />
     <SelectionRoleButton
-      role='RECRUITER'
+      role='EMPLOYER'
       description='Ищу сотрудников'
       Icon={BriefcaseBusiness}
       title='Я работодатель'

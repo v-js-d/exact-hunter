@@ -37,10 +37,10 @@ export const RegisterCandidate: Story = {
   name: 'Register Mode - Candidate',
 };
 
-export const RegisterRecruiter: Story = {
+export const RegisterEmployer: Story = {
   args: {
-    role: 'RECRUITER' as UserRole,
+    role: 'EMPLOYER' as UserRole,
     mode: 'register' as AuthMode,
   },
-  name: 'Register Mode - Recruiter',
+  name: 'Register Mode - Employer',
 };

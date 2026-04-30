@@ -16,17 +16,17 @@ import { type UserRole } from '@/entities/user';
 
 import { BackButton } from '@/shared/ui/back-button';
 
-const commonRecruiterTitle =
+const commonEmployerTitle =
   'Здравствуйте, Кабан Кабаныч, нужны новые крестьяне?';
 
 const titles = {
   register: {
     CANDIDATE: 'Регистрируйся и ищи свою галлеру',
-    RECRUITER: commonRecruiterTitle,
+    EMPLOYER: commonEmployerTitle,
   },
   login: {
     CANDIDATE: 'Входи и ищи свою галлеру',
-    RECRUITER: commonRecruiterTitle,
+    EMPLOYER: commonEmployerTitle,
   },
 } as const satisfies Record<AuthMode, Record<UserRole, string>>;
 

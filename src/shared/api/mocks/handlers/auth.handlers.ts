@@ -1,11 +1,11 @@
 import { http, HttpResponse } from 'msw';
 
 /** Дублирует контракт API / entities.user; shared не импортирует entities (FSD). */
-type MockUserRole = 'CANDIDATE' | 'RECRUITER';
+type MockUserRole = 'CANDIDATE' | 'EMPLOYER';
 
 const MOCK_ROLE_ALLOWLIST = {
   CANDIDATE: true,
-  RECRUITER: true,
+  EMPLOYER: true,
 } as const satisfies Record<MockUserRole, true>;
 
 const AUTH_METHODS = {
@@ -147,7 +147,7 @@ export const authHandlers = [
 
     if (!isMockUserRole(body.role)) {
       return HttpResponse.json(
-        { message: 'Valid role (CANDIDATE or RECRUITER) is required' },
+        { message: 'Valid role (CANDIDATE or EMPLOYER) is required' },
         { status: 400 },
       );
     }
