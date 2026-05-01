@@ -39,7 +39,7 @@ const quickStats = [
 ] as const;
 
 const Home = () => (
-  <section className='w-full rounded-2xl border border-zinc-200/60 bg-zinc-50/80 py-8 backdrop-blur-sm md:py-12 dark:border-zinc-800/80 dark:bg-zinc-950/80'>
+  <section className='w-full py-8 md:py-12'>
     <Container>
       <div className='flex w-full flex-col gap-8 sm:gap-10'>
         <Card className='rounded-4xl border-white/40 bg-white/80 py-0 shadow-xl backdrop-blur-sm dark:border-white/10 dark:bg-black/20'>
