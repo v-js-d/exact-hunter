@@ -7,11 +7,7 @@ type VacancyPageProps = {
 const VacancyPage = async ({ params }: VacancyPageProps) => {
   const { id } = await params;
 
-  return (
-    <section className='flex w-full flex-col'>
-      <VacancyDetail vacancyId={id} />
-    </section>
-  );
+  return <VacancyDetail vacancyId={id} />;
 };
 
 export default VacancyPage;
