@@ -12,6 +12,7 @@ import type { VacancyMainContentProps } from './VacancyMainContent.types';
 
 import { TextFallBack } from '@/shared/config/TextFallBack';
 import { getCurrencyRange, useDateTime } from '@/shared/lib';
+import { DateFormats } from '@/shared/lib/utils/formatters/duration/time';
 import { Card, CardContent } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
 
@@ -30,7 +31,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
   });
 
   const vacancyCreatedDate =
-    dateTime.getFormatRuDate(vacancy.createdAt) ||
+    dateTime.getDate(vacancy.createdAt, DateFormats.DMY) ||
     TextFallBack.common.notSpecified;
 
   const companyLocation = [vacancy.company?.city, vacancy.company?.location]
