@@ -13,13 +13,13 @@ import type { VacancyMainContentProps } from './VacancyMainContent.types';
 import { getVacancyTagLabels } from '@/entities/vacancy';
 
 import { TextFallBack } from '@/shared/config/TextFallBack';
-import { getCurrencyRange, useFormatDateTime } from '@/shared/lib';
+import { getCurrencyRange, useDateTime } from '@/shared/lib';
 import { DateFormats } from '@/shared/lib/utils/formatters/dateTime/date';
 import { Card, CardContent } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
 
 export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
-  const dateTime = useFormatDateTime();
+  const dateTime = useDateTime();
 
   const tags = useMemo(
     () =>
@@ -38,7 +38,7 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
   });
 
   const vacancyCreatedDate =
-    dateTime.getDate(vacancy.createdAt, DateFormats.DMY) ||
+    dateTime.formatDate(vacancy.createdAt, DateFormats.DMY) ||
     TextFallBack.common.notSpecified;
 
   const companyLocation = [vacancy.company?.city, vacancy.company?.location]

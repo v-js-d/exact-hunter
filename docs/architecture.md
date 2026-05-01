@@ -113,7 +113,7 @@ import { useAuth } from '@/features/auth';
 | Папки       | `kebab-case` | `vacancy-card/`   |
 | Компоненты  | `PascalCase` | `VacancyCard.tsx` |
 | Хуки        | `useCamel`   | `useVacancies.ts` |
-| Утилиты     | `camelCase`  | `getDate.ts`      |
+| Утилиты     | `camelCase`  | `formatDate.ts`   |
 | Типы/Модели | `PascalCase` | `Vacancy.ts`      |
 
 ---

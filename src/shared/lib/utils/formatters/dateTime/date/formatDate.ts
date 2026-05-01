@@ -11,7 +11,10 @@ export enum DateFormats {
   YMD_API = 'YYYY-MM-DD',
 }
 
-export function getDate(date: DateInput, pattern: DateFormats): string | null {
+export function formatDate(
+  date: DateInput,
+  pattern: DateFormats,
+): string | null {
   if (date == null) {
     return null;
   }

@@ -7,7 +7,7 @@ import type { VacancySummaryCardProps } from './VacancySummaryCard.types';
 import { ApplyToVacancyButton } from '@/features/vacancy-apply';
 
 import { TextFallBack } from '@/shared/config/TextFallBack';
-import { useFormatDateTime } from '@/shared/lib';
+import { useDateTime } from '@/shared/lib';
 import { DateFormats } from '@/shared/lib/utils/formatters/dateTime/date';
 import {
   Card,
@@ -19,7 +19,7 @@ import {
 import { Separator } from '@/shared/ui/separator';
 
 export const VacancySummaryCard = ({ vacancy }: VacancySummaryCardProps) => {
-  const dateTime = useFormatDateTime();
+  const dateTime = useDateTime();
 
   return (
     <aside>
@@ -32,7 +32,7 @@ export const VacancySummaryCard = ({ vacancy }: VacancySummaryCardProps) => {
           <div className='space-y-1'>
             <p className='text-sm text-zinc-500'>Дедлайн отклика</p>
             <p className='font-medium'>
-              {dateTime.getDate(vacancy.createdAt, DateFormats.DMY) ||
+              {dateTime.formatDate(vacancy.createdAt, DateFormats.DMY) ||
                 TextFallBack.common.notSpecified}
             </p>
           </div>
