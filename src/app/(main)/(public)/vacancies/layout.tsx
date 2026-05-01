@@ -7,7 +7,7 @@ type VacanciesLayoutProps = {
 };
 
 const VacanciesLayout = ({ children }: VacanciesLayoutProps) => (
-  <section className='w-full py-8 md:py-12'>
+  <section className='w-full py-2 md:py-4'>
     <Container>
       <div className='mx-auto w-full max-w-6xl'>{children}</div>
     </Container>
