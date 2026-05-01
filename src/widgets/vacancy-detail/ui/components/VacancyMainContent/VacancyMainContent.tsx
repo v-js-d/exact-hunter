@@ -11,13 +11,13 @@ import {
 import type { VacancyMainContentProps } from './VacancyMainContent.types';
 
 import { TextFallBack } from '@/shared/config/TextFallBack';
-import { getCurrencyRange, useDateTime } from '@/shared/lib';
-import { DateFormats } from '@/shared/lib/utils/formatters/duration/time';
+import { getCurrencyRange, useFormatDateTime } from '@/shared/lib';
+import { DateFormats } from '@/shared/lib/utils/formatters/dateTime/date';
 import { Card, CardContent } from '@/shared/ui/card';
 import { Separator } from '@/shared/ui/separator';
 
 export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
-  const dateTime = useDateTime();
+  const dateTime = useFormatDateTime();
 
   const tags = useMemo(
     () => [vacancy.position, vacancy.employmentType, vacancy.workType],

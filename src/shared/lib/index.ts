@@ -7,4 +7,5 @@ export {
   formatCurrency,
   getCurrencyRange,
 } from './utils/formatters/currencyRange';
-export { useFormatDuration as useDateTime } from './utils/formatters/duration/formatDuration';
+export { useFormatDateTime } from './utils/formatters/dateTime';
+export { useFormatDuration } from './utils/formatters/duration/useFormatDuration';
