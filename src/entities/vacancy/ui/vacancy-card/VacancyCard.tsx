@@ -1,7 +1,11 @@
 import { useMemo } from 'react';
 import Link from 'next/link';
 
-import { getVacancyTagLabels } from '../../';
+import {
+  vacancyEmploymentTypeLabels,
+  vacancyPositionLabels,
+  vacancyWorkTypeLabels,
+} from '../../config/vacancy-labels';
 
 import { VacancyCardFooter } from './components/VacancyCardFooter';
 import { VacancyCardHeader } from './components/VacancyCardHeader';
@@ -31,7 +35,11 @@ export const VacancyCard = (props: VacancyCardProps) => {
   } = props.vacancy;
 
   const tags = useMemo(
-    () => getVacancyTagLabels({ position, employmentType, workType }),
+    () => [
+      vacancyPositionLabels[position] ?? position,
+      vacancyEmploymentTypeLabels[employmentType] ?? employmentType,
+      vacancyWorkTypeLabels[workType] ?? workType,
+    ],
     [employmentType, position, workType],
   );
 

@@ -10,7 +10,11 @@ import {
 } from './components';
 import type { VacancyMainContentProps } from './VacancyMainContent.types';
 
-import { getVacancyTagLabels } from '@/entities/vacancy';
+import {
+  vacancyEmploymentTypeLabels,
+  vacancyPositionLabels,
+  vacancyWorkTypeLabels,
+} from '@/entities/vacancy';
 
 import { TextFallBack } from '@/shared/config/TextFallBack';
 import { getCurrencyRange, useDateTime } from '@/shared/lib';
@@ -22,12 +26,12 @@ export const VacancyMainContent = ({ vacancy }: VacancyMainContentProps) => {
   const dateTime = useDateTime();
 
   const tags = useMemo(
-    () =>
-      getVacancyTagLabels({
-        position: vacancy.position,
-        employmentType: vacancy.employmentType,
-        workType: vacancy.workType,
-      }),
+    () => [
+      vacancyPositionLabels[vacancy.position] ?? vacancy.position,
+      vacancyEmploymentTypeLabels[vacancy.employmentType] ??
+        vacancy.employmentType,
+      vacancyWorkTypeLabels[vacancy.workType] ?? vacancy.workType,
+    ],
     [vacancy.employmentType, vacancy.position, vacancy.workType],
   );
 

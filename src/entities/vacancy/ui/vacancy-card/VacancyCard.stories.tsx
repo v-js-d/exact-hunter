@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
 import { Vacancy } from '../../model/types/vacancy.types';
+import {
+  VacancyEmploymentType,
+  VacancyWorkType,
+} from '../../model/types/vacancy-enum.types';
 
 import { VacancyCard } from './VacancyCard';
 
@@ -38,8 +42,8 @@ const mockVacancy: Vacancy = {
   salaryMax: 450000,
   currency: 'RUB',
   location: 'Remote, Serbia',
-  workType: 'Удаленно',
-  employmentType: 'Полная занятость',
+  workType: VacancyWorkType.REMOTE,
+  employmentType: VacancyEmploymentType.PERMANENT,
   isActive: true,
   isPublic: true,
   expiresAt: '2026-12-31T23:59:59Z',

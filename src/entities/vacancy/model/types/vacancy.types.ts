@@ -1,3 +1,9 @@
+import type {
+  VacancyEmploymentType,
+  VacancyPosition,
+  VacancyWorkType,
+} from './vacancy-enum.types';
+
 export interface Company {
   id: string;
   name: string;
@@ -12,13 +18,13 @@ export interface Vacancy {
   projectId: string | null;
   title: string;
   description: string;
-  position: string;
+  position: VacancyPosition;
   salaryMin: number;
   salaryMax: number;
   currency: string;
   location: string;
-  workType: string;
-  employmentType: string;
+  workType: VacancyWorkType;
+  employmentType: VacancyEmploymentType;
   isActive: boolean;
   isPublic: boolean;
   expiresAt: string;
