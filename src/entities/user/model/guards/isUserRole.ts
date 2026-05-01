@@ -5,7 +5,7 @@ import {
 
 const ALLOWED = {
   [UserRole.CANDIDATE]: true,
-  [UserRole.RECRUITER]: true,
+  [UserRole.EMPLOYER]: true,
 } as const satisfies Record<UserRoleType, true>;
 
 export function isUserRole(value: unknown): value is UserRoleType {

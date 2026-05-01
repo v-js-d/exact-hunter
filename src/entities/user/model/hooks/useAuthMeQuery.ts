@@ -8,7 +8,7 @@ import { MeResponse } from '../types/user.types';
 export const useAuthMeQuery = (options?: { enabled?: boolean }) =>
   useQuery<MeResponse>({
     queryKey: ['auth', 'me'],
-    queryFn: async () => getMe('/auth/me').then((resp) => resp.data),
+    queryFn: async () => getMe('/auth/me').then((resp) => resp.data.result),
     enabled: options?.enabled ?? true,
     retry: 0,
   });

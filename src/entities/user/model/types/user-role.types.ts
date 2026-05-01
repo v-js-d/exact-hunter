@@ -1,6 +1,6 @@
 export const UserRole = {
   CANDIDATE: 'CANDIDATE',
-  RECRUITER: 'RECRUITER',
+  EMPLOYER: 'EMPLOYER',
 } as const;
 
 export const userRoles = Object.values(UserRole);

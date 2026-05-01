@@ -34,6 +34,7 @@ export const FormPhone = ({ isPending }: { isPending: boolean }) => {
           disabled={isPending}
           id='register-select-code'
           className='w-fit'
+          {...register('countryCode')}
         >
           {countryNumbers.map(({ code }) => (
             <option key={code} value={code}>
@@ -44,11 +45,11 @@ export const FormPhone = ({ isPending }: { isPending: boolean }) => {
         <Input
           disabled={isPending}
           type='tel'
+          size={'circle'}
           id='register-tel-input'
           placeholder='Номер телефона'
           inputMode='numeric'
           autoComplete='tel'
-          className='border-gray-6b rounded-4xl px-5 py-2.5'
           {...register('phone')}
         />
       </FormField>

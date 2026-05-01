@@ -2,7 +2,7 @@
 
 import { Separator as SeparatorPrimitive } from 'radix-ui';
 
-import { cn } from '../../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn/cn';
 
 import type { SeparatorProps } from './Separator.types';
 

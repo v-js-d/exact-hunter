@@ -11,6 +11,7 @@ import {
 import { useUser } from '@/entities/user';
 
 import { AppRouter } from '@/shared/config/AppRouter';
+import { Spinner } from '@/shared/ui/spinner';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -42,7 +43,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isAuthPage, refreshSession, setStatus]);
 
   if (status === 'loading') {
-    return <div>Загрузка...</div>;
+    return (
+      <div className='flex items-center justify-center'>
+        <Spinner className='size-6' />
+      </div>
+    );
   }
 
   return <>{children}</>;

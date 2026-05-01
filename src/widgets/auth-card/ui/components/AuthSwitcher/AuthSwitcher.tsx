@@ -14,7 +14,7 @@ const AUTH_METHODS = {
 } as const;
 
 export const AuthSwitcher = ({ role, mode, isPending }: AuthSwitcherProps) => {
-  const [authMethod, setAuthMethod] = useState<AuthMethod>(AUTH_METHODS.PHONE);
+  const [authMethod, setAuthMethod] = useState<AuthMethod>(AUTH_METHODS.EMAIL);
 
   const activeMethod = (method: AuthMethod) =>
     authMethod === method ? 'default' : 'outline';
@@ -27,7 +27,8 @@ export const AuthSwitcher = ({ role, mode, isPending }: AuthSwitcherProps) => {
         onClick={() => setAuthMethod(AUTH_METHODS.PHONE)}
         aria-pressed={authMethod === AUTH_METHODS.PHONE}
         className='text-lg font-medium'
-        disabled={isPending}
+        /*TODO: раздисейблить когда будет реализовано на бэке*/
+        disabled
       >
         Телефон
       </Button>

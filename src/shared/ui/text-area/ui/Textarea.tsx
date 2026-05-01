@@ -1,4 +1,4 @@
-import { cn } from '../../../lib/utils/cn';
+import { cn } from '../../../lib/utils/cn/cn';
 
 import type { TextareaProps } from './Textarea.types';
 

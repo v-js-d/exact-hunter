@@ -43,6 +43,7 @@ export const PasswordField = ({ errors, isPending }: PasswordFieldProps) => {
       <div className='relative'>
         <Input
           disabled={isPending}
+          size={'circle'}
           type={passwordMode}
           id='register-password-input'
           autoComplete='current-password'

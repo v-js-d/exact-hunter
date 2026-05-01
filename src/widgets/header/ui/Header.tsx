@@ -1,29 +1,32 @@
-import Link from 'next/link';
-import { Bell } from 'lucide-react';
+'use client';
 
+import Link from 'next/link';
+
+import { HeaderActions } from './components/HeaderActions/HeaderActions';
 import { HeaderNav } from './components/HeaderNav/HeaderNav';
 
 import { AppRouter } from '@/shared/config/AppRouter';
-import { Button } from '@/shared/ui/button';
+import { cn } from '@/shared/lib';
 
-const Header = () => (
-  <header className='bg-card text-card-foreground border-border left-0 flex h-15 items-center justify-between gap-10 border-b px-10 py-5 shadow-sm'>
-    <div className='flex items-center gap-15'>
-      <h3 className='typo-h3'>ExactHunter</h3>
-      <HeaderNav />
-    </div>
+const Header = () => {
+  const headerClassName = cn(
+    'bg-card text-card-foreground border-border',
+    'relative z-10 flex min-h-15 shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-3',
+    'border-b px-4 py-4 shadow-sm sm:px-6 md:px-10 md:py-5',
+  );
 
-    <div className='flex items-center gap-5'>
-      <Button size='icon' variant={'ghost'}>
-        <Bell />
-      </Button>
-      <div className='flex items-center gap-2 text-sm'>
-        <Link href={AppRouter.auth} className='link-nav'>
-          Войти
+  return (
+    <header className={headerClassName}>
+      <div className='flex min-w-0 flex-1 items-center gap-3 sm:gap-6 md:gap-15'>
+        <Link href={AppRouter.main} className='typo-h3 shrink-0'>
+          ExactHunter
         </Link>
+        <HeaderNav />
       </div>
-    </div>
-  </header>
-);
+
+      <HeaderActions />
+    </header>
+  );
+};
 
 export { Header };

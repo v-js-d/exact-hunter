@@ -26,6 +26,6 @@ export const Candidate: Story = {
 
 export const Employer: Story = {
   args: {
-    role: 'RECRUITER' as UserRole,
+    role: 'EMPLOYER' as UserRole,
   },
 };
