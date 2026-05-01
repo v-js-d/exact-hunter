@@ -47,17 +47,17 @@ const VacancyMetaItems = ({
   'companyLocation' | 'publishedAt' | 'companyRating'
 >) => (
   <div className='flex flex-wrap gap-x-6 gap-y-3 text-sm text-zinc-600 dark:text-zinc-300'>
-    <div className='flex min-w-55 flex-1 items-start gap-2'>
+    <div className='flex min-w-0 flex-1 basis-full items-start gap-2 sm:min-w-[13.75rem] sm:basis-auto'>
       <MapPin className='mt-0.5 size-4 shrink-0 text-zinc-500' />
       <span className='leading-snug wrap-break-word'>{companyLocation}</span>
     </div>
-    <div className='flex min-w-55 flex-1 items-start gap-2'>
+    <div className='flex min-w-0 flex-1 basis-full items-start gap-2 sm:min-w-[13.75rem] sm:basis-auto'>
       <CalendarDays className='mt-0.5 size-4 shrink-0 text-zinc-500' />
       <span className='leading-snug wrap-break-word'>
         Опубликовано {publishedAt}
       </span>
     </div>
-    <div className='flex min-w-55 flex-1 items-start gap-2'>
+    <div className='flex min-w-0 flex-1 basis-full items-start gap-2 sm:min-w-[13.75rem] sm:basis-auto'>
       <Building2 className='mt-0.5 size-4 shrink-0 text-zinc-500' />
       <span className='flex items-center gap-x-1 leading-snug wrap-break-word'>
         Рейтинг компании:

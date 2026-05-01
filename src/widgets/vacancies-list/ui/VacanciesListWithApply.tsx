@@ -9,7 +9,7 @@ export const VacanciesListWithApply = () => (
       <ApplyToVacancyButton
         vacancyId={vacancyId}
         size='lg'
-        className='z-20 w-fit leading-[120%] font-semibold transition-transform'
+        className='z-20 w-full leading-[120%] font-semibold transition-transform sm:w-fit'
       />
     )}
   />

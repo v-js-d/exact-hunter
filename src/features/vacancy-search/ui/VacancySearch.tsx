@@ -27,16 +27,17 @@ export const VacancySearch = () => {
 
   return (
     <form
-      className='flex items-center justify-between gap-x-5'
+      className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-x-5'
       onSubmit={handleSubmit(onSubmit)}
     >
       <SearchInput
         id='vacancy-search'
         type='search'
+        className='min-w-0 sm:flex-1'
         {...register('title')}
         placeholder='Найти вакансии...'
       />
-      <Button size={'lg'} type='submit'>
+      <Button className='w-full shrink-0 sm:w-auto' size={'lg'} type='submit'>
         Найти
       </Button>
     </form>

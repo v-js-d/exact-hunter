@@ -45,12 +45,17 @@ export const VacancyDetail = ({ vacancyId }: VacancyDetailProps) => {
 
   return (
     <div className='flex w-full flex-col gap-6'>
-      <div className='flex items-center justify-between gap-3'>
+      <div className='flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'>
         <div className='flex min-w-0 items-center gap-2 text-sm text-zinc-500'>
           <BriefcaseBusiness className='size-4 shrink-0' />
           <span className='truncate'>Вакансия #{vacancyId}</span>
         </div>
-        <Button asChild size='lg' variant='outline'>
+        <Button
+          asChild
+          className='w-full shrink-0 sm:w-auto'
+          size='lg'
+          variant='outline'
+        >
           <Link href={AppRouter.vacancies}>К списку вакансий</Link>
         </Button>
       </div>

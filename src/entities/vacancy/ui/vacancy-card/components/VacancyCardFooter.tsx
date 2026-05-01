@@ -14,10 +14,10 @@ export const VacancyCardFooter = ({
   repliesCount,
   action,
 }: VacancyCardFooterProps) => (
-  <CardFooter className='bg-muted/30 mt-auto flex items-center justify-between gap-2 border-t pt-4'>
-    <div className='relative z-10'>{action}</div>
+  <CardFooter className='bg-muted/30 mt-auto flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-2'>
+    <div className='relative z-10 w-full sm:w-auto'>{action}</div>
 
-    <div className='text-muted-foreground flex flex-col items-end gap-y-1 text-xs'>
+    <div className='text-muted-foreground flex flex-col gap-y-1 text-xs sm:items-end'>
       <span className='flex items-center gap-x-1'>
         <Eye size={14} />
         {viewsCount} просмотров

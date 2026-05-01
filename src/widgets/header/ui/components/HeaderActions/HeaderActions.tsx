@@ -20,15 +20,17 @@ export const HeaderActions = () => {
   const { data: me } = useAuthMeQuery({ enabled: isAuthenticated });
 
   return (
-    <div className='flex items-center gap-5'>
+    <div className='flex shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-5'>
       <Button size='icon' variant='ghost'>
         <Bell />
       </Button>
       {isAuthenticated ? (
-        <div className='flex items-center gap-3 text-sm'>
-          <div className='text-muted-foreground flex items-center gap-2'>
-            <CircleUserRound className='size-5' aria-hidden />
-            <span>{me?.user?.email || me?.user?.phone || ''}</span>
+        <div className='flex min-w-0 items-center gap-2 text-sm sm:gap-3'>
+          <div className='text-muted-foreground flex max-w-[min(100%,12rem)] min-w-0 items-center gap-2 sm:max-w-[18rem] md:max-w-none'>
+            <CircleUserRound className='size-5 shrink-0' aria-hidden />
+            <span className='truncate'>
+              {me?.user?.email || me?.user?.phone || ''}
+            </span>
           </div>
           <Button
             className='link-nav'
