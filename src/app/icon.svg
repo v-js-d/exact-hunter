@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 200 200">
+
+  <rect stroke-width="14" fill="#35a8e2"  rx="38" height="156" width="156" y="22" x="22"></rect>
+
+
+  <text letter-spacing="-5px" fill="#fff" font-weight="900" font-size="88"
+        font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" y="128" x="100">EH
+  </text>
+</svg>

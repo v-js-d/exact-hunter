@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { AuthPolicy } from './components/AuthPolicy/AuthPolicy';
@@ -14,6 +15,8 @@ import {
 
 import { type UserRole } from '@/entities/user';
 
+import { EHLogo } from '@/shared/assets/icons';
+import { AppRouter } from '@/shared/config/AppRouter';
 import { BackButton } from '@/shared/ui/back-button';
 
 const commonEmployerTitle =
@@ -47,9 +50,13 @@ export const AuthCard = ({ role, mode }: AuthCardProps) => {
             router.back();
           }}
         />
-        <span className='bg-blue-35 w-fit rounded-xl px-2.5 py-2 text-2xl font-semibold text-white'>
-          EH
-        </span>
+        <Link
+          href={AppRouter.main}
+          className='flex shrink-0'
+          aria-label='На главную ExactHunter'
+        >
+          <EHLogo className='size-14 sm:size-16' />
+        </Link>
       </div>
       <h1 className='text-center text-2xl font-semibold'>{title}</h1>
       <AuthSwitcher isPending={isPending} mode={mode} role={role} />

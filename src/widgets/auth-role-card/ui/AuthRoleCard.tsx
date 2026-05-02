@@ -1,14 +1,16 @@
 'use client';
 
 import { useRef } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ChartSpline } from 'lucide-react';
 
 import { NavigateButtons } from './components/navigate-buttons/NavigateButtons';
 import { AuthRoleCardProps } from './AuthRoleCard.types';
 
 import { RoleForm } from '@/features/auth';
 
+import { EHLogo } from '@/shared/assets/icons';
+import { AppRouter } from '@/shared/config/AppRouter';
 import { BackButton } from '@/shared/ui/back-button';
 
 export const AuthRoleCard = ({ role }: AuthRoleCardProps) => {
@@ -26,9 +28,13 @@ export const AuthRoleCard = ({ role }: AuthRoleCardProps) => {
           }}
         />
         <div className='flex flex-col items-center justify-center space-y-2.5'>
-          <div className='bg-blue-35 w-fit rounded-[1.875rem] p-3.5'>
-            <ChartSpline aria-label='Logo icon' color='white' size={72} />
-          </div>
+          <Link
+            href={AppRouter.main}
+            className='flex shrink-0'
+            aria-label='На главную ExactHunter'
+          >
+            <EHLogo className='size-[4.5rem] sm:size-20' />
+          </Link>
           <h1 className='text-center text-3xl font-bold'>ExactHunter</h1>
         </div>
       </div>
