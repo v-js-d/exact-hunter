@@ -9,9 +9,9 @@ import { AuthRoleCardProps } from './AuthRoleCard.types';
 
 import { RoleForm } from '@/features/auth';
 
+import { EHLogo } from '@/shared/assets/icons';
 import { AppRouter } from '@/shared/config/AppRouter';
 import { BackButton } from '@/shared/ui/back-button';
-import { EHLogo } from '@/shared/ui/eh-logo';
 
 export const AuthRoleCard = ({ role }: AuthRoleCardProps) => {
   const router = useRouter();

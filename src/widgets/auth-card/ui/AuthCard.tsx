@@ -15,9 +15,9 @@ import {
 
 import { type UserRole } from '@/entities/user';
 
+import { EHLogo } from '@/shared/assets/icons';
 import { AppRouter } from '@/shared/config/AppRouter';
 import { BackButton } from '@/shared/ui/back-button';
-import { EHLogo } from '@/shared/ui/eh-logo';
 
 const commonEmployerTitle =
   'Здравствуйте, Кабан Кабаныч, нужны новые крестьяне?';

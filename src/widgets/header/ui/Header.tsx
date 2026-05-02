@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { HeaderActions } from './components/HeaderActions/HeaderActions';
 import { HeaderNav } from './components/HeaderNav/HeaderNav';
 
+import { EHLogo } from '@/shared/assets/icons';
 import { AppRouter } from '@/shared/config/AppRouter';
 import { cn } from '@/shared/lib';
-import { EHLogo } from '@/shared/ui/eh-logo';
 
 const Header = () => {
   const headerClassName = cn(
