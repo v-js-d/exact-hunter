@@ -1,18 +1,8 @@
-import { type User, type UserRole } from '@/entities/user';
+import type { AuthRequest } from './auth.types';
 
-export interface RegisterEmailRequest {
-  email: string;
-  password: string;
-  role: UserRole;
-}
-export interface RegisterPhoneRequest {
-  countryCode: string;
-  phone: string;
-  password: string;
-  role: UserRole;
-}
+import { type User } from '@/entities/user';
 
-export type RegisterRequest = RegisterEmailRequest | RegisterPhoneRequest;
+export type RegisterRequest = AuthRequest;
 
 export interface RegisterResponse {
   result: {

@@ -11,11 +11,15 @@ import {
   EmailFormTypes,
   PhoneFormTypes,
 } from '../../model/schema/AuthForm.shema';
+import type { AuthRequest } from '../../model/types/auth.types';
 
 import { FormEmail } from './components/form-email/FormEmail';
 import { FormPhone } from './components/form-phone/FormPhone';
 import { AuthFormProps } from './AuthForm.types';
 
+import { UserRole } from '@/entities/user';
+
+import { EnumIdentifierType } from '@/shared/types/identifier-enum.types';
 import { Button } from '@/shared/ui/button';
 import { ErrorField } from '@/shared/ui/error-field';
 
@@ -46,30 +50,44 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
 
   const { mutate: registerMutate, isPending: registerLoading } =
     useRegisterMutation();
-
   const { mutate: loginMutate, isPending: loginLoading } = useLoginMutation();
+
+  const createAuthPayload = (
+    data: AuthFormTypes,
+    role: UserRole,
+  ): AuthRequest => {
+    if ('countryCode' in data) {
+      return {
+        identifier: `${data.countryCode}${data.phone}`,
+        type: EnumIdentifierType.PHONE,
+        password: data.password,
+        role,
+      };
+    }
+
+    return {
+      identifier: data.email,
+      type: EnumIdentifierType.EMAIL,
+      password: data.password,
+      role,
+    };
+  };
 
   const onSubmit: SubmitHandler<AuthFormTypes> = (data) => {
     form.clearErrors('root');
-    const newUser = {
-      ...data,
-      role,
-    };
 
+    const payload = createAuthPayload(data, role);
     const mutation = mode === 'register' ? registerMutate : loginMutate;
 
-    mutation(newUser, {
+    mutation(payload, {
       onError: (error) => {
         form.setError('root', {
-          message: error.data.message || '',
+          message: error?.data?.message || '',
         });
       },
     });
   };
 
-  const isError =
-    Object.keys(form.formState.errors).length > 0 &&
-    !form.formState.errors.root;
   const isPending = registerLoading || loginLoading;
 
   return (
@@ -91,7 +109,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
         <Button
           type='submit'
           className='text-2xl font-semibold'
-          disabled={isError || isPending}
+          disabled={isPending}
         >
           Дальше
         </Button>

@@ -27,8 +27,6 @@ export const AuthSwitcher = ({ role, mode, isPending }: AuthSwitcherProps) => {
         onClick={() => setAuthMethod(AUTH_METHODS.PHONE)}
         aria-pressed={authMethod === AUTH_METHODS.PHONE}
         className='text-lg font-medium'
-        /*TODO: раздисейблить когда будет реализовано на бэке*/
-        disabled
       >
         Телефон
       </Button>

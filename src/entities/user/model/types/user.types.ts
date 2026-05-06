@@ -1,13 +1,15 @@
 import { UserRole } from './user-role.types';
 
+import type { EnumIdentifierType } from '@/shared/types/identifier-enum.types';
+
 export interface User {
   id: string;
   email?: string;
   phone?: string;
+  identifierType?: EnumIdentifierType;
+  isActivated?: boolean;
   role: UserRole;
   companyId: string;
-  // TODO: как появятся роли - добавить Enum
-  hrRole: string;
 }
 
 export interface MeResponse {
