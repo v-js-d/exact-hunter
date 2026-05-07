@@ -1,25 +1,28 @@
 import z from 'zod';
 
+import { AuthMethod } from '../types/auth-method.types';
+
 import { userRoles } from '@/entities/user';
 
 import { passwordSchema } from '@/shared/lib/schemas/password.schema';
+import { phoneSchema } from '@/shared/lib/schemas/phone.schema';
 
-export const emailSchema = z.object({
-  email: z.email('Неверный email'),
-  password: passwordSchema,
-  role: z.enum(userRoles),
-});
+const authRolesEnum = z.enum(userRoles);
 
-export const phoneSchema = z.object({
-  countryCode: z.string(),
-  phone: z.string().regex(/^\d{6,14}$/, { message: 'Неверный номер телефона' }),
-  password: passwordSchema,
-  role: z.enum(userRoles),
-});
+export const authSchema = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal(AuthMethod['PHONE']),
+    identifier: phoneSchema,
+    password: passwordSchema,
+    role: authRolesEnum,
+  }),
 
-export const authSchema = z.union([phoneSchema, emailSchema]);
-
-export type PhoneFormTypes = z.infer<typeof phoneSchema>;
-export type EmailFormTypes = z.infer<typeof emailSchema>;
+  z.object({
+    type: z.literal(AuthMethod['EMAIL']),
+    identifier: z.email('Неверный формат почты'),
+    password: passwordSchema,
+    role: authRolesEnum,
+  }),
+]);
 
 export type AuthFormTypes = z.infer<typeof authSchema>;

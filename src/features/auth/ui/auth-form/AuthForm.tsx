@@ -5,43 +5,40 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useLoginMutation } from '../../model/hooks/useLoginMutation';
 import { useRegisterMutation } from '../../model/hooks/useRegisterMutation';
-import {
-  AuthFormTypes,
-  authSchema,
-  EmailFormTypes,
-  PhoneFormTypes,
-} from '../../model/schema/AuthForm.shema';
+import { AuthFormTypes, authSchema } from '../../model/schema/AuthForm.shema';
+import { AuthMethod } from '../../model/types/auth-method.types';
 
 import { FormEmail } from './components/form-email/FormEmail';
 import { FormPhone } from './components/form-phone/FormPhone';
 import { AuthFormProps } from './AuthForm.types';
 
+import { countryInfo } from '@/shared/model/data/country-codes';
 import { Button } from '@/shared/ui/button';
 import { ErrorField } from '@/shared/ui/error-field';
 
-const phoneDefaultValues: PhoneFormTypes = {
-  countryCode: '+7',
-  phone: '',
+const phoneDefaultValues = {
+  type: 'PHONE',
+  identifier: countryInfo[0].code,
   password: '',
   role: 'CANDIDATE',
-};
+} satisfies AuthFormTypes;
 
-const emailDefaultValues: EmailFormTypes = {
-  email: '',
+const emailDefaultValues = {
+  type: 'EMAIL',
+  identifier: '',
   password: '',
   role: 'CANDIDATE',
-};
+} satisfies AuthFormTypes;
 
-const AUTH_METHODS = {
-  PHONE: 'phone',
-  EMAIL: 'email',
-} as const;
+const authDefaultValues = {
+  EMAIL: emailDefaultValues,
+  PHONE: phoneDefaultValues,
+} satisfies Record<AuthMethod, AuthFormTypes>;
 
 export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
   const form = useForm<AuthFormTypes>({
     resolver: zodResolver(authSchema),
-    defaultValues:
-      method === AUTH_METHODS.PHONE ? phoneDefaultValues : emailDefaultValues,
+    defaultValues: authDefaultValues[method],
   });
 
   const { mutate: registerMutate, isPending: registerLoading } =
@@ -53,6 +50,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
     form.clearErrors('root');
     const newUser = {
       ...data,
+      type: method,
       role,
     };
 
@@ -79,7 +77,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
         className='col-span-2 grid items-center gap-6.25'
       >
         <fieldset disabled={isPending} className='grid gap-y-2'>
-          {method === AUTH_METHODS.PHONE ? (
+          {method === AuthMethod['PHONE'] ? (
             <FormPhone isPending={isPending} />
           ) : (
             <FormEmail isPending={isPending} />

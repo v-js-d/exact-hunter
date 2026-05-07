@@ -1,21 +1,16 @@
-import { type User, type UserRole } from '@/entities/user';
+import { AuthMethod } from './auth-method.types';
+import { UserAuthDto } from './UserAuthDto';
 
-export interface RegisterEmailRequest {
-  email: string;
+import { UserRole } from '@/entities/user';
+
+export type RegisterRequest = {
+  identifier: string;
+  type: AuthMethod;
   password: string;
   role: UserRole;
-}
-export interface RegisterPhoneRequest {
-  countryCode: string;
-  phone: string;
-  password: string;
-  role: UserRole;
-}
-
-export type RegisterRequest = RegisterEmailRequest | RegisterPhoneRequest;
-
+};
 export interface RegisterResponse {
   result: {
-    user: User;
+    user: UserAuthDto;
   };
 }

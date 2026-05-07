@@ -8,7 +8,7 @@ export const Select = ({
 }: SelectProps) => (
   <select
     id={id}
-    className={`border-orange-f5 appearance-none rounded-4xl border-2 px-2.5 py-1 text-center text-lg font-medium ${className}`}
+    className={`border-gray-6b appearance-none rounded-4xl border px-2.5 py-1 text-center text-lg font-medium ${className}`}
     {...rest}
   >
     {children}

@@ -1,4 +1,4 @@
-export type AuthMethod = 'phone' | 'email';
+import { AuthMethod } from './auth-method.types';
 
 export type AuthMode = 'login' | 'register';
 
