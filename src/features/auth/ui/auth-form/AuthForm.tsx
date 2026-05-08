@@ -65,9 +65,6 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
     });
   };
 
-  const isError =
-    Object.keys(form.formState.errors).length > 0 &&
-    !form.formState.errors.root;
   const isPending = registerLoading || loginLoading;
 
   return (
@@ -89,7 +86,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
         <Button
           type='submit'
           className='text-2xl font-semibold'
-          disabled={isError || isPending}
+          disabled={isPending}
         >
           Дальше
         </Button>
