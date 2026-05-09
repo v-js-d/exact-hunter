@@ -1,7 +1,7 @@
 import { AuthMethod } from './auth-method.types';
 import { UserAuthDto } from './UserAuthDto';
 
-import { type UserRole } from '@/entities/user';
+import type { UserRole } from '@/entities/user';
 
 export type LoginRequest = {
   identifier: string;

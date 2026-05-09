@@ -1,11 +1,1 @@
-import { AuthMethod } from './auth-method.types';
-
 export type AuthMode = 'login' | 'register';
-
-export interface AuthErrorResponse {
-  data: { message: string; type: AuthMethod };
-  name: string;
-  status: number;
-  message: string;
-  stack: string;
-}
