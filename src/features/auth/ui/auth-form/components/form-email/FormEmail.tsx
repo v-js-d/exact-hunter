@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { AuthFormTypes } from '../../../../model/schema/AuthForm.shema';
+import { AuthFormInputTypes } from '../../../../model/schema/AuthForm.shema';
 import { PasswordField } from '../password-field/PasswordField';
 
 import { getFieldError } from '@/shared/lib';
@@ -13,7 +13,7 @@ export const FormEmail = ({ isPending }: { isPending: boolean }) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<AuthFormTypes>();
+  } = useFormContext<AuthFormInputTypes>();
 
   return (
     <>

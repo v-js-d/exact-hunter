@@ -1,16 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import { countryInfo } from '../../../model/data/country-codes';
+
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectLabel,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from './Select';
 import { SelectRootProps } from './Select.types';
+
+import { userRoles } from '@/entities/user';
 
 const meta: Meta<typeof Select> = {
   title: 'UI/Select',
@@ -39,9 +42,11 @@ export const Default: Story = {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Роли</SelectLabel>
-          <SelectItem value='candidate'>Кандидат</SelectItem>
-          <SelectItem value='employer'>Работодатель</SelectItem>
-          <SelectItem value='admin'>Админ</SelectItem>
+          {userRoles.map((role) => (
+            <SelectItem key={role} value={role}>
+              {role}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
@@ -57,20 +62,11 @@ export const WithScroll: Story = {
       <SelectContent position='popper'>
         <SelectGroup>
           <SelectLabel>Популярные коды</SelectLabel>
-          <SelectItem value='+7'>Россия (+7)</SelectItem>
-          <SelectItem value='+375'>Беларусь (+375)</SelectItem>
-          <SelectItem value='+998'>Узбекистан (+998)</SelectItem>
-          <SelectSeparator />
-          <SelectLabel>Остальные</SelectLabel>
-          <SelectItem value='+374'>Армения (+374)</SelectItem>
-          <SelectItem value='+995'>Грузия (+995)</SelectItem>
-          <SelectItem value='+380'>Украина (+380)</SelectItem>
-          <SelectItem value='+996'>Кыргызстан (+996)</SelectItem>
-          <SelectItem value='+992'>Таджикистан (+992)</SelectItem>
-          <SelectItem value='+44'>Великобритания (+44)</SelectItem>
-          <SelectItem value='+1'>США (+1)</SelectItem>
-          <SelectItem value='+49'>Германия (+49)</SelectItem>
-          <SelectItem value='+33'>Франция (+33)</SelectItem>
+          {countryInfo.map(({ code, country }) => (
+            <SelectItem key={country} value={code} textValue={code}>
+              {country} ({code})
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>

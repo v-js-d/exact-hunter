@@ -1,15 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { AuthFormTypes } from '../../../../model/schema/AuthForm.shema';
+import { AuthFormInputTypes } from '../../../../model/schema/AuthForm.shema';
 import { PasswordField } from '../password-field/PasswordField';
 
-import { FormPhoneProps, PhoneVirtualFields } from './FormPhone.types';
+import { FormPhoneProps } from './FormPhone.types';
 
 import { getFieldError } from '@/shared/lib';
-import { phoneSchema } from '@/shared/lib/schemas/phone.schema';
 import { countryInfo } from '@/shared/model/data/country-codes';
 import { FormField } from '@/shared/ui/form-field';
 import { Input } from '@/shared/ui/input';
@@ -17,41 +15,22 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectItemText,
   SelectTrigger,
-  SelectValue,
 } from '@/shared/ui/select';
 
 export const FormPhone = ({ isPending }: FormPhoneProps) => {
   const {
     control,
     register,
-    watch,
-    setValue,
     formState: { errors },
-  } = useFormContext<AuthFormTypes & PhoneVirtualFields>();
-
-  const phoneCode = watch('phoneCode');
-  const phoneNumber = watch('phoneNumber');
-
-  useEffect(() => {
-    if (phoneCode || phoneNumber) {
-      const fullNumber = `${phoneCode}${phoneNumber}`;
-
-      const isValidate = phoneSchema.safeParse(fullNumber);
-
-      setValue('identifier', fullNumber, {
-        shouldValidate: isValidate.success,
-      });
-    }
-  }, [phoneCode, phoneNumber, setValue]);
+  } = useFormContext<AuthFormInputTypes>();
 
   return (
     <>
       <FormField
         label='Номер телефона'
         htmlFor='register-tel-input'
-        error={getFieldError<AuthFormTypes>(errors, 'identifier')}
+        error={getFieldError(errors, 'identifier')}
         labelHidden
       >
         <Controller
@@ -67,14 +46,12 @@ export const FormPhone = ({ isPending }: FormPhoneProps) => {
                 className='flex w-20 justify-center rounded-2xl py-2 focus-visible:ring-3'
                 size='default'
               >
-                <SelectValue placeholder={countryInfo[0].code} />
+                <span className='font-medium'>{field.value || '+7'}</span>
               </SelectTrigger>
               <SelectContent position='popper' className='max-h-62.5'>
                 {countryInfo.map(({ code, country }) => (
-                  <SelectItem key={country} value={`${code}-${country}`}>
-                    <SelectItemText>
-                      <span className='font-medium'>{code}</span>
-                    </SelectItemText>
+                  <SelectItem key={country} value={code} textValue={code}>
+                    <span className='font-medium'>{code}</span>
                     <span className='text-muted-foreground text-xs'>
                       {country}
                     </span>
@@ -95,9 +72,7 @@ export const FormPhone = ({ isPending }: FormPhoneProps) => {
           {...register('phoneNumber')}
         />
       </FormField>
-      <PasswordField
-        errors={getFieldError<AuthFormTypes>(errors, 'password')}
-      />
+      <PasswordField errors={getFieldError(errors, 'password')} />
     </>
   );
 };

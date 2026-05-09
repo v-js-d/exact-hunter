@@ -19,9 +19,7 @@ export type SelectLabelProps = React.ComponentProps<
   typeof SelectPrimitive.Label
 >;
 export type SelectItemProps = React.ComponentProps<typeof SelectPrimitive.Item>;
-export type SelectItemTextProps = React.ComponentProps<
-  typeof SelectPrimitive.ItemText
->;
+
 export type SelectSeparatorProps = React.ComponentProps<
   typeof SelectPrimitive.Separator
 >;

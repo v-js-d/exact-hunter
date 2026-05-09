@@ -9,7 +9,6 @@ import type {
   SelectContentProps,
   SelectGroupProps,
   SelectItemProps,
-  SelectItemTextProps,
   SelectLabelProps,
   SelectRootProps,
   SelectScrollDownButtonProps,
@@ -117,24 +116,8 @@ function SelectItem({ className, children, ...props }: SelectItemProps) {
           <CheckIcon className='size-4' />
         </SelectPrimitive.ItemIndicator>
       </span>
-      {children}
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
-  );
-}
-
-function SelectItemText({
-  className,
-  children,
-  ...props
-}: SelectItemTextProps) {
-  return (
-    <SelectPrimitive.ItemText
-      data-slot='select-item-text'
-      className={cn('', className)}
-      {...props}
-    >
-      {children}
-    </SelectPrimitive.ItemText>
   );
 }
 
@@ -189,7 +172,6 @@ export {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectItemText,
   SelectLabel,
   SelectScrollDownButton,
   SelectScrollUpButton,

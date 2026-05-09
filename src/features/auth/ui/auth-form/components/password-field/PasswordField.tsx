@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { Eye, EyeClosed } from 'lucide-react';
 
-import { AuthFormTypes } from '../../../../model/schema/AuthForm.shema';
+import { AuthFormInputTypes } from '../../../../model/schema/AuthForm.shema';
 
 import {
   PasswordFieldProps,
@@ -28,7 +28,7 @@ const PASSWORD_FIELD_CONFIG = {
 
 export const PasswordField = ({ errors, isPending }: PasswordFieldProps) => {
   const [passwordMode, setPasswordMode] = useState<PasswordMode>('password');
-  const { register } = useFormContext<AuthFormTypes>();
+  const { register } = useFormContext<AuthFormInputTypes>();
 
   const Icon = PASSWORD_FIELD_CONFIG[passwordMode].icon;
 
