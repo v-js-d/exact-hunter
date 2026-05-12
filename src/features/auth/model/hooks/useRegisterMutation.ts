@@ -2,7 +2,6 @@ import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { registerFn } from '../api/auth.service';
-import { AuthErrorResponse } from '../types/auth.types';
 import { RegisterRequest, RegisterResponse } from '../types/RegDto';
 
 import { useAuthStore } from '@/entities/session';
@@ -15,7 +14,7 @@ export const useRegisterMutation = () => {
 
   const router = useRouter();
 
-  return useMutation<RegisterResponse, AuthErrorResponse, RegisterRequest>({
+  return useMutation<RegisterResponse, Error, RegisterRequest>({
     mutationKey: ['auth', 'register'],
     mutationFn: async (payload) => {
       const response = await registerFn('/auth/register', { arg: payload });

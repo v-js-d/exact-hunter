@@ -1,2 +1,12 @@
-export { Select } from './ui/Select';
-export type { SelectProps } from './ui/Select.types';
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from './ui/Select';

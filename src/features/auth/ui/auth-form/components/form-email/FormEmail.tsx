@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 
-import { EmailFormTypes } from '../../../../model/schema/AuthForm.shema';
+import { AuthFormInputTypes } from '../../../../model/schema/AuthForm.shema';
 import { PasswordField } from '../password-field/PasswordField';
 
 import { getFieldError } from '@/shared/lib';
@@ -13,14 +13,14 @@ export const FormEmail = ({ isPending }: { isPending: boolean }) => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<EmailFormTypes>();
+  } = useFormContext<AuthFormInputTypes>();
 
   return (
     <>
       <FormField
         htmlFor='register-email-input'
         label='Ваша почта'
-        error={getFieldError(errors, 'email')}
+        error={getFieldError(errors, 'identifier')}
         labelHidden
       >
         <Input
@@ -30,7 +30,7 @@ export const FormEmail = ({ isPending }: { isPending: boolean }) => {
           disabled={isPending}
           placeholder='Ваша почта'
           className='col-span-2'
-          {...register('email')}
+          {...register('identifier')}
         />
       </FormField>
       <PasswordField errors={getFieldError(errors, 'password')} />

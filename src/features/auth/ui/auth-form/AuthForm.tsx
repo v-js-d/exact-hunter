@@ -6,42 +6,45 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLoginMutation } from '../../model/hooks/useLoginMutation';
 import { useRegisterMutation } from '../../model/hooks/useRegisterMutation';
 import {
-  AuthFormTypes,
+  AuthFormInputTypes,
+  AuthFormOutputTypes,
   authSchema,
-  EmailFormTypes,
-  PhoneFormTypes,
 } from '../../model/schema/AuthForm.shema';
+import { AuthMethod } from '../../model/types/auth-method.types';
 
 import { FormEmail } from './components/form-email/FormEmail';
 import { FormPhone } from './components/form-phone/FormPhone';
 import { AuthFormProps } from './AuthForm.types';
 
+import { countryInfo } from '@/shared/model/data/country-codes';
 import { Button } from '@/shared/ui/button';
 import { ErrorField } from '@/shared/ui/error-field';
 
-const phoneDefaultValues: PhoneFormTypes = {
-  countryCode: '+7',
-  phone: '',
+const phoneDefaultValues = {
+  type: 'PHONE',
+  phoneCode: countryInfo[0].code,
+  phoneNumber: '',
+  password: '',
+  identifier: '',
+  role: 'CANDIDATE',
+} satisfies AuthFormInputTypes;
+
+const emailDefaultValues = {
+  type: 'EMAIL',
+  identifier: '',
   password: '',
   role: 'CANDIDATE',
-};
+} satisfies AuthFormInputTypes;
 
-const emailDefaultValues: EmailFormTypes = {
-  email: '',
-  password: '',
-  role: 'CANDIDATE',
-};
-
-const AUTH_METHODS = {
-  PHONE: 'phone',
-  EMAIL: 'email',
-} as const;
+const authDefaultValues = {
+  EMAIL: emailDefaultValues,
+  PHONE: phoneDefaultValues,
+} satisfies Record<AuthMethod, AuthFormInputTypes>;
 
 export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
-  const form = useForm<AuthFormTypes>({
+  const form = useForm<AuthFormInputTypes>({
     resolver: zodResolver(authSchema),
-    defaultValues:
-      method === AUTH_METHODS.PHONE ? phoneDefaultValues : emailDefaultValues,
+    defaultValues: authDefaultValues[method],
   });
 
   const { mutate: registerMutate, isPending: registerLoading } =
@@ -49,10 +52,16 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
 
   const { mutate: loginMutate, isPending: loginLoading } = useLoginMutation();
 
-  const onSubmit: SubmitHandler<AuthFormTypes> = (data) => {
+  console.log(form.formState.errors);
+
+  const onSubmit: SubmitHandler<AuthFormOutputTypes> = (data) => {
     form.clearErrors('root');
+
+    const { identifier, password } = data;
     const newUser = {
-      ...data,
+      identifier,
+      password,
+      type: method,
       role,
     };
 
@@ -61,15 +70,12 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
     mutation(newUser, {
       onError: (error) => {
         form.setError('root', {
-          message: error.data.message || '',
+          message: error.message || '',
         });
       },
     });
   };
 
-  const isError =
-    Object.keys(form.formState.errors).length > 0 &&
-    !form.formState.errors.root;
   const isPending = registerLoading || loginLoading;
 
   return (
@@ -79,7 +85,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
         className='col-span-2 grid items-center gap-6.25'
       >
         <fieldset disabled={isPending} className='grid gap-y-2'>
-          {method === AUTH_METHODS.PHONE ? (
+          {method === AuthMethod['PHONE'] ? (
             <FormPhone isPending={isPending} />
           ) : (
             <FormEmail isPending={isPending} />
@@ -91,7 +97,7 @@ export const AuthForm = ({ method, role, mode }: AuthFormProps) => {
         <Button
           type='submit'
           className='text-2xl font-semibold'
-          disabled={isError || isPending}
+          disabled={isPending}
         >
           Дальше
         </Button>

@@ -26,10 +26,12 @@ const titles = {
   register: {
     CANDIDATE: 'Регистрируйся и ищи свою галлеру',
     EMPLOYER: commonEmployerTitle,
+    ADMIN: commonEmployerTitle,
   },
   login: {
     CANDIDATE: 'Входи и ищи свою галлеру',
     EMPLOYER: commonEmployerTitle,
+    ADMIN: commonEmployerTitle,
   },
 } as const satisfies Record<AuthMode, Record<UserRole, string>>;
 
